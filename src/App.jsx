@@ -26,8 +26,8 @@ const App = () => {
   let [loaded, setLoaded] = useState(false);
 
   const validateSession = async () => {
-    console.log("E");
     if (!Global.user) {
+      console.log(Global.token || cookies.get("token"));
       const token = Global.token || cookies.get("token");
       if (token) {
         try {
@@ -35,7 +35,8 @@ const App = () => {
           const user = await Global.getUser();
           Global.user = user;
           setLoaded(true);
-        } catch (_) {
+        } catch (e) {
+          console.log(e)
           setLoaded(true);
           navigate("/")
         }

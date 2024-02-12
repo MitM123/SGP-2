@@ -8,7 +8,7 @@ export async function registerUser(signupuserdata) {
     try {
         const res = await Global.httpPost('/auth/register', {
             email: signupuserdata.email, name: signupuserdata.name, userId: signupuserdata.userId, password: signupuserdata.password
-        });
+        }, false);
         return Promise.resolve(res.data.data);
     } catch (error) {
         return Promise.reject(error);
@@ -19,7 +19,7 @@ export async function loginUser(loginuserdata) {
     try {
         const res = await Global.httpPost('/auth/login', {
             emailOrUserId: loginuserdata.email, password: loginuserdata.password
-        });
+        }, false);
         Global.user = res.data.data.user;
         Global.token = res.data.data.token;
         return Promise.resolve(res.data.data);
@@ -30,7 +30,8 @@ export async function loginUser(loginuserdata) {
 
 export async function getTeams() {
     try {
-        const res = await Global.httpGet('/teams/year/' + new Date(Date.now()).getFullYear());
+        const res = await Global.httpGet('/teams/year/' + new Date(Date.now()).getFullYear(), false);
+        console.log(res.data.data.teams.map(t=>t.name))
         Global.teams = res.data.data.teams;
         return Promise.resolve(res.data.data.teams);
     }
@@ -45,7 +46,7 @@ export async function addTeam(teamnamedata) {
             name: teamnamedata.name
         });
         const team = data.data.team;
-        Global.teams.push(team)
+        Global.teams.push(team);
         return Promise.resolve(team);
     } catch (error) {
         console.log(error)

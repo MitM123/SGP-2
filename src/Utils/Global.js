@@ -14,7 +14,7 @@ export default class Global {
     static isVerified;
     static teams = new Array();
 
-    static async wgetUser() {
+    static async getUser() {
         return new Promise(async(resolve, reject) => {
             try {
                 const { data } = await this.httpGet("/auth/me");
@@ -26,10 +26,10 @@ export default class Global {
         })
     }
 
-    static httpGet(endPoint) {
+    static httpGet(endPoint, tokenRequired = true) {
         return new Promise(async (resolve, reject) => {
             try {
-                if (!this.token) {
+                if (!this.token && tokenRequired) {
                     if (cookies.get("token")) this.token = cookies.get("token");
                     else {
                         console.log("token not found");
@@ -54,10 +54,10 @@ export default class Global {
         });
     }
 
-    static httpPost(endPoint, body) {
+    static httpPost(endPoint, body, tokenRequired = true) {
         return new Promise(async (resolve, reject) => {
             try {
-                if (!this.token) {
+                if (!this.token && tokenRequired) {
                     if (cookies.get("token"))
                         this.token = cookies.get("token");
                     else
@@ -83,10 +83,10 @@ export default class Global {
         });
     }
 
-    static httpPut(endPoint, body) {
+    static httpPut(endPoint, body, tokenRequired = true) {
         return new Promise(async (resolve, reject) => {
             try {
-                if (!this.token) {
+                if (!this.token && tokenRequired) {
                     if (cookies.get("token")) this.token = cookies.get("token");
                     else {
                         console.log("token not found");

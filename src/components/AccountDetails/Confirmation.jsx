@@ -19,7 +19,7 @@ const Confirmation = () => {
                     Logout
                 </button>
                 <Modal keepMounted open={open} >
-                    <ModalDialog sx={{ width: '30%', height: '20%', }}>
+                    <ModalDialog sx={{ width: '30%', height: '15%', }}>
                         <div>
                             <div className='text-xl font-Jost text-black'>
                                 Are you sure you want to log out?
