@@ -83,7 +83,7 @@ export default class Global {
         });
     }
 
-    static httpPut(endPoint, body, tokenRequired = true) {
+    static httpPut(endPoint, body = {}, tokenRequired = true) {
         return new Promise(async (resolve, reject) => {
             try {
                 if (!this.token && tokenRequired) {
@@ -93,7 +93,8 @@ export default class Global {
                         return;
                     }
                 }
-                cookies.set("token", this.token)
+                cookies.set("token", this.token);
+                console.log(this.token);
                 let res;
                 try {
                     res = await axios.put(endPoint, {

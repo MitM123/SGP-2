@@ -3,11 +3,15 @@ import Header from '../../components/Header'
 import { FaArrowRight } from "react-icons/fa6";
 import { toast } from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom';
-import dayjs from 'dayjs';
 import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import { Option } from '@mui/joy';
+import { renderTimeViewClock } from '@mui/x-date-pickers';
+import { Select } from '@mui/joy';
+import dayjs from 'dayjs';
+import '../AddMatch/Addmatch.css'
 
 const Addmatch = () => {
 
@@ -59,29 +63,62 @@ const Addmatch = () => {
 
 
     return (
+
         <div>
             <form action="" onSubmit={submithandler}>
                 <div className='w-full h-[90vh] font-poppins flex justify-center items-center'>
-                    <div className='w-[30%]  h-full  flex flex-col items-center justify-center gap-y-2'>
+                    <div className='w-[24%]  h-full  flex flex-col items-center justify-center gap-y-2'>
                         <h1 className='text-2xl'>ADD MATCHES</h1>
-                        <label htmlFor="team1" ></label>
-                        <input type="text" id='team1' name='team1' placeholder='Team Name' className='outline-none text-white w-full  p-3 rounded-lg bg-slate-900 '
-                            value={data.team1}
-                            required
-                            onChange={handleinput}
-                        />
+                        <Select
+                            placeholder="Select address"
+                            sx={{ width: 310, padding: 1 }}
+                            slotProps={{
+                                listbox: {
+                                    placement: 'bottom-start',
+                                },
+                            }}
+                        >
+                            <Option value="1">
+                                CSPIT-CE
+                            </Option>
+                            <Option value="2">
+                                IIIM-BBA
+                            </Option>
+                            <Option value="3">
+                                DEPST-IT
+                            </Option>
+                        </Select>
                         <h2>VS</h2>
-                        <label htmlFor="team2" ></label>
-                        <input type="text" id='team2' name='team2' placeholder='Team Name' className='outline-none text-white p-3 w-full  rounded-lg bg-slate-900'
-                            value={data.team2}
-                            required
-                            onChange={handleinput}
-                        />
+                        <Select
+                            placeholder="Select address"
+                            sx={{ width: 310, padding: 1 }}
+                            slotProps={{
+                                listbox: {
+                                    placement: 'bottom-start',
+                                },
+                            }}
+                        >
+                            <Option value="1">
+                                CSPIT-CE
+                            </Option>
+                            <Option value="2">
+                                IIIM-BBA
+                            </Option>
+                            <Option value="3">
+                                DEPST-IT
+                            </Option>
+                        </Select>
                         <div className='flex flex-row items-center justify-center w-full gap-x-3 mt-2'>
-                            <LocalizationProvider dateAdapter={AdapterDayjs} >
-                                <DemoContainer components={['DateTimePicker']} sx={{width:'100%'}}>
-                                    <DateTimePicker label="Select Date and Time"
+                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                <DemoContainer components={['DateTimePicker']} sx={{ width: '100%' }}>
+                                    <DateTimePicker
+                                        label="Select Date and Time"
                                         onChange={dateTimeHandler}
+                                        viewRenderers={{
+                                            hours: renderTimeViewClock,
+                                            minutes: renderTimeViewClock,
+                                            seconds: renderTimeViewClock,
+                                        }}
                                     />
                                 </DemoContainer>
                             </LocalizationProvider>

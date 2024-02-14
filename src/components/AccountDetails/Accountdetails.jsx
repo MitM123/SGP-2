@@ -14,14 +14,13 @@ const Accountdetails = () => {
       <React.Fragment>
         <button
           onClick={() => {
-            console.log("data is", Global.user)
             setOpen(true)
           }}
         >
           <GoPerson color='white' size={30} className='hover:cursor-pointer' />
         </button>
         <Modal open={open} onClose={() => setOpen(false)}>
-          <ModalDialog sx={{ width: '30%', height: '50%', padding: '0' }}>
+          <ModalDialog sx={{ width: '30%', height: '60%', padding: '0' }}>
             <div className='h-14 flex justify-between  bg-primary-color'>
               <div className='flex  h-full items-center ml-3 text-white text-2xl font-Jost'>
                 Account Details
@@ -33,8 +32,8 @@ const Accountdetails = () => {
                 }} />
               </div>
             </div>
-            <div className='flex h-80 flex-col w-[95%] m-2 '>
-              <div className='h-14 w-full p-2 flex shadow-inner rounded-md text-black text-lg font-Outfit items-center'>
+            <div className='flex h-80 flex-col w-[95%] ml-2 '>
+              <div className='h-14 w-full p-2 flex  rounded-md text-black text-lg font-Outfit items-center'>
                 {Global.user.name}
               </div>
               <div className='h-14 w-full p-2 flex shadow-inner rounded-md text-black text-lg font-Outfit  items-center'>

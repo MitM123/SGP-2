@@ -8,11 +8,13 @@ import { Link } from 'react-router-dom';
 import { FcGoogle } from 'react-icons/fc'
 import { auth, provider } from './SignupwithGoogle'
 import { signInWithPopup } from 'firebase/auth';
+import { useState } from 'react';
 import '../Template/Template.css'
-import Global from '../../Utils/Global'
 
 const SignupForm = () => {
   const navigate = useNavigate();
+  const [disabled, setDisabled] = useState(false);
+
 
   function signupwithgooglehandler() {
     signInWithPopup(auth, provider).then((message) => {
@@ -26,7 +28,9 @@ const SignupForm = () => {
   }
 
 
-
+  function timeout(delay) {
+    return new Promise(res => setTimeout(res, delay));
+  }
   const formik = useFormik({
     // for edit input field
     initialValues: {
@@ -37,18 +41,20 @@ const SignupForm = () => {
     },
 
     onSubmit: async values => {
+      setDisabled(true);
       values = await Object.assign(values);
       // console.log(values)
       let registerUserPromises = registerUser(values)
-      toast.promise(registerUserPromises, {
-        loading: "Creating...",
-        success:"Account created Successfully",
-        error:"Error Generated"
-      })
-      registerUserPromises.then((data)=>{
-        const {user} =data;
-        Global.user=user;
-        navigate("/user/home");
+      await timeout(2000);
+      const tId = toast.loading("Signup...");
+      registerUserPromises.then(_ => {
+        toast.success("Signup uccessfully", {
+          id: tId
+        })
+        navigate("/");
+      }).catch(err => {
+        setDisabled(false)
+        toast.error(err.error, { id: tId });
       })
     }
   })
@@ -60,19 +66,20 @@ const SignupForm = () => {
         <h1 className='text-white font-bold text-2xl flex justify-center font-poppins '>Create Account</h1>
         <div className='flex flex-col'>
           <label htmlFor="name" ></label>
-          <input type="name" id='name' name='name' required {...formik.getFieldProps('name')} placeholder='Your Name' className='outline-none text-white p-3 rounded-lg bg-slate-900' />
+          <input type="name" id='name' name='name' required disabled={disabled} {...formik.getFieldProps('name')} placeholder='Your Name' className='outline-none text-white p-3 rounded-lg bg-slate-900' />
           <br />
           <label htmlFor="email" ></label>
-          <input type="email" id='email' name='email' required {...formik.getFieldProps('email')} placeholder='Your email address' className='outline-none text-white p-3 rounded-lg bg-slate-900' />
+          <input type="email" id='email' name='email' required disabled={disabled} {...formik.getFieldProps('email')} placeholder='Your email address' className='outline-none text-white p-3 rounded-lg bg-slate-900' />
           <br />
           <label htmlFor="userId" ></label>
-          <input type="userId" id='userId' name='userId' required {...formik.getFieldProps('userId')} placeholder='Your user id' className='outline-none text-white p-3 rounded-lg bg-slate-900' />
+          <input type="userId" id='userId' name='userId' required disabled={disabled} {...formik.getFieldProps('userId')} placeholder='Your user id' className='outline-none text-white p-3 rounded-lg bg-slate-900' />
           <br />
           <label htmlFor="password"></label>
-          <input type="password" id='password' name='password' required {...formik.getFieldProps('password')} placeholder='Password' className='outline-none  text-white p-3 rounded-lg bg-slate-900' />
+          <input type="password" id='password' name='password' required disabled={disabled} {...formik.getFieldProps('password')} placeholder='Password' className='outline-none  text-white p-3 rounded-lg bg-slate-900' />
         </div>
         <div className='flex justify-center'>
-          <button className='text-white bg-blue-500 p-2 rounded-lg w-28 font-semibold  hover:text-blue-500 hover:bg-slate-200 font-poppins '>
+          <button className='text-white bg-blue-500 p-2 rounded-lg w-28 font-semibold  hover:text-blue-500 hover:bg-slate-200 font-poppins'
+          >
             SignUp
           </button>
         </div>
@@ -91,10 +98,10 @@ const SignupForm = () => {
           </div>
         </div>
         <div className='flex flex-row justify-center text-blue-500 font-semibold  items-center'>
-          <p className=''>Don't have an Account?</p>
-          <Link to="/">
-            <span className='cursor-pointer underline'>Login</span>
-          </Link>
+          <p className=''>Don't have an Account?
+            <Link to="/">
+              <span className='cursor-pointer underline'>Login</span>
+            </Link></p>
         </div>
       </form>
     </>

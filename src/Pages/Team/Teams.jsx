@@ -68,7 +68,7 @@ const Teams = () => {
                             </button >
                             <Modal open={open}>
                                 <form onSubmit={formik.handleSubmit}>
-                                    <ModalDialog sx={{ width: '30%', height: '22%', padding: '0' }}>
+                                    <ModalDialog sx={{ width: '30%', height: '28%', padding: '0' }}>
                                         <div className='flex items-center justify-end  cursor-pointer m-3'>
                                             <AiOutlineClose color='black' size={20} onClick={() => { setOpen(false); }} />
                                         </div>
