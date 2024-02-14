@@ -1,11 +1,9 @@
-import React from 'react'
-import Button from '@mui/joy/Button';
 import Modal from '@mui/joy/Modal';
 import ModalDialog from '@mui/joy/ModalDialog';
-import DialogTitle from '@mui/joy/DialogTitle';
-import DialogContent from '@mui/joy/DialogContent';
+import React from 'react';
 import { FaArrowLeftLong } from "react-icons/fa6";
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import Cookies from 'universal-cookie';
 import Global from '../../Utils/Global';
 
 
@@ -13,12 +11,13 @@ const Confirmation = () => {
     const [open, setOpen] = React.useState(false);
     const navigate = useNavigate();
 
-    
+    const cookies = new Cookies();
     const logoutHandler = (event) => {
         event.preventDefault();
         Global.httpPut("/auth/logout").then(data => {
             Global.user = null;
             Global.token = null;
+            cookies.remove("token");
             navigate('/');
         }).catch(err => {
             console.log(err);

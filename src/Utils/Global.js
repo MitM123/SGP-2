@@ -96,13 +96,12 @@ export default class Global {
                 console.log(this.token);
                 let res;
                 try {
-                    res = await axios.put(endPoint, {
-                        ...body,
-                        headers: {
-                            "Content-Type": "application/json",
-                            Authorization: 'Bearer ' + this.token
-                        }
-                    });
+                    const headers = {
+                        "Content-Type": "application/json",
+                        Authorization: 'Bearer ' + this.token
+                    };
+
+                    const res = await axios.put(endPoint, body, { headers });
                     resolve(res);
                 } catch (err) {
                     reject(err?.response?.data?.error || "Something went wrong");
