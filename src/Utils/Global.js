@@ -40,6 +40,7 @@ export default class Global {
                 try {
                     let output = await axios.get(endPoint, {
                         headers: {
+                            "Content-Type": "application/json",
                             Authorization: 'Bearer ' + this.token
                         }
                     });
@@ -100,6 +101,7 @@ export default class Global {
                     res = await axios.put(endPoint, {
                         ...body,
                         headers: {
+                            "Content-Type": "application/json",
                             Authorization: 'Bearer ' + this.token
                         }
                     });
