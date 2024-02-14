@@ -31,7 +31,7 @@ export async function loginUser(loginuserdata) {
 export async function getTeams() {
     try {
         const res = await Global.httpGet('/teams/year/' + new Date(Date.now()).getFullYear(), false);
-        console.log(res.data.teams.map(t=>t.name))
+        console.log(res.data.teams.map(t => t.name))
         Global.teams = res.data.teams;
         return Promise.resolve(res.data.teams);
     }
@@ -49,6 +49,32 @@ export async function addTeam(teamnamedata) {
         Global.teams.push(team);
         return Promise.resolve(team);
     } catch (error) {
+        return Promise.reject(error);
+    }
+}
+
+export async function getMatches() {
+    try {
+        const res = await Global.httpGet('/matches/' + new Date(Date.now()).getFullYear(), false);
+        Global.matches = res.data.matches;
+        console.log(res)
+        return Promise.resolve(res.data.matches);
+    }
+    catch (error) {
+        return Promise.reject(error);
+    }
+}
+
+export async function addMatch(matchData) {
+    try {
+        const { data } = await Global.httpPost('/matches', {
+            team1Id: matchData.team1Id, team2Id: matchData.team2Id, date: matchData.date
+        });
+        const match = data.match;
+        Global.matches.push(match);
+        return Promise.resolve(match);
+    }
+    catch (error) {
         return Promise.reject(error);
     }
 }

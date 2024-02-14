@@ -13,7 +13,8 @@ export default class Global {
     static token;
     static isVerified;
     static teams = new Array();
-
+    static matches = new Array();
+    
     static async getUser() {
         return new Promise(async (resolve, reject) => {
             try {

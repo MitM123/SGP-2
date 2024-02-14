@@ -1,76 +1,71 @@
-import React, { useEffect, useState } from 'react'
-import Header from '../../components/Header'
-import { FaArrowRight } from "react-icons/fa6";
-import { toast } from 'react-hot-toast'
-import { useNavigate } from 'react-router-dom';
-import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
-import { Option } from '@mui/joy';
+import { Option, Select } from '@mui/joy';
 import { renderTimeViewClock } from '@mui/x-date-pickers';
-import { Select } from '@mui/joy';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import dayjs from 'dayjs';
-import '../AddMatch/Addmatch.css'
+import { useFormik } from 'formik';
+import React, { useEffect, useState } from 'react';
+import { toast } from 'react-hot-toast';
+import { FaArrowRight } from "react-icons/fa6";
+import { useNavigate } from 'react-router-dom';
+import { getTeams, addMatch } from '../../Helper/Helper';
+import '../AddMatch/Addmatch.css';
 
 const Addmatch = () => {
 
     const navigate = useNavigate();
 
-    const [data, setData] = useState({
-        team1: "",
-        team2: "",
-        date: "",
-        time: "",
-    });
+    const [teams, setTeams] = React.useState([]);
 
-    const handleinput = (event) => {
-        console.log(event.target);
-        const { name, value } = event.target
-        setData(prevdata => {
-            console.log(prevdata)
-            return {
-                ...prevdata,
-                [name]: value,
-
-            }
+    useEffect(() => {
+        getTeams().then(teams => {
+            setTeams(teams);
         })
-        console.log(data)
-    }
+    }, [])
+
 
     const dateTimeHandler = (dateTime) => {
-        const date = dayjs(dateTime).format('DD/MM/YYYY');
-        const time = dayjs(dateTime).format('HH:mm  ');
-        setData(prevData => ({
-            ...prevData,
-            date: date,
-            time: time
-        }));
-        console.log(dateTime)
+        formik.setFieldValue('date', dateTime);
     }
 
-    // useEffect(() => {
-    //     localStorage.setItem("data",JSON.stringify(data));
-    // }, [data])
+    const formik = useFormik({
+        initialValues: {
+            team1Id: "",
+            team2Id: "",
+            date: "",
+        },
+        onSubmit: async values => {
+            console.log(values)
+            values = await Object.assign(values);
+            const tId = toast.loading("Adding match...");
+            let addMatchPromise = addMatch(values);
 
-    const submithandler = (e) => {
-        e.preventDefault();
-        // Save data to localStorage
-        localStorage.setItem('data', JSON.stringify(data));
-        toast.success("Form submited");
-        console.log(data);
-    };
-
+            addMatchPromise.then(() => {
+                toast.success("Match added successfully...", {
+                    id: tId
+                })
+                navigate("/user/home")
+            }).catch(err => {
+                toast.error(err, {
+                    id: tId
+                })
+            })
+        }
+    })
 
     return (
 
         <div>
-            <form action="" onSubmit={submithandler}>
+            <form action="" onSubmit={formik.handleSubmit}>
                 <div className='w-full h-[90vh] font-poppins flex justify-center items-center'>
                     <div className='w-[24%]  h-full  flex flex-col items-center justify-center gap-y-2'>
                         <h1 className='text-2xl'>ADD MATCHES</h1>
                         <Select
-                            placeholder="Select address"
+                            name='team1Id'
+                            onChange={((_, teamId) => formik.setFieldValue("team1Id", teamId))}
+                            placeholder="Select First Team"
                             sx={{ width: 310, padding: 1 }}
                             slotProps={{
                                 listbox: {
@@ -78,19 +73,21 @@ const Addmatch = () => {
                                 },
                             }}
                         >
-                            <Option value="1">
-                                CSPIT-CE
-                            </Option>
-                            <Option value="2">
-                                IIIM-BBA
-                            </Option>
-                            <Option value="3">
-                                DEPST-IT
-                            </Option>
+                            {
+                                teams.map(team => {
+                                    return (
+                                        <Option value={team.sis_id} key={team.sis_id}>
+                                            {team.name}
+                                        </Option>
+                                    )
+                                })
+                            }
                         </Select>
                         <h2>VS</h2>
                         <Select
-                            placeholder="Select address"
+                            name='team2Id'
+                            onChange={((_, teamId) => formik.setFieldValue("team2Id", teamId))}
+                            placeholder="Select Second Team"
                             sx={{ width: 310, padding: 1 }}
                             slotProps={{
                                 listbox: {
@@ -98,15 +95,15 @@ const Addmatch = () => {
                                 },
                             }}
                         >
-                            <Option value="1">
-                                CSPIT-CE
-                            </Option>
-                            <Option value="2">
-                                IIIM-BBA
-                            </Option>
-                            <Option value="3">
-                                DEPST-IT
-                            </Option>
+                            {
+                                teams.map(team => {
+                                    return (
+                                        <Option value={team.sis_id} key={team.sis_id}>
+                                            {team.name}
+                                        </Option>
+                                    )
+                                })
+                            }
                         </Select>
                         <div className='flex flex-row items-center justify-center w-full gap-x-3 mt-2'>
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
