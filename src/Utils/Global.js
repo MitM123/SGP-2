@@ -15,10 +15,10 @@ export default class Global {
     static teams = new Array();
 
     static async getUser() {
-        return new Promise(async(resolve, reject) => {
+        return new Promise(async (resolve, reject) => {
             try {
                 const { data } = await this.httpGet("/auth/me");
-                resolve(data.data.user);
+                resolve(data.user);
             } catch (err) {
                 reject("No user found.")
                 return false;
@@ -30,11 +30,10 @@ export default class Global {
         return new Promise(async (resolve, reject) => {
             try {
                 if (!this.token && tokenRequired) {
-                    if (cookies.get("token")) this.token = cookies.get("token");
-                    else {
-                        console.log("token not found");
-                        return;
-                    }
+                    if (cookies.get("token"))
+                        this.token = cookies.get("token");
+                    else
+                        return reject("Token not found");
                 }
                 cookies.set("token", this.token)
                 try {
@@ -46,11 +45,11 @@ export default class Global {
                     });
                     resolve(output);
                 } catch (err) {
-                    reject({ error: err?.response?.data?.data?.error || "Something went wrong" });
+                    reject(err?.response?.data?.error || "Something went wrong");
                 }
             } catch (err) {
                 console.error("F-Error", endPoint, err);
-                reject({ error: "Something went wrong", isError: true });
+                reject("Something went wrong");
             }
         });
     }
@@ -62,7 +61,7 @@ export default class Global {
                     if (cookies.get("token"))
                         this.token = cookies.get("token");
                     else
-                        return reject({ error: "Token not found", isError: true });
+                        return reject("Token not found");
                 }
                 cookies.set("token", this.token)
                 let res;
@@ -75,11 +74,10 @@ export default class Global {
                     });
                     resolve(res);
                 } catch (err) {
-                    console.log(err)
-                    reject({ error: err?.response?.data?.data?.error || "Something went wrong" });
+                    reject(err?.response?.data?.error || "Something went wrong");
                 }
             } catch (err) {
-                reject({ error: "Something went wrong" });
+                reject("Something went wrong");
             }
         });
     }
@@ -88,11 +86,10 @@ export default class Global {
         return new Promise(async (resolve, reject) => {
             try {
                 if (!this.token && tokenRequired) {
-                    if (cookies.get("token")) this.token = cookies.get("token");
-                    else {
-                        console.log("token not found");
-                        return;
-                    }
+                    if (cookies.get("token"))
+                        this.token = cookies.get("token");
+                    else
+                        return reject("Token not found");
                 }
                 cookies.set("token", this.token);
                 console.log(this.token);
@@ -107,11 +104,11 @@ export default class Global {
                     });
                     resolve(res);
                 } catch (err) {
-                    reject({ error: err?.response?.data?.data?.error || "Something went wrong" });
+                    reject(err?.response?.data?.error || "Something went wrong");
                 }
             } catch (err) {
                 console.error("F-Error", endPoint, err);
-                resolve({ error: "Something went wrong" });
+                resolve("Something went wrong");
             }
         });
     }

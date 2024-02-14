@@ -28,9 +28,6 @@ const SignupForm = () => {
   }
 
 
-  function timeout(delay) {
-    return new Promise(res => setTimeout(res, delay));
-  }
   const formik = useFormik({
     // for edit input field
     initialValues: {
@@ -43,9 +40,7 @@ const SignupForm = () => {
     onSubmit: async values => {
       setDisabled(true);
       values = await Object.assign(values);
-      // console.log(values)
       let registerUserPromises = registerUser(values)
-      await timeout(2000);
       const tId = toast.loading("Signup...");
       registerUserPromises.then(_ => {
         toast.success("Signup uccessfully", {
@@ -54,7 +49,7 @@ const SignupForm = () => {
         navigate("/");
       }).catch(err => {
         setDisabled(false)
-        toast.error(err.error, { id: tId });
+        toast.error(err, { id: tId });
       })
     }
   })

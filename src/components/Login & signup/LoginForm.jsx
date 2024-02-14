@@ -29,12 +29,6 @@ const LoginForm = () => {
         })
     }
 
-
-
-    function timeout(delay) {
-        return new Promise(res => setTimeout(res, delay));
-    }
-
     const formik = useFormik({
         initialValues: {
             email: "",
@@ -44,7 +38,6 @@ const LoginForm = () => {
             setDisabled(true);
             values = await Object.assign(values);
             let loginuserPromise = loginUser(values);
-            await timeout(2000);
             const tId = toast.loading("Logging in...");
             loginuserPromise.then(_ => {
                 toast.success("Logged in successfully", {
@@ -53,7 +46,7 @@ const LoginForm = () => {
                 navigate("/user/home");
             }).catch(err => {
                 setDisabled(false)
-                toast.error(err.error, { id: tId });
+                toast.error(err, { id: tId });
             })
         }
     })
