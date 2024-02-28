@@ -21,7 +21,11 @@ export async function loginUser(loginuserdata) {
             emailOrUserId: loginuserdata.email, password: loginuserdata.password
         }, false);
         Global.user = res.data.user;
+        console.log("res->",res)
+        localStorage.setItem('email',res.data.user.email);
+        localStorage.setItem('userId',res.data.user.userId);
         Global.token = res.data.token;
+        // console.log(res.data.user.role);
         return Promise.resolve(res.data);
     } catch (error) {
         return Promise.reject(error);

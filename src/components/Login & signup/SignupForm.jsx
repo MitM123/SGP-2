@@ -11,7 +11,7 @@ import { signInWithPopup } from 'firebase/auth';
 import { useState } from 'react';
 import '../Template/Template.css'
 
-const SignupForm = () => {
+const SignupForm = ({ setIsLogin }) => {
   const navigate = useNavigate();
   const [disabled, setDisabled] = useState(false);
 
@@ -20,7 +20,8 @@ const SignupForm = () => {
     signInWithPopup(auth, provider).then((message) => {
       console.log(message)
       toast.success("Account created successfully");
-      navigate("/user/home")
+      navigate("home");
+      setIsLogin(true);
     }).catch((error) => {
       console.log(error)
       toast.error("Error Generated")
@@ -46,7 +47,8 @@ const SignupForm = () => {
         toast.success("Signup uccessfully", {
           id: tId
         })
-        navigate("/");
+        navigate("login");
+        // setIsLogin(true);
       }).catch(err => {
         setDisabled(false)
         toast.error(err, { id: tId });
@@ -94,7 +96,7 @@ const SignupForm = () => {
         </div>
         <div className='flex flex-row justify-center text-blue-500 font-semibold  items-center'>
           <p className=''>Don't have an Account?
-            <Link to="/">
+            <Link to="/login">
               <span className='cursor-pointer underline'>Login</span>
             </Link></p>
         </div>

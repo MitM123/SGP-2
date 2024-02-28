@@ -16,6 +16,7 @@ import Contact from './Pages/ContactUs/Contact';
 import { useEffect, useState } from 'react';
 import Global from './Utils/Global';
 import Cookies from "universal-cookie";
+import ApplyNow from './Pages/Applynow/ApplyNow';
 
 const cookies = new Cookies();
 
@@ -24,6 +25,7 @@ const App = () => {
 
   const navigate = useNavigate();
   let [loaded, setLoaded] = useState(false);
+  const [isLogin, setIsLogin] = useState(false);
 
   const validateSession = async () => {
     if (!Global.user) {
@@ -38,12 +40,12 @@ const App = () => {
         } catch (e) {
           console.log(e)
           setLoaded(true);
-          navigate("/")
+          navigate("/login")
         }
       }
       else {
         setLoaded(true);
-        navigate("/")
+        navigate("/login")
       }
     }
   }
@@ -59,18 +61,19 @@ const App = () => {
       </>
       :
       <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/signup" element={<SignUp />} />
 
-        <Route path='/user' element={<UserLayout />}>
+        <Route path='/' element={<UserLayout isLogin={isLogin} setIsLogin={setIsLogin} />}>
+          <Route path="login" element={<Login setIsLogin={setIsLogin} />} />
+          <Route path="signup" element={<SignUp setIsLogin={setIsLogin} />} />
           <Route path="home" element={<Home />} />
-          <Route path='addmatch' element={<Addmatch />} />
+          <Route path='addmatch' element={<Addmatch setIsLogin={setIsLogin} />} />
           <Route path='teams' element={<Teams />} />
           <Route path="aboutus" element={<AboutUs />} />
           <Route path='contact' element={<Contact />} />
+          <Route path='applynow' element={<ApplyNow />} />
         </Route>
 
-        <Route path='/matchinfo' element={<Matchinfo />}>
+        <Route path='/matchinfo' element={<Matchinfo isLogin={isLogin} setIsLogin={setIsLogin} />}>
           <Route path='summary' element={<Summary />} />
           <Route path='scorecard' element={<ScoreCard />} />
           <Route path="commentary" element={<Commentary />} />

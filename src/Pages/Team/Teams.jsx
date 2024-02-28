@@ -9,6 +9,7 @@ import { useFormik } from 'formik';
 import { addTeam, getTeams } from '../../Helper/Helper';
 import toast from 'react-hot-toast';
 import Global from '../../Utils/Global';
+import '../Team/Team.css'
 
 
 const Teams = () => {
@@ -32,11 +33,12 @@ const Teams = () => {
             values = await Object.assign(values);
             const tId = toast.loading("Adding...");
             let addTeamPromise = addTeam(values);
-
+            
             addTeamPromise.then(() => {
                 toast.success("Team added successfully...", {
                     id: tId
                 })
+                values.name = ""
                 // setTeams([...teams]);
                 setOpen(false);
             }).catch(err => {
@@ -61,7 +63,7 @@ const Teams = () => {
                 </button >
                 :
                 <>
-                    <div className='flex flex-col'>
+                    <div className='team1 flex flex-col'>
                         <div className='flex justify-end mr-4 items-center h-[10vh]  '>
                             <React.Fragment>
                                 <button className='text-white bg-blue-950 p-3 rounded-md w-30 font-poppins font-semibold  flex flex-row items-center gap-1'
@@ -89,7 +91,7 @@ const Teams = () => {
                                 </Modal>
                             </React.Fragment>
                         </div >
-                        <div className='grid gap-4 ml-4 mr-4 grid-cols-5 mt-2 h-[30vh]'>
+                        <div className='team2 grid gap-4 ml-4 mr-4 grid-cols-5 mt-2 h-[30vh]'>
                             {
                                 teams.map((team) => (
                                     <Link key={team.sis_id} to={team.name.toLowerCase()} className='h-20 rounded-md flex items-center justify-center bg-gray-200 font-Outfit text-xl '>

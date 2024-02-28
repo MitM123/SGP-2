@@ -7,7 +7,10 @@ import { AiOutlineClose } from "react-icons/ai";
 // import { Link } from 'react-router-dom';
 import Confirmation from './Confirmation';
 
-const Accountdetails = () => {
+const Accountdetails = (props) => {
+  let setIsLogin = props.setIsLogin;
+  console.log("Role->",Global.user.role);
+
   const [open, setOpen] = React.useState(false);
   return (
     <>
@@ -19,8 +22,8 @@ const Accountdetails = () => {
         >
           <GoPerson color='white' size={30} className='hover:cursor-pointer' />
         </button>
-        <Modal open={open} onClose={() => setOpen(false)}>
-          <ModalDialog sx={{ width: '30%', height: '60%', padding: '0' }}>
+        <Modal open={open} >
+          <ModalDialog sx={{ width: '30%', height: '60%', padding: '0', '@media(max-width:680px)': { height: '40%' },'@media(max-width:420px)': { height: '50%' } }}>
             <div className='h-14 flex justify-between  bg-primary-color'>
               <div className='flex  h-full items-center ml-3 text-white text-2xl font-Jost'>
                 Account Details
@@ -44,7 +47,7 @@ const Accountdetails = () => {
               </div>
               <div className='h-14'></div>
               <div className='w-full flex justify-center'>
-                <Confirmation />
+                <Confirmation setIsLogin={setIsLogin}/>
               </div>
             </div>
           </ModalDialog>

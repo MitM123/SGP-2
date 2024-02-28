@@ -12,7 +12,7 @@ import Cookies from 'universal-cookie';
 
 const cookies = new Cookies();
 
-const LoginForm = () => {
+const LoginForm = ({ setIsLogin }) => {
     const navigate = useNavigate();
     const [disabled, setDisabled] = useState(false);
 
@@ -22,7 +22,7 @@ const LoginForm = () => {
             console.log(auth);
             console.log(provider);
             toast.success("Account created successfully");
-            navigate("/user/home")
+            navigate("home")
         }).catch((error) => {
             console.log(error)
             toast.error("Error Generated")
@@ -43,7 +43,8 @@ const LoginForm = () => {
                 toast.success("Logged in successfully", {
                     id: tId
                 })
-                navigate("/user/home");
+                navigate("/home");
+                setIsLogin(true);
             }).catch(err => {
                 setDisabled(false)
                 toast.error(err, { id: tId });
@@ -70,7 +71,7 @@ const LoginForm = () => {
                         <span className='text-white cursor-pointer' >Forgot Password?</span>
                     </p>
                     <button disabled={disabled} className='text-white bg-blue-500 p-2 rounded-lg w-28 font-semibold  hover:text-blue-500 hover:bg-slate-200 '>
-                       Login
+                        Login
                     </button>
                 </div>
                 <div className='flex w-full items-center my-0 gap-x-2'>

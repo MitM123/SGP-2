@@ -7,7 +7,9 @@ import Cookies from 'universal-cookie';
 import Global from '../../Utils/Global';
 
 
-const Confirmation = () => {
+const Confirmation = (props) => {
+    let setIsLogin = props.setIsLogin;
+
     const [open, setOpen] = React.useState(false);
     const navigate = useNavigate();
 
@@ -18,7 +20,8 @@ const Confirmation = () => {
             Global.user = null;
             Global.token = null;
             cookies.remove("token");
-            navigate('/');
+            navigate('/home');
+            setIsLogin(false);
         }).catch(err => {
             console.log(err);
         })
@@ -34,7 +37,7 @@ const Confirmation = () => {
                     Logout
                 </button>
                 <Modal keepMounted open={open} >
-                    <ModalDialog sx={{ width: '30%', height: '20%', }}>
+                    <ModalDialog sx={{ width: '30%', height: '20%', '@media (max-width:440px)': { height: '17%', width:'65%'},'@media (max-width:380px)': { height: '22%', width:'70%'}}}>
                         <div>
                             <div className='text-xl font-Jost text-black'>
                                 Are you sure you want to log out?

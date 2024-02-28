@@ -1,12 +1,17 @@
 import React from 'react'
-import Header from '../Header'
+import Header from '../Header/Header'
 import { Outlet } from 'react-router-dom'
+import '../UserLayout/UserLayout.css'
 
-function UserLayout() {
+function UserLayout(props) {
+    let isLogin = props.isLogin;
+    let setIsLogin = props.setIsLogin;
     return (
         <>
-            <Header />
-            <Outlet />
+            {/* <div className='UserLayout'> */}
+                <Header isLogin={isLogin} setIsLogin={setIsLogin} />
+                <Outlet />
+            {/* </div> */}
         </>
     )
 }

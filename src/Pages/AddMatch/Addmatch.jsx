@@ -46,7 +46,7 @@ const Addmatch = () => {
                 toast.success("Match added successfully...", {
                     id: tId
                 })
-                navigate("/user/home")
+                navigate("/home")
             }).catch(err => {
                 toast.error(err, {
                     id: tId
@@ -59,14 +59,14 @@ const Addmatch = () => {
 
         <div>
             <form action="" onSubmit={formik.handleSubmit}>
-                <div className='w-full h-[90vh] font-poppins flex justify-center items-center'>
-                    <div className='w-[24%]  h-full  flex flex-col items-center justify-center gap-y-2'>
+                <div className=' addmatch1 w-full h-[90vh] font-poppins flex justify-center items-center'>
+                    <div className='addmatch2 w-[24%]  h-full  flex flex-col items-center justify-center gap-y-2'>
                         <h1 className='text-2xl'>ADD MATCHES</h1>
                         <Select
                             name='team1Id'
                             onChange={((_, teamId) => formik.setFieldValue("team1Id", teamId))}
                             placeholder="Select First Team"
-                            sx={{ width: 310, padding: 1 }}
+                            sx={{ width: '100%', padding: 1 }}
                             slotProps={{
                                 listbox: {
                                     placement: 'bottom-start',
@@ -88,7 +88,7 @@ const Addmatch = () => {
                             name='team2Id'
                             onChange={((_, teamId) => formik.setFieldValue("team2Id", teamId))}
                             placeholder="Select Second Team"
-                            sx={{ width: 310, padding: 1 }}
+                            sx={{ width: '100%', padding: 1 }}
                             slotProps={{
                                 listbox: {
                                     placement: 'bottom-start',

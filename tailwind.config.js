@@ -17,7 +17,9 @@ module.exports = {
         '3xl' : '0px 50px 50px rgba(0,0,0,0.7)',
       },
       colors : {
-        'primary-color' : "#152238"
+        'primary-color' : "#152238",
+        // 'primary-color' : "#262e57",
+        // 'primary-blue':'#a5e9e8',
       }
     },
   },
