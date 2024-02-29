@@ -17,7 +17,6 @@ const Matches = () => {
 
     useEffect(() => {
         getMatches().then(matches => {
-            console.log(matches);
             setLoaded(true);
             setMatches(matches);
         })

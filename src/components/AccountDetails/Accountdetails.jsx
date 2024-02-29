@@ -8,7 +8,6 @@ import { AiOutlineClose } from "react-icons/ai";
 import Confirmation from './Confirmation';
 
 const Accountdetails = (props) => {
-  console.log("Role->",Global.user.role);
 
   const [open, setOpen] = React.useState(false);
   return (

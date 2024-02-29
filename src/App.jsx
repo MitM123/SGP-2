@@ -28,7 +28,6 @@ const App = () => {
 
   const validateSession = async () => {
     if (!Global.user) {
-      console.log(Global.token || cookies.get("token"));
       const token = Global.token || cookies.get("token");
       if (token) {
         try {

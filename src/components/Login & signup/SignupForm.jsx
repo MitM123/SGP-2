@@ -18,12 +18,11 @@ const SignupForm = () => {
 
   function signupwithgooglehandler() {
     signInWithPopup(auth, provider).then((message) => {
-      console.log(message)
       toast.success("Account created successfully");
       navigate("home");
     }).catch((error) => {
       console.log(error)
-      toast.error("Error Generated")
+      toast.error("Something went wrong...")
     })
   }
 

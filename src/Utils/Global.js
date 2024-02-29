@@ -106,8 +106,6 @@ export default class Global {
                         return reject("Token not found");
                 }
                 cookies.set("token", this.token);
-                console.log(this.token);
-                let res;
                 try {
                     const headers = {
                         "Content-Type": "application/json",
@@ -121,7 +119,7 @@ export default class Global {
                 }
             } catch (err) {
                 console.error("F-Error", endPoint, err);
-                resolve("Something went wrong");
+                reject("Something went wrong");
             }
         });
     }

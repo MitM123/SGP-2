@@ -37,7 +37,6 @@ const Addmatch = () => {
             date: "",
         },
         onSubmit: async values => {
-            console.log(values)
             values = await Object.assign(values);
             const tId = toast.loading("Adding match...");
             let addMatchPromise = addMatch(values);

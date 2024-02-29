@@ -21,11 +21,7 @@ export async function loginUser(loginuserdata) {
             emailOrUserId: loginuserdata.email, password: loginuserdata.password
         }, false);
         Global.user = res.data.user;
-        console.log("res->",res)
-        localStorage.setItem('email',res.data.user.email);
-        localStorage.setItem('userId',res.data.user.userId);
         Global.token = res.data.token;
-        // console.log(res.data.user.role);
         return Promise.resolve(res.data);
     } catch (error) {
         return Promise.reject(error);
@@ -35,7 +31,6 @@ export async function loginUser(loginuserdata) {
 export async function getTeams() {
     try {
         const res = await Global.httpGet('/teams/year/' + new Date(Date.now()).getFullYear(), false);
-        console.log(res.data.teams.map(t => t.name))
         Global.teams = res.data.teams;
         return Promise.resolve(res.data.teams);
     }
@@ -71,7 +66,6 @@ export async function getMatches() {
     try {
         const res = await Global.httpGet('/matches/' + new Date(Date.now()).getFullYear(), false);
         Global.matches = res.data.matches;
-        console.log(res)
         return Promise.resolve(res.data.matches);
     }
     catch (error) {
