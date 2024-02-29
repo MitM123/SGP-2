@@ -36,7 +36,6 @@ const App = () => {
           Global.user = user;
           setLoaded(true);
         } catch (e) {
-          console.log(e)
           setLoaded(true);
           navigate("/login")
         }

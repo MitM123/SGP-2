@@ -34,8 +34,16 @@ export default class Global {
                 const { data } = await this.httpGet("/auth/me");
                 resolve(data.user);
             } catch (err) {
+                Global.httpPut("/auth/logout").then(_ => {
+                    Global.user = null;
+                    Global.token = null;
+                    cookies.remove("token");
+                }).catch(_ => {
+                    Global.user = null;
+                    Global.token = null;
+                    cookies.remove("token");
+                })
                 reject("No user found.")
-                return false;
             }
         })
     }
