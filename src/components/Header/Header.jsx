@@ -4,11 +4,10 @@ import { GoPerson } from "react-icons/go";
 import Accountdetails from '../AccountDetails/Accountdetails';
 import { RiMenu3Fill } from "react-icons/ri";
 import '../Header/Header.css'
+import Global from '../../Utils/Global';
 
 
-const Header = (props) => {
-    let isLogin = props.isLogin;
-    let setIsLogin = props.setIsLogin;
+const Header = () => {
 
     const menu = ["Home", "Teams", "AboutUs", "Contact", "ApplyNow"];
     const [drawerOpen, setDrawerOpen] = useState(false);
@@ -32,18 +31,15 @@ const Header = (props) => {
                 </ul>
             </nav>
             {
-                !isLogin &&
-                <Link to='/login'>
-                    <button className='text-white hidden md:flex justify-center bg-blue-500 p-2 rounded-lg w-24 font-semibold  hover:text-blue-500 hover:bg-slate-200 mr-4'>
-                        Login
-                    </button>
-                </Link>
-            }
-            {
-                isLogin &&
-                <div className='hidden md:flex  mr-4'>
-                    <Accountdetails setIsLogin={setIsLogin} />
-                </div>
+                Global.user && Global.token ?
+                    <div className='hidden md:flex  mr-4'>
+                        <Accountdetails />
+                    </div> :
+                    <Link to='/login'>
+                        <button className='text-white hidden font-poppins md:flex justify-center bg-blue-500 p-2 rounded-lg w-24 font-semibold  hover:text-blue-500 hover:bg-slate-200 mr-4'>
+                            Login
+                        </button>
+                    </Link>
             }
 
             {/* rsponsive   */}
@@ -60,21 +56,19 @@ const Header = (props) => {
                         ))}
                         {/* Responsive Accountdetails */}
                         {
-                            !isLogin &&
-                            <Link to='/login' className='flex justify-center'>
+                            Global.user && Global.token ?
                                 <div className='flex justify-center'>
-                                    <button className='text-white bg-blue-500 p-2 rounded-lg w-24 font-semibold  hover:text-blue-500 hover:bg-slate-200'
-                                        onClick={toggleDrawer}>
-                                        Login
-                                    </button>
+                                    <Accountdetails />
                                 </div>
-                            </Link>
-                        }
-                        {
-                            isLogin &&
-                            <div className='flex justify-center'>
-                                <Accountdetails setIsLogin={setIsLogin} />
-                            </div>
+                                :
+                                <Link to='/login' className='flex justify-center'>
+                                    <div className='flex justify-center'>
+                                        <button className='text-white bg-blue-500 p-2 rounded-lg w-24 font-semibold font-poppins  hover:text-blue-500 hover:bg-slate-200'
+                                            onClick={toggleDrawer}>
+                                            Login
+                                        </button>
+                                    </div>
+                                </Link>
                         }
 
                         {/* <div className='flex justify-center'>

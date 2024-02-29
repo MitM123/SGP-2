@@ -3,11 +3,11 @@ import { Outlet } from 'react-router-dom';
 import MatchInfoHeader from '../../components/Header/MatchInfoHeader';
 import '../MatchInfo/Matchinfo.css'
 
-const Matchinfo = ({setIsLogin,isLogin}) => {
+const Matchinfo = () => {
     return (
         <>
             <div className='matchinfo'>
-                <MatchInfoHeader setIsLogin={setIsLogin} isLogin={isLogin}/>
+                <MatchInfoHeader/>
                 <Outlet />
             </div>
         </>

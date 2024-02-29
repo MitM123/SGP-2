@@ -5,11 +5,12 @@ import { MdArrowBackIosNew } from "react-icons/md";
 import Accountdetails from '../AccountDetails/Accountdetails';
 import { RiMenu3Fill } from "react-icons/ri";
 import '../Header/MatchHeader.css'
+import Global from '../../Utils/Global';
 
 
 
 
-function MatchInfoHeader({ setIsLogin, isLogin }) {
+function MatchInfoHeader() {
 
     const menu = ["Summary", "Scorecard", "Commentary", "Squads"]
     const [drawerOpen, setDrawerOpen] = useState(false);
@@ -45,18 +46,17 @@ function MatchInfoHeader({ setIsLogin, isLogin }) {
                 }
             </div>
             {
-                !isLogin &&
-                <Link to='/login'>
-                    <button className='text-white hidden md:flex bg-blue-500 p-2 rounded-lg w-24 font-semibold justify-center  hover:text-blue-500 hover:bg-slate-200 mr-4'>
-                        Login
-                    </button>
-                </Link>
-            }
-            {
-                isLogin &&
-                <div className='hidden md:flex  mr-4'>
-                    <Accountdetails setIsLogin={setIsLogin} />
-                </div>
+                Global.user && Global.token ?
+
+                    <div className='hidden md:flex  mr-4'>
+                        <Accountdetails />
+                    </div> :
+                    <Link to='/login'>
+                        <button className='text-white hidden md:flex font-poppins bg-blue-500 p-2 rounded-lg w-24 font-semibold justify-center  hover:text-blue-500 hover:bg-slate-200 mr-4'>
+                            Login
+                        </button>
+                    </Link>
+
             }
 
 
@@ -74,21 +74,19 @@ function MatchInfoHeader({ setIsLogin, isLogin }) {
                         ))}
                         {/* Responsive Accountdetails */}
                         {
-                            !isLogin &&
-                            <Link to='/login'>
+                            Global.user && Global.token ?
                                 <div className='flex justify-center'>
-                                    <button className='text-white flex justify-center bg-blue-500 p-2 rounded-lg w-24 font-semibold  hover:text-blue-500 hover:bg-slate-200 '
-                                        onClick={toggleDrawer}>
-                                        Login
-                                    </button>
+                                    <Accountdetails />
                                 </div>
-                            </Link>
-                        }
-                        {
-                            isLogin &&
-                            <div className='flex justify-center'>
-                                <Accountdetails setIsLogin={setIsLogin} />
-                            </div>
+                                :
+                                <Link to='/login'>
+                                    <div className='flex justify-center'>
+                                        <button className='text-white flex font-poppins justify-center bg-blue-500 p-2 rounded-lg w-24 font-semibold  hover:text-blue-500 hover:bg-slate-200 '
+                                            onClick={toggleDrawer}>
+                                            Login
+                                        </button>
+                                    </div>
+                                </Link>
                         }
                     </ul>
                 </div>

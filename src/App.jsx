@@ -25,7 +25,6 @@ const App = () => {
 
   const navigate = useNavigate();
   let [loaded, setLoaded] = useState(false);
-  const [isLogin, setIsLogin] = useState(false);
 
   const validateSession = async () => {
     if (!Global.user) {
@@ -62,18 +61,18 @@ const App = () => {
       :
       <Routes>
 
-        <Route path='/' element={<UserLayout isLogin={isLogin} setIsLogin={setIsLogin} />}>
-          <Route path="login" element={<Login setIsLogin={setIsLogin} />} />
-          <Route path="signup" element={<SignUp setIsLogin={setIsLogin} />} />
+        <Route path='/' element={<UserLayout />}>
+          <Route path="login" element={<Login />} />
+          <Route path="signup" element={<SignUp />} />
           <Route path="home" element={<Home />} />
-          <Route path='addmatch' element={<Addmatch setIsLogin={setIsLogin} />} />
+          <Route path='addmatch' element={<Addmatch />} />
           <Route path='teams' element={<Teams />} />
           <Route path="aboutus" element={<AboutUs />} />
           <Route path='contact' element={<Contact />} />
           <Route path='applynow' element={<ApplyNow />} />
         </Route>
 
-        <Route path='/matchinfo' element={<Matchinfo isLogin={isLogin} setIsLogin={setIsLogin} />}>
+        <Route path='/matchinfo' element={<Matchinfo />}>
           <Route path='summary' element={<Summary />} />
           <Route path='scorecard' element={<ScoreCard />} />
           <Route path="commentary" element={<Commentary />} />

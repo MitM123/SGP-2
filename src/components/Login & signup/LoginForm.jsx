@@ -1,6 +1,6 @@
 import { useFormik } from 'formik';
 import React, { useState } from 'react'
-import toast from 'react-hot-toast';
+import toast from 'react-hot-toast';    
 import { Link, useNavigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast'
 import { loginUser } from '../../Helper/Helper';
@@ -12,7 +12,7 @@ import Cookies from 'universal-cookie';
 
 const cookies = new Cookies();
 
-const LoginForm = ({ setIsLogin }) => {
+const LoginForm = () => {
     const navigate = useNavigate();
     const [disabled, setDisabled] = useState(false);
 
@@ -44,7 +44,6 @@ const LoginForm = ({ setIsLogin }) => {
                     id: tId
                 })
                 navigate("/home");
-                setIsLogin(true);
             }).catch(err => {
                 setDisabled(false)
                 toast.error(err, { id: tId });

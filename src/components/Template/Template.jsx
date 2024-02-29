@@ -3,7 +3,7 @@ import LoginForm from '../Login & signup/LoginForm'
 import './Template.css'
 import Game from '../../assets/Game2.png'
 
-const Template = ({ Formtype,setIsLogin }) => {
+const Template = ({ Formtype }) => {
 
     return (
 
@@ -24,7 +24,7 @@ const Template = ({ Formtype,setIsLogin }) => {
 
 
             <div className='form flex w-[50%] justify-around items-center '>
-                {Formtype === "login" ? (<LoginForm setIsLogin={setIsLogin} />) : (<SignupForm setIsLogin={setIsLogin} />)}
+                {Formtype === "login" ? (<LoginForm />) : (<SignupForm />)}
             </div>
         </div>
 

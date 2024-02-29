@@ -7,8 +7,7 @@ import Cookies from 'universal-cookie';
 import Global from '../../Utils/Global';
 
 
-const Confirmation = (props) => {
-    let setIsLogin = props.setIsLogin;
+const Confirmation = () => {
 
     const [open, setOpen] = React.useState(false);
     const navigate = useNavigate();
@@ -21,7 +20,6 @@ const Confirmation = (props) => {
             Global.token = null;
             cookies.remove("token");
             navigate('/home');
-            setIsLogin(false);
         }).catch(err => {
             console.log(err);
         })

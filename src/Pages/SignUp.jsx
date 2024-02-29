@@ -1,12 +1,11 @@
 import React from 'react'
 import Template from '../components/Template/Template'
 
-const SignUp = ({ setIsLogin }) => {
+const SignUp = () => {
   return (
     <div>
       <Template
         formtype="/signup"
-        setIsLogin={setIsLogin}
       />
     </div>
   )

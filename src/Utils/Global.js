@@ -14,6 +14,19 @@ export default class Global {
     static isVerified;
     static teams = new Array();
     static matches = new Array();
+    static teamMapping = {
+        "ce": "CSPIT-CE",
+        "dce": "DEPSTAR-CE",
+        "cs": "CSPIT-CSE",
+        "dcs": "DEPSTAR-CSE",
+        "it": "CSPIT-IT",
+        "dit": "DEPSTAR-IT",
+        "aiml": "CSPIT-CSE",
+        // "bba": "IIIM",
+        // "dce": "DEPSTAR-CE",
+        // "ce": "CSPIT-CE",
+        // "dce": "DEPSTAR-CE",
+    }
     
     static async getUser() {
         return new Promise(async (resolve, reject) => {

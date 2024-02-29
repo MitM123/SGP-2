@@ -8,7 +8,7 @@ import { Skeleton } from '@mui/material';
 import Global from '../../Utils/Global';
 
 
-const Matches = ({ setIsLogin }) => {
+const Matches = () => {
 
 
     const [matches, setMatches] = useState([]);
@@ -24,13 +24,6 @@ const Matches = ({ setIsLogin }) => {
     }, []);
 
 
-    // const addmatch = (setIsLogin) => {
-    //     if (setIsLogin !== true) {
-    //         toast.error("Please Logged in");
-    //     } else {
-    //         navigate("/addmatch");
-    //     }
-    // }
 
     return (
         // Global.user.role === 'SPORTS_HEAD' ?

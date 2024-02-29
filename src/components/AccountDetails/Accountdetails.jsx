@@ -8,7 +8,6 @@ import { AiOutlineClose } from "react-icons/ai";
 import Confirmation from './Confirmation';
 
 const Accountdetails = (props) => {
-  let setIsLogin = props.setIsLogin;
   console.log("Role->",Global.user.role);
 
   const [open, setOpen] = React.useState(false);
@@ -47,7 +46,7 @@ const Accountdetails = (props) => {
               </div>
               <div className='h-14'></div>
               <div className='w-full flex justify-center'>
-                <Confirmation setIsLogin={setIsLogin}/>
+                <Confirmation />
               </div>
             </div>
           </ModalDialog>

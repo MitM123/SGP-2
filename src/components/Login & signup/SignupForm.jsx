@@ -11,7 +11,7 @@ import { signInWithPopup } from 'firebase/auth';
 import { useState } from 'react';
 import '../Template/Template.css'
 
-const SignupForm = ({ setIsLogin }) => {
+const SignupForm = () => {
   const navigate = useNavigate();
   const [disabled, setDisabled] = useState(false);
 
@@ -21,7 +21,6 @@ const SignupForm = ({ setIsLogin }) => {
       console.log(message)
       toast.success("Account created successfully");
       navigate("home");
-      setIsLogin(true);
     }).catch((error) => {
       console.log(error)
       toast.error("Error Generated")
@@ -48,7 +47,6 @@ const SignupForm = ({ setIsLogin }) => {
           id: tId
         })
         navigate("login");
-        // setIsLogin(true);
       }).catch(err => {
         setDisabled(false)
         toast.error(err, { id: tId });

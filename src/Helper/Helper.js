@@ -44,6 +44,16 @@ export async function getTeams() {
     }
 }
 
+export async function getTeamByName(name) {
+    try {
+        const res = await Global.httpGet('/teams/name/' + name, true);
+        return Promise.resolve(res.data.team);
+    }
+    catch (error) {
+        return Promise.reject(error);
+    }
+}
+
 export async function addTeam(teamnamedata) {
     try {
         const { data } = await Global.httpPost('/teams', {

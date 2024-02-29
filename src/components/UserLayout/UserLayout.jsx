@@ -3,14 +3,12 @@ import Header from '../Header/Header'
 import { Outlet } from 'react-router-dom'
 import '../UserLayout/UserLayout.css'
 
-function UserLayout(props) {
-    let isLogin = props.isLogin;
-    let setIsLogin = props.setIsLogin;
+function UserLayout() {
     return (
         <>
             {/* <div className='UserLayout'> */}
-                <Header isLogin={isLogin} setIsLogin={setIsLogin} />
-                <Outlet />
+            <Header />
+            <Outlet />
             {/* </div> */}
         </>
     )
