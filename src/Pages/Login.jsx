@@ -1,5 +1,5 @@
 import React from 'react'
-import Template from '../components/Template/Template'
+import Template from '../Components/Template/Template'
 
 const Login = () => {
     return (
@@ -7,7 +7,6 @@ const Login = () => {
             <Template
                 Formtype="login"
             />
-
         </div>
     )
 }

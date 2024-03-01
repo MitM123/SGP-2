@@ -5,7 +5,7 @@ import Login from './Pages/Login'
 import Addmatch from './Pages/AddMatch/Addmatch';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import Matchinfo from './Pages/MatchInfo/Matchinfo';
-import UserLayout from './components/UserLayout/UserLayout';
+import UserLayout from './Components/UserLayout/UserLayout';
 import Summary from './Pages/MatchInfo/Summary'
 import ScoreCard from './Pages/MatchInfo/ScoreCard';
 import Commentary from './Pages/MatchInfo/Commentary';
