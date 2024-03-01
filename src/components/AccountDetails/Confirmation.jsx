@@ -19,7 +19,7 @@ const Confirmation = () => {
             Global.user = null;
             Global.token = null;
             cookies.remove("token");
-            navigate('/home');
+            navigate('/login');
         }).catch(err => {
             console.log(err);
         })
