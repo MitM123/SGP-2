@@ -94,7 +94,7 @@ const Teams = () => {
                         <div className='team2 grid gap-4 ml-4 mr-4 grid-cols-5 mt-2 h-[30vh]'>
                             {
                                 teams.map((team) => (
-                                    <Link key={team.sis_id} to={team.name.toLowerCase()} className='h-20 rounded-md flex items-center justify-center bg-gray-200 font-Outfit text-xl '>
+                                    <Link key={team.sis_id} to='/selection' className='h-20 rounded-md flex items-center justify-center bg-gray-200 font-Outfit text-xl '>
                                         {team.name.toUpperCase()}
                                     </Link>
                                 ))

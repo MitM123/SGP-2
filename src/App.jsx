@@ -16,6 +16,7 @@ import Contact from './Pages/ContactUs/Contact';
 import { useEffect, useState } from 'react';
 import Global from './Utils/Global';
 import Cookies from "universal-cookie";
+import Selection from './Pages/Selection/Selection';
 import ApplyNow from './Pages/Applynow/ApplyNow';
 
 const cookies = new Cookies();
@@ -64,10 +65,11 @@ const App = () => {
           <Route path="signup" element={<SignUp />} />
           <Route path="home" element={<Home />} />
           <Route path='addmatch' element={<Addmatch />} />
-          <Route path='teams' element={<Teams />} />
           <Route path="aboutus" element={<AboutUs />} />
           <Route path='contact' element={<Contact />} />
           <Route path='applynow' element={<ApplyNow />} />
+          <Route path='teams' element={<Teams />} />
+          <Route path='selection' element={<Selection />} />
         </Route>
 
         <Route path='/matchinfo' element={<Matchinfo />}>
@@ -76,6 +78,10 @@ const App = () => {
           <Route path="commentary" element={<Commentary />} />
           <Route path="squads" element={<Squads />} />
         </Route>
+
+
+
+
       </Routes>
   );
 }
