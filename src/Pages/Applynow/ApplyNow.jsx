@@ -34,7 +34,7 @@ const ApplyNow = () => {
             if (!team) {
                 toast.error("Your department is not presenting in cricket...", {id});
             }
-            await Global.httpPut('/teams/player', { teamId: team.sis_id, playerEmail: Global.user.email })
+            await Global.httpPut('/teams/player', { teamId: team.sis_id, playerEmail: Global.user.email, userId: Global.user.userId })
             toast.success(`Applied for ${sport} successfully...`, {id})
         } catch (e) {
             toast.error(e, {id})
