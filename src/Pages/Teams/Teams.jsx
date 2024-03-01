@@ -8,8 +8,7 @@ import { Link } from 'react-router-dom';
 import { useFormik } from 'formik';
 import { addTeam, getTeams } from '../../Helper/Helper';
 import toast from 'react-hot-toast';
-import Global from '../../Utils/Global';
-import '../Team/Team.css'
+import './Team.css'
 
 
 const Teams = () => {
@@ -33,7 +32,7 @@ const Teams = () => {
             values = await Object.assign(values);
             const tId = toast.loading("Adding...");
             let addTeamPromise = addTeam(values);
-            
+
             addTeamPromise.then(() => {
                 toast.success("Team added successfully...", {
                     id: tId
@@ -57,10 +56,33 @@ const Teams = () => {
         ) : (
             teams.length === 0
                 ?
-                <button className='text-white bg-blue-950 p-3 rounded-lg w-30 font-poppins font-semibold  flex flex-row  gap-1 justify-center items-center'>
-                    <IoMdAdd size={20} />
-                    AddTeam
-                </button >
+                <div className='flex justify-end mr-4 items-center h-[10vh]  '>
+                    <React.Fragment>
+                        <button className='text-white bg-blue-950 p-3 rounded-md w-30 font-poppins font-semibold  flex flex-row items-center gap-1'
+                            onClick={() => { setOpen(true) }}>
+                            <IoMdAdd size={20} />
+                            Add Team
+                        </button >
+                        <Modal open={open}>
+                            <form onSubmit={formik.handleSubmit}>
+                                <ModalDialog sx={{ width: '30%', height: '28%', padding: '0' }}>
+                                    <div className='flex items-center justify-end  cursor-pointer m-3'>
+                                        <AiOutlineClose color='black' size={20} onClick={() => { setOpen(false); }} />
+                                    </div>
+                                    <div className='w-[95%] ml-2'>
+                                        <label htmlFor="text" ></label>
+                                        <input type="text" id='text' name='text' {...formik.getFieldProps('name')} required placeholder='Enter team name' className='outline-none w-full text-black font-Jost placeholder:text-lg placeholder:font-Jost uppercase p-3 rounded-lg bg-slate-200' />
+                                    </div>
+                                    <div className='flex justify-end w-full'>
+                                        <button className=' text-white mr-3 bg-primary-color text-lg font-Outfit items-center flex  justify-center p-2 rounded-lg w-28 font-semibold '>
+                                            Confirm
+                                        </button>
+                                    </div>
+                                </ModalDialog>
+                            </form>
+                        </Modal>
+                    </React.Fragment>
+                </div >
                 :
                 <>
                     <div className='team1 flex flex-col'>
@@ -69,7 +91,7 @@ const Teams = () => {
                                 <button className='text-white bg-blue-950 p-3 rounded-md w-30 font-poppins font-semibold  flex flex-row items-center gap-1'
                                     onClick={() => { setOpen(true) }}>
                                     <IoMdAdd size={20} />
-                                    AddTeam
+                                    Add Team
                                 </button >
                                 <Modal open={open}>
                                     <form onSubmit={formik.handleSubmit}>

@@ -10,14 +10,14 @@ import Summary from './Pages/MatchInfo/Summary'
 import ScoreCard from './Pages/MatchInfo/ScoreCard';
 import Commentary from './Pages/MatchInfo/Commentary';
 import Squads from './Pages/MatchInfo/Squads';
-import Teams from './Pages/Team/Teams';
+import Teams from './Pages/Teams/Teams';
 import AboutUs from './Pages/Aboutus/AboutUs'
 import Contact from './Pages/ContactUs/Contact';
 import { useEffect, useState } from 'react';
 import Global from './Utils/Global';
 import Cookies from "universal-cookie";
 import Selection from './Pages/Selection/Selection';
-import ApplyNow from './Pages/Applynow/ApplyNow';
+import ApplyNow from './Pages/ApplyNow/ApplyNow';
 
 const cookies = new Cookies();
 
