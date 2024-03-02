@@ -86,3 +86,23 @@ export async function addMatch(matchData) {
         return Promise.reject(error);
     }
 }
+
+export async function getTeam(teamId) {
+    try {
+        const { data } = await Global.httpGet('/teams/team/' + teamId, false);
+        return Promise.resolve(data.team);
+    }
+    catch (error) {
+        return Promise.reject(error);
+    }
+}
+
+export async function getPlayers(teamId, selectedPlayers = true) {
+    try {
+        const { data } = await Global.httpGet('/teams/' + teamId + '/players', false, {selectedPlayers});
+        return Promise.resolve(data.players);
+    }
+    catch (error) {
+        return Promise.reject(error);
+    }
+}

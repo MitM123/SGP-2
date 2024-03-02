@@ -3,7 +3,7 @@ import SignUp from './Pages/SignUp'
 import Home from './Pages/Home/Home';
 import Login from './Pages/Login'
 import Addmatch from './Pages/AddMatch/Addmatch';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes, useLocation, useNavigate, useParams } from 'react-router-dom';
 import Matchinfo from './Pages/MatchInfo/Matchinfo';
 import UserLayout from './components/UserLayout/UserLayout'
 import Summary from './Pages/MatchInfo/Summary'
@@ -23,6 +23,7 @@ import Checkotp from './components/ForgotPassword/Checkotp';
 import Newpassword from './components/ForgotPassword/Newpassword';
 import Resetcomplete from './components/ForgotPassword/Resetcomplete';
 import Loader from './components/Loader/Loader';
+import Team from './Pages/Teams/Team';
 
 const cookies = new Cookies();
 
@@ -31,6 +32,7 @@ const App = () => {
 
   const navigate = useNavigate();
   let [loaded, setLoaded] = useState(false);
+  const location = useLocation();
 
   const validateSession = async () => {
     if (!Global.user) {
@@ -90,9 +92,10 @@ const App = () => {
           <Route path="squads" element={<Squads />} />
         </Route>
 
-
-
-
+        <Route path='/teams'>
+          <Route path=':teamId' element={<Team />} />
+          <Route path=':teamId/manage' element={<Selection />} />
+        </Route>
       </Routes>
   );
 }
