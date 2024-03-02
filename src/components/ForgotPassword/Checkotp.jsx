@@ -26,10 +26,10 @@ const Checkotp = () => {
                                     <span className="font-bold">mi*********gmail.com</span>
                                 </div>
                                 <div id="otp" className="flex flex-row justify-center text-center px-2 mt-5">
-                                    <input className="m-2 outline-none h-10 w-10 text-center form-control rounded" type="text" id="first" maxlength="1" />
-                                    <input className="m-2 outline-none h-10 w-10 text-center form-control rounded" type="text" id="third" maxlength="1" />
-                                    <input className="m-2 outline-none h-10 w-10 text-center form-control rounded" type="text" id="second" maxlength="1" />
-                                    <input className="m-2 outline-none h-10 w-10 text-center form-control rounded" type="text" id="fourth" maxlength="1" />
+                                    <input className="m-2 outline-none h-10 w-10 text-center form-control rounded" type="text" id="first" maxLength="1" />
+                                    <input className="m-2 outline-none h-10 w-10 text-center form-control rounded" type="text" id="third" maxLength="1" />
+                                    <input className="m-2 outline-none h-10 w-10 text-center form-control rounded" type="text" id="second" maxLength="1" />
+                                    <input className="m-2 outline-none h-10 w-10 text-center form-control rounded" type="text" id="fourth" maxLength="1" />
                                 </div>
                                 <Link to='/newpassword'>
                                     <div className='flex justify-center  w-full'>
