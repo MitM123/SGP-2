@@ -1,6 +1,6 @@
 import React from 'react'
-import Matches from '../../Components/Matches/Matches'
-import Header from '../../Components/Header/Header'
+import Matches from '../../components/Matches/Matches'
+// import Header from '../../Components/Header/Header'
 
 const Home = () => {
   return (

@@ -33,7 +33,7 @@ const Contact = () => {
           </div>
         </div>
       </div>
-      <div className='w-[27%] ml-12 h-[78%] rounded-xl absolute top-1/2 transform -translate-y-1/2 shadow-xl shadow-sky-300 bg-blue-950'>
+      <div className='w-[27%] ml-12 h-[78%] rounded-xl absolute top-1/2 transform -translate-y-1/2 shadow-xl shadow-blue-400 bg-blue-950'>
         <div className='flex flex-col gap-y-4  text-xl text-white'>
           <div><h1 className='text-4xl h-20 flex justify-center  items-center font-Outfit'>Contact us</h1></div>
           <div className='flex flex-col gap-y-8 mt-10 ml-4 font-Outfit'>

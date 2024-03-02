@@ -1,6 +1,6 @@
 import { useFormik } from 'formik';
 import React, { useState } from 'react'
-import toast from 'react-hot-toast';    
+import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast'
 import { loginUser } from '../../Helper/Helper';
@@ -67,7 +67,9 @@ const LoginForm = () => {
                 </div>
                 <div className='flex justify-between '>
                     <p className='flex justify-center items-center'>
-                        <span className='text-white cursor-pointer' >Forgot Password?</span>
+                        <Link to='/resetpassword'>
+                            <span className='text-white cursor-pointer' >Forgot Password?</span>
+                        </Link>
                     </p>
                     <button disabled={disabled} className='text-white bg-blue-500 p-2 rounded-lg w-28 font-semibold  hover:text-blue-500 hover:bg-slate-200 '>
                         Login

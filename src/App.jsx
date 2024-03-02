@@ -5,7 +5,7 @@ import Login from './Pages/Login'
 import Addmatch from './Pages/AddMatch/Addmatch';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import Matchinfo from './Pages/MatchInfo/Matchinfo';
-import UserLayout from './Components/UserLayout/UserLayout';
+import UserLayout from './components/UserLayout/UserLayout'
 import Summary from './Pages/MatchInfo/Summary'
 import ScoreCard from './Pages/MatchInfo/ScoreCard';
 import Commentary from './Pages/MatchInfo/Commentary';
@@ -17,7 +17,12 @@ import { useEffect, useState } from 'react';
 import Global from './Utils/Global';
 import Cookies from "universal-cookie";
 import Selection from './Pages/Selection/Selection';
-import ApplyNow from './Pages/ApplyNow/ApplyNow';
+import ApplyNow from './Pages/Applynow/ApplyNow'
+import Resetpassword from './components/ForgotPassword/Resetpassword';
+import Checkotp from './components/ForgotPassword/Checkotp';
+import Newpassword from './components/ForgotPassword/Newpassword';
+import Resetcomplete from './components/ForgotPassword/Resetcomplete';
+import Loader from './components/Loader/Loader';
 
 const cookies = new Cookies();
 
@@ -55,11 +60,13 @@ const App = () => {
   return (
     !loaded ?
       <>
-        Loading...
+        {/* Loading.... */}
+        <div className='w-full h-[92vh] flex justify-center items-center'>
+          <Loader />
+        </div>
       </>
       :
       <Routes>
-
         <Route path='/' element={<UserLayout />}>
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<SignUp />} />
@@ -70,6 +77,10 @@ const App = () => {
           <Route path='applynow' element={<ApplyNow />} />
           <Route path='teams' element={<Teams />} />
           <Route path='selection' element={<Selection />} />
+          <Route path='resetpassword' element={<Resetpassword />} />
+          <Route path='checkotp' element={<Checkotp />} />
+          <Route path='newpassword' element={<Newpassword />} />
+          <Route path='resetcomplete' element={<Resetcomplete />} />
         </Route>
 
         <Route path='/matchinfo' element={<Matchinfo />}>

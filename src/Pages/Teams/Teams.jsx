@@ -9,6 +9,7 @@ import { useFormik } from 'formik';
 import { addTeam, getTeams } from '../../Helper/Helper';
 import toast from 'react-hot-toast';
 import './Team.css'
+import Loader from '../../components/Loader/Loader';
 
 
 const Teams = () => {
@@ -51,7 +52,10 @@ const Teams = () => {
     return (
         loaded === false ? (
             <>
-                Loading Teams
+                {/* Loading Teams */}
+                <div className='w-full h-[92vh] flex justify-center items-center'>
+                    <Loader />
+                </div>
             </>
         ) : (
             teams.length === 0
