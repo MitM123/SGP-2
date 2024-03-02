@@ -8,8 +8,8 @@ import { Link } from 'react-router-dom';
 import { useFormik } from 'formik';
 import { addTeam, getTeams } from '../../Helper/Helper';
 import toast from 'react-hot-toast';
-import './Team.css'
-import Loader from '../../components/Loader/Loader';
+import './Teams.css'
+import Loader from '../../Components/Loader/Loader';
 
 const Teams = () => {
 
@@ -18,10 +18,14 @@ const Teams = () => {
     const [loaded, setLoaded] = React.useState(false);
 
     useEffect(() => {
-        getTeams().then(teams => {
-            setTeams(teams);
-            setLoaded(true);
-        })
+        setTimeout(() => {
+            getTeams().then(teams => {
+                setTeams(teams);
+                setLoaded(true);
+            }).catch(err => {
+                console.log(err);
+            })
+        }, 1500);
     }, [])
 
     const formik = useFormik({
@@ -50,12 +54,7 @@ const Teams = () => {
 
     return (
         loaded === false ? (
-            <>
-                {/* Loading Teams */}
-                <div className='w-full h-[92vh] flex justify-center items-center'>
-                    <Loader />
-                </div>
-            </>
+            <Loader />
         ) : (
             teams.length === 0
                 ?

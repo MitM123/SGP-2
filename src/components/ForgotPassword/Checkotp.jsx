@@ -15,21 +15,21 @@ const Checkotp = () => {
 
     return (
         <div>
-            <div class="h-[92vh] py-20 px-3">
-                <div class="container mx-auto h-full">
-                    <div class="max-w-sm mx-auto flex justify-center h-full md:max-w-lg">
-                        <div class="w-[80%] h-full">
-                            <div class="bg-slate-400 py-3 h-[70%] rounded text-center">
-                                <h1 class="text-2xl font-bold">Verify Email</h1>
-                                <div class="flex flex-col mt-4 font-Rubik">
+            <div className="h-[92vh] py-20 px-3">
+                <div className="container mx-auto h-full">
+                    <div className="max-w-sm mx-auto flex justify-center h-full md:max-w-lg">
+                        <div className="w-[80%] h-full">
+                            <div className="bg-slate-400 py-3 h-[70%] rounded text-center">
+                                <h1 className="text-2xl font-bold">Verify Email</h1>
+                                <div className="flex flex-col mt-4 font-Rubik">
                                     <span>Enter the OTP you received at</span>
-                                    <span class="font-bold">mi*********gmail.com</span>
+                                    <span className="font-bold">mi*********gmail.com</span>
                                 </div>
-                                <div id="otp" class="flex flex-row justify-center text-center px-2 mt-5">
-                                    <input class="m-2 outline-none h-10 w-10 text-center form-control rounded" type="text" id="first" maxlength="1" />
-                                    <input class="m-2 outline-none h-10 w-10 text-center form-control rounded" type="text" id="third" maxlength="1" />
-                                    <input class="m-2 outline-none h-10 w-10 text-center form-control rounded" type="text" id="second" maxlength="1" />
-                                    <input class="m-2 outline-none h-10 w-10 text-center form-control rounded" type="text" id="fourth" maxlength="1" />
+                                <div id="otp" className="flex flex-row justify-center text-center px-2 mt-5">
+                                    <input className="m-2 outline-none h-10 w-10 text-center form-control rounded" type="text" id="first" maxlength="1" />
+                                    <input className="m-2 outline-none h-10 w-10 text-center form-control rounded" type="text" id="third" maxlength="1" />
+                                    <input className="m-2 outline-none h-10 w-10 text-center form-control rounded" type="text" id="second" maxlength="1" />
+                                    <input className="m-2 outline-none h-10 w-10 text-center form-control rounded" type="text" id="fourth" maxlength="1" />
                                 </div>
                                 <Link to='/newpassword'>
                                     <div className='flex justify-center  w-full'>

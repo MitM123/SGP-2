@@ -5,7 +5,7 @@ import Login from './Pages/Login'
 import Addmatch from './Pages/AddMatch/Addmatch';
 import { Route, Routes, useLocation, useNavigate, useParams } from 'react-router-dom';
 import Matchinfo from './Pages/MatchInfo/Matchinfo';
-import UserLayout from './components/UserLayout/UserLayout'
+import UserLayout from './Components/UserLayout/UserLayout'
 import Summary from './Pages/MatchInfo/Summary'
 import ScoreCard from './Pages/MatchInfo/ScoreCard';
 import Commentary from './Pages/MatchInfo/Commentary';
@@ -17,13 +17,14 @@ import { useEffect, useState } from 'react';
 import Global from './Utils/Global';
 import Cookies from "universal-cookie";
 import Selection from './Pages/Selection/Selection';
-import ApplyNow from './Pages/Applynow/ApplyNow'
-import Resetpassword from './components/ForgotPassword/Resetpassword';
-import Checkotp from './components/ForgotPassword/Checkotp';
-import Newpassword from './components/ForgotPassword/Newpassword';
-import Resetcomplete from './components/ForgotPassword/Resetcomplete';
-import Loader from './components/Loader/Loader';
+import ApplyNow from './Pages/ApplyNow/ApplyNow'
+import Resetpassword from './Components/ForgotPassword/Resetpassword';
+import Checkotp from './Components/ForgotPassword/Checkotp';
+import Newpassword from './Components/ForgotPassword/Newpassword';
+import Resetcomplete from './Components/ForgotPassword/Resetcomplete';
 import Team from './Pages/Teams/Team';
+import Loader from './Components/Loader/Loader';
+import TeamNavigation from './Pages/Teams/TeamNavigation';
 
 const cookies = new Cookies();
 
@@ -61,12 +62,7 @@ const App = () => {
 
   return (
     !loaded ?
-      <>
-        {/* Loading.... */}
-        <div className='w-full h-[92vh] flex justify-center items-center'>
-          <Loader />
-        </div>
-      </>
+      <Loader />
       :
       <Routes>
         <Route path='/' element={<UserLayout />}>
@@ -92,9 +88,11 @@ const App = () => {
           <Route path="squads" element={<Squads />} />
         </Route>
 
-        <Route path='/teams'>
-          <Route path=':teamId' element={<Team />} />
-          <Route path=':teamId/manage' element={<Selection />} />
+        <Route path='/teams/:teamId' element={<TeamNavigation />} >
+          <Route path='' element={<Team />} />
+          <Route path='players' element={<Team />} />
+          <Route path='Matches' element={<Team />} />
+          <Route path='manage' element={<Selection />} />
         </Route>
       </Routes>
   );

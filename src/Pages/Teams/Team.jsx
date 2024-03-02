@@ -1,35 +1,29 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getPlayers, getTeam } from '../../Helper/Helper';
-import TeamNavigation from './TeamNavigation';
-import Global from '../../Utils/Global';
+import Loader from '../../Components/Loader/Loader';
+import { getPlayers } from '../../Helper/Helper';
 
 const Team = () => {
   const { teamId } = useParams();
   const [loaded, setLoaded] = useState(false);
   const [players, setPlayers] = useState([]);
-  const [teamName, setTeamName] = useState('');
 
   useEffect(() => {
-    getTeam(teamId).then(team => {
-      setTeamName(team.name.toUpperCase());
-      getPlayers(teamId, {selectedPlayers: false}).then(players => {
+    setTimeout(() => {
+      getPlayers(teamId, { selectedPlayers: false }).then(players => {
         setPlayers(players);
         setLoaded(true);
       }).catch(err => {
         console.log(err);
       })
-    }).catch(err => {
-      console.log(err);
-    })
+    }, 1500)
   }, [teamId])
 
   return (
     <>
-      <TeamNavigation teamName={teamName} deptCC={Global.user.roles.includes("DEPT_SPORTS_CC")} />
       {!loaded ?
         <>
-          Loading players...
+          <Loader />
         </>
         :
         <>

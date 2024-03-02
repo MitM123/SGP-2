@@ -1,5 +1,5 @@
 import React from 'react'
-import Matches from '../../components/Matches/Matches'
+import Matches from '../../Components/Matches/Matches'
 // import Header from '../../Components/Header/Header'
 
 const Home = () => {

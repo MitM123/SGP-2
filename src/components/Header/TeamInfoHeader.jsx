@@ -16,11 +16,6 @@ const TeamInfoHeader = ({ teamName, deptCC }) => {
     const toggleDrawer = () => {
         setDrawerOpen(!drawerOpen);
     }
-    useEffect(() => {
-        console.log(teamId)
-    }, [])
-
-
 
     return (
         <div className='matchheader1 h-[9vh] bg-primary-color flex items-center justify-between w-full font-Outfit'>

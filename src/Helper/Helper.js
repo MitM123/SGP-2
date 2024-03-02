@@ -90,6 +90,7 @@ export async function addMatch(matchData) {
 export async function getTeam(teamId) {
     try {
         const { data } = await Global.httpGet('/teams/team/' + teamId, false);
+        Global.teamMapWithIds[teamId] = data.team;
         return Promise.resolve(data.team);
     }
     catch (error) {

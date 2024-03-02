@@ -1,50 +1,40 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
 import { IoMdAdd } from "react-icons/io";
-import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { addMatch, getMatches } from '../../Helper/Helper';
-import '../Matches/Matches.css'
-import { Skeleton } from '@mui/material';
-import Global from '../../Utils/Global';
+import { getMatches } from '../../Helper/Helper';
 import Loader from '../Loader/Loader';
+import '../Matches/Matches.css';
 
 
 const Matches = () => {
 
-
     const [matches, setMatches] = useState([]);
     const [loaded, setLoaded] = useState(false);
-    const navigate = useNavigate();
 
     useEffect(() => {
-        getMatches().then(matches => {
-            setLoaded(true);
-            setMatches(matches);
-        })
+        setTimeout(() => {
+            getMatches().then(matches => {
+                setLoaded(true);
+                setMatches(matches);
+            }).catch(err => {
+                console.log(err);
+            })
+        }, 1500);
     }, []);
 
 
-
     return (
-        // Global.user.role === 'SPORTS_HEAD' ?
-        // For SPORTS_HEAD
-        (loaded === false ?
-            <>
-                {/* <Skeleton variant="text" animation="wave" width={200} height={50}/>  */}
-                {/* loading... */}
-                <div className='w-full h-[92vh] flex justify-center items-center'>
-                    <Loader />
-                </div>
-            </>
+        !loaded ?
+            <Loader />
             :
-            matches.length === 0 ? (
+            matches.length === 0 ?
                 <Link to="/addmatch">
                     <button className='text-white bg-blue-950 p-3 rounded-lg w-30 font-poppins font-semibold  hover:text-black hover:bg-slate-200 flex flex-row items-center gap-1 justify-center'>
                         <IoMdAdd size={20} />
                         Add Match
                     </button >
                 </Link>
-            ) : (
+                :
                 <div className='match1 w-full flex flex-col'>
                     <div className='flex justify-end mr-4 items-center h-[10vh]' >
                         <Link to="/addmatch">
@@ -98,16 +88,6 @@ const Matches = () => {
                         }
                     </div>
                 </div >
-            )
-        )
-        // :
-        // // For Student
-        // (<div className='w-full'>
-
-
-        // </div>)
-
-
     )
 }
 
