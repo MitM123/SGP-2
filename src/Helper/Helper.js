@@ -64,9 +64,24 @@ export async function addTeam(teamnamedata) {
 
 export async function getMatches() {
     try {
-        const res = await Global.httpGet('/matches/' + new Date(Date.now()).getFullYear(), false);
-        Global.matches = res.data.matches;
+        const res = await Global.httpGet('/matches/year/' + new Date(Date.now()).getFullYear(), false);
+        Global.matches = res.data.matches.reduce((acc, match) => {
+            acc[match.sis_id] = match;
+            return acc;
+        }, {});
         return Promise.resolve(res.data.matches);
+    }
+    catch (error) {
+        return Promise.reject(error);
+    }
+}
+
+export async function getMatch(matchId)
+{
+    try {
+        const res = await Global.httpGet('/matches/' + matchId, false);
+        Global.matches[matchId] = res.data.match;
+        return Promise.resolve(res.data.match);
     }
     catch (error) {
         return Promise.reject(error);
@@ -102,6 +117,18 @@ export async function getPlayers(teamId, selectedPlayers = true) {
     try {
         const { data } = await Global.httpGet('/teams/' + teamId + '/players', false, {selectedPlayers});
         return Promise.resolve(data.players);
+    }
+    catch (error) {
+        return Promise.reject(error);
+    }
+}
+
+export async function createTicket(title, description, userEmail, userName, userId) {
+    try {
+        const { data } = await Global.httpPost('/tickets', {
+            title, description, userId, userEmail, userId
+        });
+        return Promise.resolve(data.ticket);
     }
     catch (error) {
         return Promise.reject(error);

@@ -19,7 +19,7 @@ const Matches = () => {
             }).catch(err => {
                 console.log(err);
             })
-        }, 1500);
+        }, 1000);
     }, []);
 
 
@@ -48,7 +48,7 @@ const Matches = () => {
                         {
                             matches.map(match => {
                                 return (
-                                    <Link to='/matchinfo/summary' key={match.sis_id}>
+                                    <Link to={`/matches/${match.sis_id}`} key={match.sis_id}>
                                         <div className=' bg-primary-color h-32 ml-4 mr-4 rounded-lg'>
                                             <div className='text-white flex flex-row justify-between w-full h-9 items-center text-xs font-poppins font-semibold'>
                                                 <div className='ml-5'>

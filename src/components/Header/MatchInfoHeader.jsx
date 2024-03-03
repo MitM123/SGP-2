@@ -10,14 +10,13 @@ import Global from '../../Utils/Global';
 
 
 
-const MatchInfoHeader = () => {
+const MatchInfoHeader = ({teamNames}) => {
 
     const menu = ["Summary", "Scorecard", "Commentary", "Squads"]
     const [drawerOpen, setDrawerOpen] = useState(false);
     const toggleDrawer = () => {
         setDrawerOpen(!drawerOpen);
     }
-
 
     return (
         <div className='matchheader1 h-[9vh] bg-primary-color flex items-center justify-between w-full font-Outfit'>
@@ -28,13 +27,13 @@ const MatchInfoHeader = () => {
             </div>
             <div className='h-full w-1/2 text-white flex flex-row gap-x-10 items-center justify-center'>
                 <div className='text-xl'>
-                    CSPIT-IT
+                    {teamNames[0].toUpperCase()}
                 </div>
                 <div>
                     VS
                 </div>
                 <div className='text-xl'>
-                    IIIM-BBA
+                    {teamNames[1].toUpperCase()}
                 </div>
             </div>
 

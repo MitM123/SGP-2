@@ -13,7 +13,7 @@ export default class Global {
     static token;
     static isVerified;
     static teams = new Array();
-    static matches = new Array();
+    static matches = {};
     static teamMapWithIds = {};
     static teamMapping = {
         "ce": "CSPIT-CE",
@@ -132,6 +132,10 @@ export default class Global {
                 reject("Something went wrong");
             }
         });
+    }
+
+    static isSportsHead() {
+        return this.user?.roles.includes("SPORTS_HEAD");
     }
 }
 

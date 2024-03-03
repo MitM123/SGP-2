@@ -5,7 +5,8 @@ import Matches from '../../Components/Matches/Matches'
 const Home = () => {
   return (
     <div>
-      <Matches />
+      {/* <Matches /> */}
+      Spoural Home Page
     </div>
   )
 }

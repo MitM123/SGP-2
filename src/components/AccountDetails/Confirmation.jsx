@@ -20,11 +20,13 @@ const Confirmation = () => {
             Global.token = null;
             cookies.remove("token");
             navigate('/login');
-        }).catch(err => {
-            console.log(err);
+        }).catch(_err => {
+            Global.user = null;
+            Global.token = null;
+            cookies.remove("token");
+            navigate('/login');
         })
     }
-
 
     return (
         <div>

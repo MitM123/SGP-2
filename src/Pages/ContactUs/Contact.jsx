@@ -3,8 +3,35 @@ import { FaLocationDot } from "react-icons/fa6";
 import { MdEmail } from "react-icons/md";
 import { BsFillTelephoneFill } from "react-icons/bs";
 import { FaChrome } from "react-icons/fa";
+import { Toaster } from 'react-hot-toast'
+import { useFormik } from 'formik';
+import { createTicket } from '../../Helper/Helper';
+import Global from '../../Utils/Global';
 
 const Contact = () => {
+
+
+  const formik = useFormik({
+    initialValues: {
+      title: "",
+      description: "",
+    },
+    onSubmit: async values => {
+      values = await Object.assign(values);
+      let loginuserPromise = createTicket(values.title, values.description);
+      // const tId = toast.loading("Logging in...");
+      // loginuserPromise.then(_ => {
+      //   toast.success("Logged in successfully", {
+      //     id: tId
+      //   })
+      //   navigate("/home");
+      // }).catch(err => {
+      //   setDisabled(false)
+      //   toast.error(err, { id: tId });
+      // })
+    }
+  })
+
   return (
     <div className='w-full h-[92vh] relative'>
       <div className='w-full h-full flex justify-center items-center absolute'>
@@ -13,23 +40,22 @@ const Contact = () => {
           </div>
           <div className='flex flex-col w-[40%] gap-y-6'>
             <h1 className='text-5xl font-Outfit font-semibold mt-6'>Get in Touch</h1>
-            <div className=' flex flex-col justify-center font-Rubik'>
+            <form className=' flex flex-col justify-center font-Rubik' onSubmit={formik.handleSubmit}>
               <label htmlFor="name" ></label>
-              <input type="name" id='name' name='name' required placeholder='Your Name' className='outline-none text-white p-3 rounded-lg bg-slate-900 ' />
+              <input type="name" id='name' name='name' required value={Global.user?.name || ""} disabled={Global.user?.name ? true : false} placeholder='Your Name' className='outline-none text-white p-3 rounded-lg bg-slate-900 ' />
               <br />
               <label htmlFor="email" ></label>
-              <input type="email" id='email' name='email' required placeholder='Your email address' className='outline-none text-white p-3 rounded-lg bg-slate-900' />
+              <input type="email" id='email' name='email' required value={Global.user?.email || ""} disabled={Global.user?.email ? true : false} placeholder='Your email address' className='outline-none text-white p-3 rounded-lg bg-slate-900' />
               <br />
-              <label htmlFor="mobileno" ></label>
-              <input type="text" id='number' name='number' required placeholder='Your Mobile number' className='outline-none text-white p-3 rounded-lg bg-slate-900' />
+              <label for="title"></label>
+              <input type="text" id='title' name='title' {...formik.getFieldProps('title')} required placeholder='Give a title' className='outline-none text-white p-3 rounded-lg bg-slate-900' />
               <br />
-              <label for="review"></label>
-              <textarea id="review" name="review" placeholder='Send a Message' className='outline-none text-white p-3 resize-none rounded-lg bg-slate-900'>
-              </textarea>
+              <label for="description"></label>
+              <textarea id="description" name="description" {...formik.getFieldProps('description')} placeholder='Write a description' className='outline-none text-white p-3 resize-none rounded-lg bg-slate-900' />
               <button className=' text-white bg-primary-color text-lg font-Outfit items-center flex  justify-center p-2 rounded-lg w-24 font-semibold mt-4'>
                 Send
               </button>
-            </div>
+            </form>
           </div>
         </div>
       </div>

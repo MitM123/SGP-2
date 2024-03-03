@@ -28,25 +28,25 @@ const ApplyNow = () => {
         if (!deptName) {
             setTimeout(() => {
                 return toast.error("Login using CHARUSAT email id", { id });
-            }, 1500);
+            }, 1000);
         }
         getTeamByName(Global.teamMapping[deptName]).then((team) => {
             if (!team) {
                 setTimeout(() => {
                     return toast.error("Your department has not created team yet...", { id });
-                }, 1500);
+                }, 1000);
             }
             Global.httpPut('/teams/player', { teamId: team.sis_id, playerEmail: Global.user.email, userId: Global.user.userId }).then(() => {
                 toast.success(`Applied for ${sport} successfully...`, { id });
             }).catch((e) => {
                 setTimeout(() => {
                     toast.error(e, { id });
-                }, 1500);
+                }, 1000);
             })
         }).catch((e) => {
             setTimeout(() => {
                 toast.error(e, { id });
-            }, 1500);
+            }, 1000);
         })
     }
 

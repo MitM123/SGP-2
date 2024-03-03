@@ -8,9 +8,6 @@ import { FcGoogle } from 'react-icons/fc'
 import { auth, provider } from './SignupwithGoogle'
 import { signInWithPopup } from 'firebase/auth';
 import '../Template/Template.css'
-import Cookies from 'universal-cookie';
-
-const cookies = new Cookies();
 
 const LoginForm = () => {
     const navigate = useNavigate();
