@@ -31,7 +31,7 @@ const Confirmation = () => {
     return (
         <div>
             <React.Fragment>
-                <button className=' text-white bg-primary-color text-lg font-Outfit items-center flex gap-1 justify-center p-2 rounded-lg w-28 font-semibold flex-row'
+                <button className='text-white bg-primary-color text-lg font-Outfit items-center flex gap-1 justify-center p-2 rounded-lg w-28 font-semibold flex-row'
                     onClick={() => setOpen(true)} >
                     <FaArrowLeftLong />
                     Logout

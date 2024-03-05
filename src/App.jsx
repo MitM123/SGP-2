@@ -1,32 +1,33 @@
-import './App.css';
-import SignUp from './Pages/SignUp'
-import Home from './Pages/Home/Home';
-import Login from './Pages/Login'
-import Addmatch from './Pages/AddMatch/Addmatch';
-import { Route, Routes, useLocation, useNavigate, useParams } from 'react-router-dom';
-import Matchinfo from './Pages/MatchInfo/Matchinfo';
-import UserLayout from './Components/UserLayout/UserLayout'
-import Summary from './Pages/MatchInfo/Summary'
-import ScoreCard from './Pages/MatchInfo/ScoreCard';
-import Commentary from './Pages/MatchInfo/Commentary';
-import Squads from './Pages/MatchInfo/Squads';
-import Teams from './Pages/Teams/Teams';
-import AboutUs from './Pages/Aboutus/AboutUs'
-import Contact from './Pages/ContactUs/Contact';
 import { createContext, useEffect, useState } from 'react';
-import Global from './Utils/Global';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import Cookies from "universal-cookie";
-import Selection from './Pages/Selection/Selection';
-import ApplyNow from './Pages/ApplyNow/ApplyNow'
-import Resetpassword from './Components/ForgotPassword/Resetpassword';
+import './App.css';
 import Checkotp from './Components/ForgotPassword/Checkotp';
 import Newpassword from './Components/ForgotPassword/Newpassword';
 import Resetcomplete from './Components/ForgotPassword/Resetcomplete';
-import Team from './Pages/Teams/Team';
+import Resetpassword from './Components/ForgotPassword/Resetpassword';
 import Loader from './Components/Loader/Loader';
-import TeamNavigation from './Pages/Teams/TeamNavigation';
 import Matches from './Components/Matches/Matches';
+import UserLayout from './Components/UserLayout/UserLayout';
+import AboutUs from './Pages/Aboutus/AboutUs';
+import ApplyNow from './Pages/ApplyNow/ApplyNow';
+import Contact from './Pages/ContactUs/Contact';
 import Error404 from './Pages/Errors/Error404';
+import Home from './Pages/Home/Home';
+import Login from './Pages/Login';
+import Commentary from './Pages/MatchInfo/Commentary';
+import Matchinfo from './Pages/MatchInfo/Matchinfo';
+import ScoreCard from './Pages/MatchInfo/ScoreCard';
+import Squads from './Pages/MatchInfo/Squads';
+import Summary from './Pages/MatchInfo/Summary';
+import Selection from './Pages/Selection/Selection';
+import SignUp from './Pages/SignUp';
+import Team from './Pages/Teams/Team';
+import TeamNavigation from './Pages/Teams/TeamNavigation';
+import Teams from './Pages/Teams/Teams';
+import Global from './Utils/Global';
+import Inbox from './Pages/ContactUs/Inbox';
+import Ticket from './Pages/ContactUs/Ticket';
 
 const cookies = new Cookies();
 
@@ -96,6 +97,8 @@ const App = () => {
               <Route path='resetcomplete' element={<Resetcomplete />} />
               <Route path='teams' element={<Teams />} />
               <Route path='matches' element={<Matches />} />
+              <Route path='inbox' element={<Inbox />} />
+              <Route path='inbox/:id' element={<Ticket />} />
             </Route>
 
             <Route path='/matches/:matchId' element={<Matchinfo />}>
@@ -112,6 +115,7 @@ const App = () => {
               <Route path='matches' element={<Team />} />
               <Route path='manage' element={<Selection />} />
             </Route>
+
 
             {
               ["*", "/error404"].map(path => {

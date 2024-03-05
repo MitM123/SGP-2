@@ -1,7 +1,8 @@
 import axios from 'axios'
 import Global from '../Utils/Global';
 import config from '../config.json';
-
+import Cookie from 'universal-cookie';
+const cookies = new Cookie();
 axios.defaults.baseURL = config.server;
 
 export async function registerUser(signupuserdata) {
@@ -22,6 +23,7 @@ export async function loginUser(loginuserdata) {
         }, false);
         Global.user = res.data.user;
         Global.token = res.data.token;
+        cookies.set("token", res.data.token);
         return Promise.resolve(res.data);
     } catch (error) {
         return Promise.reject(error);
@@ -126,8 +128,8 @@ export async function getPlayers(teamId, selectedPlayers = true) {
 export async function createTicket(title, description, userEmail, userName, userId) {
     try {
         const { data } = await Global.httpPost('/tickets', {
-            title, description, userId, userEmail, userId
-        });
+            title, description, userId, userEmail, userName
+        }, false);
         return Promise.resolve(data.ticket);
     }
     catch (error) {

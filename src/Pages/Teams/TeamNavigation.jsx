@@ -18,6 +18,7 @@ const TeamNavigation = () => {
     useEffect(() => {
         if (Global.teamMapWithIds[teamId]) {
             setTeamName(Global.teamMapWithIds[teamId].name.toUpperCase());
+            setLoaded(true);
         }
         else {
             getTeam(teamId).then(team => {

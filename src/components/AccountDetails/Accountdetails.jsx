@@ -6,6 +6,9 @@ import { GoPerson } from "react-icons/go";
 import { AiOutlineClose } from "react-icons/ai";
 // import { Link } from 'react-router-dom';
 import Confirmation from './Confirmation';
+import { RiInboxArchiveFill } from "react-icons/ri";
+import { Link } from 'react-router-dom';
+
 
 const Accountdetails = (props) => {
 
@@ -13,6 +16,9 @@ const Accountdetails = (props) => {
   return (
     <>
       <React.Fragment>
+        <Link to='/inbox'>
+        <RiInboxArchiveFill color='white' size={30} className='hover:cursor-pointer' />
+        </Link>
         <button
           onClick={() => {
             setOpen(true)
