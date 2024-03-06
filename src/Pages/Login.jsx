@@ -1,13 +1,12 @@
 import React from 'react'
-import Template from '../components/Template/Template'
+import Template from '../Components/Template/Template'
 
 const Login = () => {
     return (
         <div>
             <Template
-                Formtype="/login"
+                Formtype="login"
             />
-
         </div>
     )
 }

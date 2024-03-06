@@ -13,43 +13,67 @@ export default class Global {
     static token;
     static isVerified;
     static teams = new Array();
-
+    static matches = {};
+    static teamMapWithIds = {};
+    static teamMapping = {
+        "ce": "CSPIT-CE",
+        "dce": "DEPSTAR-CE",
+        "cs": "CSPIT-CSE",
+        "dcs": "DEPSTAR-CSE",
+        "it": "CSPIT-IT",
+        "dit": "DEPSTAR-IT",
+        "aiml": "CSPIT-CSE",
+        // "bba": "IIIM",
+        // "dce": "DEPSTAR-CE",
+        // "ce": "CSPIT-CE",
+        // "dce": "DEPSTAR-CE",
+    };
+    
     static async getUser() {
-        return new Promise(async(resolve, reject) => {
+        return new Promise(async (resolve, reject) => {
             try {
                 const { data } = await this.httpGet("/auth/me");
-                resolve(data.data.user);
+                resolve(data.user);
             } catch (err) {
+                Global.httpPut("/auth/logout").then(_ => {
+                    Global.user = null;
+                    Global.token = null;
+                    cookies.remove("token");
+                }).catch(_ => {
+                    Global.user = null;
+                    Global.token = null;
+                    cookies.remove("token");
+                })
                 reject("No user found.")
-                return false;
             }
         })
     }
 
-    static httpGet(endPoint, tokenRequired = true) {
+    static httpGet(endPoint, tokenRequired = true, params = {}) {
         return new Promise(async (resolve, reject) => {
             try {
                 if (!this.token && tokenRequired) {
-                    if (cookies.get("token")) this.token = cookies.get("token");
-                    else {
-                        console.log("token not found");
-                        return;
-                    }
+                    if (cookies.get("token"))
+                        this.token = cookies.get("token");
+                    else
+                        return reject("Token not found");
                 }
                 cookies.set("token", this.token)
                 try {
                     let output = await axios.get(endPoint, {
+                        params,
                         headers: {
+                            "Content-Type": "application/json",
                             Authorization: 'Bearer ' + this.token
                         }
                     });
                     resolve(output);
                 } catch (err) {
-                    reject({ error: err?.response?.data?.data?.error || "Something went wrong" });
+                    reject(err?.response?.data?.error || "Something went wrong");
                 }
             } catch (err) {
                 console.error("F-Error", endPoint, err);
-                reject({ error: "Something went wrong", isError: true });
+                reject("Something went wrong");
             }
         });
     }
@@ -61,7 +85,7 @@ export default class Global {
                     if (cookies.get("token"))
                         this.token = cookies.get("token");
                     else
-                        return reject({ error: "Token not found", isError: true });
+                        return reject("Token not found");
                 }
                 cookies.set("token", this.token)
                 let res;
@@ -74,43 +98,44 @@ export default class Global {
                     });
                     resolve(res);
                 } catch (err) {
-                    console.log(err)
-                    reject({ error: err?.response?.data?.data?.error || "Something went wrong" });
+                    reject(err?.response?.data?.error || "Something went wrong");
                 }
             } catch (err) {
-                reject({ error: "Something went wrong" });
+                reject("Something went wrong");
             }
         });
     }
 
-    static httpPut(endPoint, body, tokenRequired = true) {
+    static httpPut(endPoint, body = {}, tokenRequired = true) {
         return new Promise(async (resolve, reject) => {
             try {
                 if (!this.token && tokenRequired) {
-                    if (cookies.get("token")) this.token = cookies.get("token");
-                    else {
-                        console.log("token not found");
-                        return;
-                    }
+                    if (cookies.get("token"))
+                        this.token = cookies.get("token");
+                    else
+                        return reject("Token not found");
                 }
-                cookies.set("token", this.token)
-                let res;
+                cookies.set("token", this.token);
                 try {
-                    res = await axios.put(endPoint, {
-                        ...body,
-                        headers: {
-                            Authorization: 'Bearer ' + this.token
-                        }
-                    });
+                    const headers = {
+                        "Content-Type": "application/json",
+                        Authorization: 'Bearer ' + this.token
+                    };
+
+                    const res = await axios.put(endPoint, body, { headers });
                     resolve(res);
                 } catch (err) {
-                    reject({ error: err?.response?.data?.data?.error || "Something went wrong" });
+                    reject(err?.response?.data?.error || "Something went wrong");
                 }
             } catch (err) {
                 console.error("F-Error", endPoint, err);
-                resolve({ error: "Something went wrong" });
+                reject("Something went wrong");
             }
         });
+    }
+
+    static isSportsHead() {
+        return this.user?.roles.includes("SPORTS_HEAD");
     }
 }
 

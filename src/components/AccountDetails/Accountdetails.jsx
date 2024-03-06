@@ -6,22 +6,28 @@ import { GoPerson } from "react-icons/go";
 import { AiOutlineClose } from "react-icons/ai";
 // import { Link } from 'react-router-dom';
 import Confirmation from './Confirmation';
+import { RiInboxArchiveFill } from "react-icons/ri";
+import { Link } from 'react-router-dom';
 
-const Accountdetails = () => {
+
+const Accountdetails = (props) => {
+
   const [open, setOpen] = React.useState(false);
   return (
     <>
       <React.Fragment>
+        <Link to='/inbox'>
+        <RiInboxArchiveFill color='white' size={30} className='hover:cursor-pointer' />
+        </Link>
         <button
           onClick={() => {
-            console.log("data is", Global.user)
             setOpen(true)
           }}
         >
           <GoPerson color='white' size={30} className='hover:cursor-pointer' />
         </button>
-        <Modal open={open} onClose={() => setOpen(false)}>
-          <ModalDialog sx={{ width: '30%', height: '50%', padding: '0' }}>
+        <Modal open={open} >
+          <ModalDialog sx={{ width: '30%', height: '60%', padding: '0', '@media(max-width:680px)': { height: '40%' },'@media(max-width:420px)': { height: '50%' } }}>
             <div className='h-14 flex justify-between  bg-primary-color'>
               <div className='flex  h-full items-center ml-3 text-white text-2xl font-Jost'>
                 Account Details
@@ -33,8 +39,8 @@ const Accountdetails = () => {
                 }} />
               </div>
             </div>
-            <div className='flex h-80 flex-col w-[95%] m-2 '>
-              <div className='h-14 w-full p-2 flex shadow-inner rounded-md text-black text-lg font-Outfit items-center'>
+            <div className='flex h-80 flex-col w-[95%] ml-2 '>
+              <div className='h-14 w-full p-2 flex  rounded-md text-black text-lg font-Outfit items-center'>
                 {Global.user.name}
               </div>
               <div className='h-14 w-full p-2 flex shadow-inner rounded-md text-black text-lg font-Outfit  items-center'>

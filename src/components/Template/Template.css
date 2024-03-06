@@ -3,6 +3,10 @@
         display: flex;
         flex-direction: column;
         overflow:scroll;
+        /* width: 100%; */
+    }
+    .imag{
+        display: none;
     }
     .form{
         width:100%;

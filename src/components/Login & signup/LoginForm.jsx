@@ -1,5 +1,5 @@
 import { useFormik } from 'formik';
-import React from 'react'
+import React, { useState } from 'react'
 import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast'
@@ -8,16 +8,10 @@ import { FcGoogle } from 'react-icons/fc'
 import { auth, provider } from './SignupwithGoogle'
 import { signInWithPopup } from 'firebase/auth';
 import '../Template/Template.css'
-import Cookies from 'universal-cookie';
-import Global from '../../Utils/Global'
-
-const cookies = new Cookies();
-
-
-
 
 const LoginForm = () => {
     const navigate = useNavigate();
+    const [disabled, setDisabled] = useState(false);
 
 
     function signupwithgooglehandler() {
@@ -25,13 +19,12 @@ const LoginForm = () => {
             console.log(auth);
             console.log(provider);
             toast.success("Account created successfully");
-            navigate("/user/home")
+            navigate("home")
         }).catch((error) => {
             console.log(error)
             toast.error("Error Generated")
         })
     }
-
 
     const formik = useFormik({
         initialValues: {
@@ -39,18 +32,18 @@ const LoginForm = () => {
             password: "",
         },
         onSubmit: async values => {
+            setDisabled(true);
             values = await Object.assign(values);
-            console.log(values)
             let loginuserPromise = loginUser(values);
-            toast.promise(loginuserPromise, {
-                loading: "Logging in...",
-                success: 'Logged in Successfully',
-                error: "Error generated"
-            })
-            loginuserPromise.then(data => {
-                const {token} = data;
-                cookies.set("token", token);
-                navigate("/user/home");
+            const tId = toast.loading("Logging in...");
+            loginuserPromise.then(_ => {
+                toast.success("Logged in successfully", {
+                    id: tId
+                })
+                navigate("/home");
+            }).catch(err => {
+                setDisabled(false)
+                toast.error(err, { id: tId });
             })
         }
     })
@@ -64,16 +57,18 @@ const LoginForm = () => {
                 <h1 className='text-white font-bold text-2xl flex justify-center font-poppins '>Login</h1>
                 <div className='flex flex-col gap-y-1 '>
                     <label htmlFor="email" ></label>
-                    <input type="email" id='email' name='email' required {...formik.getFieldProps('email')} placeholder='Your email address' className='outline-none text-white p-3 rounded-lg bg-slate-900' />
+                    <input disabled={disabled} type="email" id='email' name='email' required {...formik.getFieldProps('email')} placeholder='Your email address' className='outline-none text-white p-3 rounded-lg bg-slate-900' />
                     <br />
                     <label htmlFor="password"></label>
-                    <input type="password" id='password' name='password' required {...formik.getFieldProps('password')} placeholder='Password' className='outline-none text-white p-3 rounded-lg bg-slate-900' />
+                    <input disabled={disabled} type="password" id='password' name='password' required {...formik.getFieldProps('password')} placeholder='Password' className='outline-none text-white p-3 rounded-lg bg-slate-900' />
                 </div>
                 <div className='flex justify-between '>
                     <p className='flex justify-center items-center'>
-                        <span className='text-white cursor-pointer' >Forgot Password?</span>
+                        <Link to='/resetpassword'>
+                            <span className='text-white cursor-pointer' >Forgot Password?</span>
+                        </Link>
                     </p>
-                    <button className='text-white bg-blue-500 p-2 rounded-lg w-28 font-semibold  hover:text-blue-500 hover:bg-slate-200 '>
+                    <button disabled={disabled} className='text-white bg-blue-500 p-2 rounded-lg w-28 font-semibold  hover:text-blue-500 hover:bg-slate-200 '>
                         Login
                     </button>
                 </div>
@@ -92,10 +87,10 @@ const LoginForm = () => {
                     </div>
                 </div>
                 <div className='flex flex-row justify-center text-blue-500 font-semibold'>
-                    <p className=''> Don't have an Account?</p>
-                    <Link to="/signup">
-                        <span className='cursor-pointer underline'>Signup</span>
-                    </Link>
+                    <p className=''> Don't have an Account?
+                        <Link to="/signup">
+                            <span className='cursor-pointer underline'>Signup</span>
+                        </Link></p>
                 </div>
             </form>
         </>
