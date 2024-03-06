@@ -1,7 +1,8 @@
 import axios from 'axios'
 import Global from '../Utils/Global';
 import config from '../config.json';
-
+import Cookie from 'universal-cookie';
+const cookies = new Cookie();
 axios.defaults.baseURL = config.server;
 
 export async function registerUser(signupuserdata) {
@@ -22,6 +23,7 @@ export async function loginUser(loginuserdata) {
         }, false);
         Global.user = res.data.user;
         Global.token = res.data.token;
+        cookies.set("token", res.data.token);
         return Promise.resolve(res.data);
     } catch (error) {
         return Promise.reject(error);
@@ -64,9 +66,24 @@ export async function addTeam(teamnamedata) {
 
 export async function getMatches() {
     try {
-        const res = await Global.httpGet('/matches/' + new Date(Date.now()).getFullYear(), false);
-        Global.matches = res.data.matches;
+        const res = await Global.httpGet('/matches/year/' + new Date(Date.now()).getFullYear(), false);
+        Global.matches = res.data.matches.reduce((acc, match) => {
+            acc[match.sis_id] = match;
+            return acc;
+        }, {});
         return Promise.resolve(res.data.matches);
+    }
+    catch (error) {
+        return Promise.reject(error);
+    }
+}
+
+export async function getMatch(matchId)
+{
+    try {
+        const res = await Global.httpGet('/matches/' + matchId, false);
+        Global.matches[matchId] = res.data.match;
+        return Promise.resolve(res.data.match);
     }
     catch (error) {
         return Promise.reject(error);
@@ -81,6 +98,39 @@ export async function addMatch(matchData) {
         const match = data.match;
         Global.matches.push(match);
         return Promise.resolve(match);
+    }
+    catch (error) {
+        return Promise.reject(error);
+    }
+}
+
+export async function getTeam(teamId) {
+    try {
+        const { data } = await Global.httpGet('/teams/team/' + teamId, false);
+        Global.teamMapWithIds[teamId] = data.team;
+        return Promise.resolve(data.team);
+    }
+    catch (error) {
+        return Promise.reject(error);
+    }
+}
+
+export async function getPlayers(teamId, selectedPlayers = true) {
+    try {
+        const { data } = await Global.httpGet('/teams/' + teamId + '/players', false, {selectedPlayers});
+        return Promise.resolve(data.players);
+    }
+    catch (error) {
+        return Promise.reject(error);
+    }
+}
+
+export async function createTicket(title, description, userEmail, userName, userId) {
+    try {
+        const { data } = await Global.httpPost('/tickets', {
+            title, description, userId, userEmail, userName
+        }, false);
+        return Promise.resolve(data.ticket);
     }
     catch (error) {
         return Promise.reject(error);

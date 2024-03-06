@@ -1,18 +1,17 @@
-import React, { useState } from 'react'
-import { GoPerson } from "react-icons/go";
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Link, useParams } from 'react-router-dom'
 import { MdArrowBackIosNew } from "react-icons/md";
 import Accountdetails from '../AccountDetails/Accountdetails';
 import { RiMenu3Fill } from "react-icons/ri";
-import '../Header/MatchHeader.css'
+import '../Header/TeamHeader.css'
 import Global from '../../Utils/Global';
 
 
+const TeamInfoHeader = ({ teamName, deptCC }) => {
 
+    const {teamId}=useParams();
 
-const MatchInfoHeader = ({teamNames}) => {
-
-    const menu = ["Summary", "Scorecard", "Commentary", "Squads"]
+    const menu = ["Players", "Matches"]
     const [drawerOpen, setDrawerOpen] = useState(false);
     const toggleDrawer = () => {
         setDrawerOpen(!drawerOpen);
@@ -27,13 +26,7 @@ const MatchInfoHeader = ({teamNames}) => {
             </div>
             <div className='h-full w-1/2 text-white flex flex-row gap-x-10 items-center justify-center'>
                 <div className='text-xl'>
-                    {teamNames[0].toUpperCase()}
-                </div>
-                <div>
-                    VS
-                </div>
-                <div className='text-xl'>
-                    {teamNames[1].toUpperCase()}
+                    {teamName}
                 </div>
             </div>
 
@@ -43,10 +36,13 @@ const MatchInfoHeader = ({teamNames}) => {
                         <Link key={item} to={item.toLowerCase()} className='text-lg hover:text-slate-500' >{item}</Link>
                     ))
                 }
+                {
+                    deptCC &&
+                    <Link to={`manage`} className='text-lg hover:text-slate-500' >Manage Team</Link>
+                }
             </div>
             {
                 Global.user && Global.token ?
-
                     <div className='hidden md:flex  mr-4'>
                         <Accountdetails />
                     </div> :
@@ -55,7 +51,6 @@ const MatchInfoHeader = ({teamNames}) => {
                             Login
                         </button>
                     </Link>
-
             }
 
 
@@ -95,4 +90,4 @@ const MatchInfoHeader = ({teamNames}) => {
     )
 }
 
-export default MatchInfoHeader
+export default TeamInfoHeader

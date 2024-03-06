@@ -45,7 +45,7 @@ const SignupForm = () => {
         toast.success("Signup uccessfully", {
           id: tId
         })
-        navigate("login");
+        navigate("/login");
       }).catch(err => {
         setDisabled(false)
         toast.error(err, { id: tId });

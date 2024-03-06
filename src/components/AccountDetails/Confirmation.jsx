@@ -19,17 +19,19 @@ const Confirmation = () => {
             Global.user = null;
             Global.token = null;
             cookies.remove("token");
-            navigate('/home');
-        }).catch(err => {
-            console.log(err);
+            navigate('/login');
+        }).catch(_err => {
+            Global.user = null;
+            Global.token = null;
+            cookies.remove("token");
+            navigate('/login');
         })
     }
-
 
     return (
         <div>
             <React.Fragment>
-                <button className=' text-white bg-primary-color text-lg font-Outfit items-center flex gap-1 justify-center p-2 rounded-lg w-28 font-semibold flex-row'
+                <button className='text-white bg-primary-color text-lg font-Outfit items-center flex gap-1 justify-center p-2 rounded-lg w-28 font-semibold flex-row'
                     onClick={() => setOpen(true)} >
                     <FaArrowLeftLong />
                     Logout

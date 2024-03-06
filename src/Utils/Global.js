@@ -13,7 +13,8 @@ export default class Global {
     static token;
     static isVerified;
     static teams = new Array();
-    static matches = new Array();
+    static matches = {};
+    static teamMapWithIds = {};
     static teamMapping = {
         "ce": "CSPIT-CE",
         "dce": "DEPSTAR-CE",
@@ -26,7 +27,7 @@ export default class Global {
         // "dce": "DEPSTAR-CE",
         // "ce": "CSPIT-CE",
         // "dce": "DEPSTAR-CE",
-    }
+    };
     
     static async getUser() {
         return new Promise(async (resolve, reject) => {
@@ -48,7 +49,7 @@ export default class Global {
         })
     }
 
-    static httpGet(endPoint, tokenRequired = true) {
+    static httpGet(endPoint, tokenRequired = true, params = {}) {
         return new Promise(async (resolve, reject) => {
             try {
                 if (!this.token && tokenRequired) {
@@ -60,6 +61,7 @@ export default class Global {
                 cookies.set("token", this.token)
                 try {
                     let output = await axios.get(endPoint, {
+                        params,
                         headers: {
                             "Content-Type": "application/json",
                             Authorization: 'Bearer ' + this.token
@@ -130,6 +132,10 @@ export default class Global {
                 reject("Something went wrong");
             }
         });
+    }
+
+    static isSportsHead() {
+        return this.user?.roles.includes("SPORTS_HEAD");
     }
 }
 
