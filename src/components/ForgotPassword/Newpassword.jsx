@@ -1,13 +1,9 @@
-import React, { useState } from 'react'
-import { FaArrowRight } from "react-icons/fa6";
+import { useFormik } from 'formik';
+import React from 'react';
+import { toast } from 'react-hot-toast';
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-import { useFormik } from 'formik';
 import { changepassword } from '../../Helper/Helper';
-import { toast } from 'react-hot-toast';
-import { Global } from '@emotion/react';
-import Resetcomplete from './ResetComplete';
 
 
 const Newpassword = ({ email, setComponent }) => {

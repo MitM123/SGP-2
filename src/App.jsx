@@ -9,6 +9,8 @@ import UserLayout from './Components/UserLayout/UserLayout';
 import AboutUs from './Pages/Aboutus/AboutUs';
 import ApplyNow from './Pages/ApplyNow/ApplyNow';
 import Contact from './Pages/ContactUs/Contact';
+import Inbox from './Pages/ContactUs/Inbox';
+import Ticket from './Pages/ContactUs/Ticket';
 import Error404 from './Pages/Errors/Error404';
 import Home from './Pages/Home/Home';
 import Login from './Pages/Login';
@@ -23,8 +25,6 @@ import Team from './Pages/Teams/Team';
 import TeamNavigation from './Pages/Teams/TeamNavigation';
 import Teams from './Pages/Teams/Teams';
 import Global from './Utils/Global';
-import Inbox from './Pages/ContactUs/Inbox';
-import Ticket from './Pages/ContactUs/Ticket';
 
 const cookies = new Cookies();
 

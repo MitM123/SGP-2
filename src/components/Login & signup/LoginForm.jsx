@@ -1,13 +1,12 @@
-import { useFormik } from 'formik';
-import React, { useState } from 'react'
-import toast from 'react-hot-toast';
-import { Link, useNavigate } from 'react-router-dom';
-import { Toaster } from 'react-hot-toast'
-import { loginUser } from '../../Helper/Helper';
-import { FcGoogle } from 'react-icons/fc'
-import { auth, provider } from './SignupwithGoogle'
 import { signInWithPopup } from 'firebase/auth';
-import '../Template/Template.css'
+import { useFormik } from 'formik';
+import React, { useState } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
+import { FcGoogle } from 'react-icons/fc';
+import { Link, useNavigate } from 'react-router-dom';
+import { loginUser } from '../../Helper/Helper';
+import '../Template/Template.css';
+import { auth, provider } from './SignupwithGoogle';
 
 const LoginForm = () => {
     const navigate = useNavigate();

@@ -1,7 +1,7 @@
-import axios from 'axios'
+import axios from 'axios';
+import Cookie from 'universal-cookie';
 import Global from '../Utils/Global';
 import config from '../config.json';
-import Cookie from 'universal-cookie';
 const cookies = new Cookie();
 axios.defaults.baseURL = config.server;
 

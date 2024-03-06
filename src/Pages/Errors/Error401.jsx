@@ -1,6 +1,6 @@
 import React from 'react'
-import Error401 from '../../assets/Error401.svg'
 import { Link } from 'react-router-dom'
+import Error401 from '../../assets/Error401.svg'
 const Page404 = () => {
   return (
     <div className='w-full h-full flex items-center mt-3 flex-col'>

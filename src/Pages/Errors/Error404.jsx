@@ -1,7 +1,7 @@
 import React from 'react'
-import Error404 from '../../assets/Error404.svg'
 import { Link } from 'react-router-dom'
 import UserLayout from '../../Components/UserLayout/UserLayout'
+import Error404 from '../../assets/Error404.svg'
 
 const Page404 = () => {
   return (

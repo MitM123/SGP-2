@@ -1,8 +1,8 @@
-import React from 'react'
-import Global from '../../Utils/Global';
 import { Option, Select } from '@mui/joy';
-import { getTeamByName } from '../../Helper/Helper';
+import React from 'react';
 import toast from 'react-hot-toast';
+import { getTeamByName } from '../../Helper/Helper';
+import Global from '../../Utils/Global';
 
 const ApplyNow = () => {
 

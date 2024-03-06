@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react'
-import Global from '../../Utils/Global'
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import Global from '../../Utils/Global';
 
 const Inbox = () => {
   const [page, setPage] = React.useState(1);

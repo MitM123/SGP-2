@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { IoMdAdd } from "react-icons/io";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { getMatches } from '../../Helper/Helper';
 import Loader from '../Loader/Loader';
 import '../Matches/Matches.css';

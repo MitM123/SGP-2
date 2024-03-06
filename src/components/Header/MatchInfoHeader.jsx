@@ -1,14 +1,10 @@
-import React, { useState } from 'react'
-import { GoPerson } from "react-icons/go";
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react';
 import { MdArrowBackIosNew } from "react-icons/md";
-import Accountdetails from '../AccountDetails/Accountdetails';
 import { RiMenu3Fill } from "react-icons/ri";
-import '../Header/MatchHeader.css'
+import { Link } from 'react-router-dom';
 import Global from '../../Utils/Global';
-
-
-
+import Accountdetails from '../AccountDetails/Accountdetails';
+import '../Header/MatchHeader.css';
 
 const MatchInfoHeader = ({teamNames}) => {
 
@@ -17,7 +13,7 @@ const MatchInfoHeader = ({teamNames}) => {
     const toggleDrawer = () => {
         setDrawerOpen(!drawerOpen);
     }
-
+ø
     return (
         <div className='matchheader1 h-[9vh] bg-primary-color flex items-center justify-between w-full font-Outfit'>
             <div className='ml-3'>

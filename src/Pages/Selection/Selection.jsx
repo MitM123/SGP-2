@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react'
-import { getPlayers, getPlayersayers } from '../../Helper/Helper';
+import React, { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 import { useParams } from 'react-router-dom';
 import Loader from '../../Components/Loader/Loader';
-import toast from 'react-hot-toast';
+import { getPlayers } from '../../Helper/Helper';
 import Global from '../../Utils/Global';
 import Error401 from '../Errors/Error401';
 
