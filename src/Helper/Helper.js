@@ -125,11 +125,48 @@ export async function getPlayers(teamId, selectedPlayers = true) {
     }
 }
 
+export async function resetpassword(useremail) {
+    try {
+        const res = await axios.post('/forgotpassword/resetpassword', {
+            email: useremail.email
+        });
+        console.log(res);
+        Global.email = JSON.parse(res.config.data).email;
+        // console.log("Global->", Global.email);
+        return Promise.resolve(res)
+    } catch (error) {
+        return Promise.reject(error);
+    }
+}
+
+export async function otp(verifyotp) {
+    try {
+        console.log(verifyotp)
+        const res = await axios.post('/forgotpassword/verify', {
+            otp: verifyotp
+        })
+        // console.log(res);
+        return Promise.resolve(res)
+    } catch (error) {
+        return Promise.reject(error)
+
+    }
+}
+
+export async function changepassword(values) {
+    try {
+        const res = await axios.post('/forgotpassword/changepassword', values);
+        return Promise.resolve(res);
+    } catch (error) {
+        return Promise.reject(error);
+    }
+}
+
 export async function createTicket(title, description, userEmail, userName, userId) {
     try {
         const { data } = await Global.httpPost('/tickets', {
             title, description, userId, userEmail, userName
-        }, false);
+        });
         return Promise.resolve(data.ticket);
     }
     catch (error) {

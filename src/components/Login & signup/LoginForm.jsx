@@ -64,7 +64,7 @@ const LoginForm = () => {
                 </div>
                 <div className='flex justify-between '>
                     <p className='flex justify-center items-center'>
-                        <Link to='/resetpassword'>
+                        <Link to='/forgetpassword'>
                             <span className='text-white cursor-pointer' >Forgot Password?</span>
                         </Link>
                     </p>

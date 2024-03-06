@@ -2,10 +2,7 @@ import { createContext, useEffect, useState } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import Cookies from "universal-cookie";
 import './App.css';
-import Checkotp from './Components/ForgotPassword/Checkotp';
-import Newpassword from './Components/ForgotPassword/Newpassword';
-import Resetcomplete from './Components/ForgotPassword/Resetcomplete';
-import Resetpassword from './Components/ForgotPassword/Resetpassword';
+import ForgotPassword from './Components/ForgotPassword/ForgotPassword';
 import Loader from './Components/Loader/Loader';
 import Matches from './Components/Matches/Matches';
 import UserLayout from './Components/UserLayout/UserLayout';
@@ -91,10 +88,7 @@ const App = () => {
               <Route path='contact' element={<Contact />} />
               <Route path='applynow' element={<ApplyNow />} />
               <Route path='selection' element={<Selection />} />
-              <Route path='resetpassword' element={<Resetpassword />} />
-              <Route path='checkotp' element={<Checkotp />} />
-              <Route path='newpassword' element={<Newpassword />} />
-              <Route path='resetcomplete' element={<Resetcomplete />} />
+              <Route path='forgetpassword' element={<ForgotPassword />} />
               <Route path='teams' element={<Teams />} />
               <Route path='matches' element={<Matches />} />
               <Route path='inbox' element={<Inbox />} />
@@ -117,14 +111,10 @@ const App = () => {
             </Route>
 
 
-            {
-              ["*", "/error404"].map(path => {
-                return <Route key={path} path='/error404' element={<>
-                  <UserLayout />
-                  <Error404 />
-                </>} />
-              })
-            }
+            <Route key="*" path='/error404' element={<>
+              <UserLayout />
+              <Error404 />
+            </>} />
 
           </Routes>
         }
