@@ -85,7 +85,9 @@ const Selection = () => {
                 !loaded ?
                     <Loader />
                     :
-                    Global.isSportsHead() ?
+                    !Global.isSportsHead() ?
+                        <Error401 />
+                        :
                         <>
                             <div className='w-full h-14 flex items-center justify-end'>
                                 <button className=' text-white bg-primary-color text-lg font-Outfit items-center flex  justify-center p-2 rounded-lg w-24 font-semibold mr-3' onClick={handleConfirm} >
@@ -147,8 +149,6 @@ const Selection = () => {
                                 </div>
                             </div>
                         </>
-                        :
-                        <Error401 />
             }
         </>
     )
