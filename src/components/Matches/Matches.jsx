@@ -28,7 +28,7 @@ const Matches = () => {
             <Loader />
             :
             matches.length === 0 ?
-                <Link to="/addmatch">
+                <Link to="addmatch">
                     <button className='text-white bg-blue-950 p-3 rounded-lg w-30 font-poppins font-semibold  hover:text-black hover:bg-slate-200 flex flex-row items-center gap-1 justify-center'>
                         <IoMdAdd size={20} />
                         Add Match
@@ -37,7 +37,7 @@ const Matches = () => {
                 :
                 <div className='match1 w-full flex flex-col'>
                     <div className='flex justify-end mr-4 items-center h-[10vh]' >
-                        <Link to="/addmatch">
+                        <Link to="addmatch">
                             <button className='text-white bg-blue-950 p-3 rounded-md w-30 font-poppins font-semibold  flex flex-row items-center gap-1'>
                                 <IoMdAdd size={20} />
                                 Add Match

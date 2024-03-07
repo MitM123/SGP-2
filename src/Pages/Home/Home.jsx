@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 // import Header from '../../Components/Header/Header'
 
 import io from 'socket.io-client';
@@ -7,19 +7,31 @@ const socket = io("http://localhost:3000")
 socket.connect();
 
 
-const Home = ({msg, setMsg}) => {
-  socket.on("recieve", e=>{
-    console.log(e)
-  })
-  useEffect(() => {
+const Home = ({ msg, setMsg }) => {
+  let [number, setNumber] = useState(0);
+  const [receivedNumber, setReceivedNumber] = useState(0);
 
+  const handleSubmit = e => {
+    setNumber(++number);
+    socket.emit("sendNumber", { number })
+  }
+
+  useEffect(() => {
+    socket.on("receiveNumber", data => {
+      console.log(data.number)
+      setReceivedNumber(data.number)
+    })
   }, [])
   return (
     <div>
       {/* <Matches /> */}
-      <input type="text" />
-      
-      Spoural Home Page
+      {/* <input type="text" value={message} onChange={e => setMessage(e.target.value)} /> */}
+      <button onClick={handleSubmit}>{number}</button>
+      <br />
+      <br />
+      <br />
+      <br />
+      {receivedNumber}
     </div>
   )
 }

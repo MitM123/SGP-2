@@ -13,7 +13,7 @@ const MatchInfoHeader = ({teamNames}) => {
     const toggleDrawer = () => {
         setDrawerOpen(!drawerOpen);
     }
-ø
+
     return (
         <div className='matchheader1 h-[9vh] bg-primary-color flex items-center justify-between w-full font-Outfit'>
             <div className='ml-3'>

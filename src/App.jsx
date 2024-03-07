@@ -25,6 +25,7 @@ import Team from './Pages/Teams/Team';
 import TeamNavigation from './Pages/Teams/TeamNavigation';
 import Teams from './Pages/Teams/Teams';
 import Global from './Utils/Global';
+import Addmatch from './Pages/AddMatch/Addmatch';
 
 const cookies = new Cookies();
 
@@ -95,12 +96,18 @@ const App = () => {
               <Route path='inbox/:id' element={<Ticket />} />
             </Route>
 
-            <Route path='/matches/:matchId' element={<Matchinfo />}>
-              <Route path='' element={<Summary />} />
-              <Route path='summary' element={<Summary />} />
-              <Route path='scorecard' element={<ScoreCard />} />
-              <Route path='commentary' element={<Commentary />} />
-              <Route path='squads' element={<Squads />} />
+            <Route path='/matches'>
+              <Route path='addmatch' element={<>
+                <UserLayout />
+                <Addmatch />
+              </>} />
+              <Route path=':matchId' element={<Matchinfo />}>
+                <Route path='' element={<Summary />} />
+                <Route path='summary' element={<Summary />} />
+                <Route path='scorecard' element={<ScoreCard />} />
+                <Route path='commentary' element={<Commentary />} />
+                <Route path='squads' element={<Squads />} />
+              </Route>
             </Route>
 
             <Route path='/teams/:teamId' element={<TeamNavigation />} >
