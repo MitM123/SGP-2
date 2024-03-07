@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
-import ResetPassword from './ResetPassword';
+import React, { useState } from 'react';
 import CheckOTP from './CheckOTP';
 import NewPassword from './NewPassword';
 import ResetComplete from './ResetComplete';
+import ResetPassword from './ResetPassword';
 
 const ForgotPassword = () => {
   const [component, setComponent] = useState("resetPassword");

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { Context } from '../../App';
 import Loader from '../../Components/Loader/Loader';
 import { getPlayers } from '../../Helper/Helper';
-import { Context } from '../../App';
 
 const Team = () => {
   const { teamId } = useParams();

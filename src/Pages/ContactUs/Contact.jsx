@@ -1,10 +1,10 @@
+import { useFormik } from 'formik';
 import React from 'react';
-import { FaLocationDot } from "react-icons/fa6";
-import { MdEmail } from "react-icons/md";
+import toast from 'react-hot-toast';
 import { BsFillTelephoneFill } from "react-icons/bs";
 import { FaChrome } from "react-icons/fa";
-import toast from 'react-hot-toast'
-import { useFormik } from 'formik';
+import { FaLocationDot } from "react-icons/fa6";
+import { MdEmail } from "react-icons/md";
 import { createTicket } from '../../Helper/Helper';
 import Global from '../../Utils/Global';
 

@@ -1,6 +1,6 @@
 import axios from 'axios';
-import config from '../config.json'
 import Cookies from "universal-cookie";
+import config from '../config.json';
 
 const cookies = new Cookies();
 

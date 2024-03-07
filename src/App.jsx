@@ -9,6 +9,8 @@ import UserLayout from './Components/UserLayout/UserLayout';
 import AboutUs from './Pages/Aboutus/AboutUs';
 import ApplyNow from './Pages/ApplyNow/ApplyNow';
 import Contact from './Pages/ContactUs/Contact';
+import Inbox from './Pages/ContactUs/Inbox';
+import Ticket from './Pages/ContactUs/Ticket';
 import Error404 from './Pages/Errors/Error404';
 import Home from './Pages/Home/Home';
 import Login from './Pages/Login';
@@ -23,8 +25,6 @@ import Team from './Pages/Teams/Team';
 import TeamNavigation from './Pages/Teams/TeamNavigation';
 import Teams from './Pages/Teams/Teams';
 import Global from './Utils/Global';
-import Inbox from './Pages/ContactUs/Inbox';
-import Ticket from './Pages/ContactUs/Ticket';
 import Addmatch from './Pages/AddMatch/Addmatch';
 
 const cookies = new Cookies();
@@ -99,12 +99,18 @@ const App = () => {
               <Route path='inbox/:id' element={<Ticket />} />
             </Route>
 
-            <Route path='/matches/:matchId' element={<Matchinfo />}>
-              <Route path='' element={<Summary />} />
-              <Route path='summary' element={<Summary />} />
-              <Route path='scorecard' element={<ScoreCard />} />
-              <Route path='commentary' element={<Commentary />} />
-              <Route path='squads' element={<Squads />} />
+            <Route path='/matches'>
+              <Route path='addmatch' element={<>
+                <UserLayout />
+                <Addmatch />
+              </>} />
+              <Route path=':matchId' element={<Matchinfo />}>
+                <Route path='' element={<Summary />} />
+                <Route path='summary' element={<Summary />} />
+                <Route path='scorecard' element={<ScoreCard />} />
+                <Route path='commentary' element={<Commentary />} />
+                <Route path='squads' element={<Squads />} />
+              </Route>
             </Route>
 
             <Route path='/teams/:teamId' element={<TeamNavigation />} >

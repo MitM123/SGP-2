@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import Global from '../../Utils/Global';
 import { useFormik } from 'formik';
+import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
+import { useParams } from 'react-router-dom';
+import Global from '../../Utils/Global';
 
 const Ticket = () => {
   const { id } = useParams();

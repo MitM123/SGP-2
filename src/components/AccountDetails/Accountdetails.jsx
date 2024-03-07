@@ -1,13 +1,13 @@
-import React from 'react'
 import Modal from '@mui/joy/Modal';
 import ModalDialog from '@mui/joy/ModalDialog';
-import Global from '../../Utils/Global';
-import { GoPerson } from "react-icons/go";
+import React from 'react';
 import { AiOutlineClose } from "react-icons/ai";
+import { GoPerson } from "react-icons/go";
+import Global from '../../Utils/Global';
 // import { Link } from 'react-router-dom';
-import Confirmation from './Confirmation';
 import { RiInboxArchiveFill } from "react-icons/ri";
 import { Link } from 'react-router-dom';
+import Confirmation from './Confirmation';
 
 
 const Accountdetails = (props) => {

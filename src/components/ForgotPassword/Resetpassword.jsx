@@ -1,9 +1,9 @@
 import { useFormik } from 'formik';
-import React, { useState } from 'react'
+import React from 'react';
+import toast from 'react-hot-toast';
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { Link } from 'react-router-dom';
 import { resetpassword } from '../../Helper/Helper';
-import toast from 'react-hot-toast';
 
 
 const Resetpassword = ({setEmail, setComponent}) => {

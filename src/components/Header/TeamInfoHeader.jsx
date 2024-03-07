@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import React, { useState } from 'react';
 import { MdArrowBackIosNew } from "react-icons/md";
-import Accountdetails from '../AccountDetails/Accountdetails';
 import { RiMenu3Fill } from "react-icons/ri";
-import '../Header/TeamHeader.css'
+import { Link, useParams } from 'react-router-dom';
 import Global from '../../Utils/Global';
+import Accountdetails from '../AccountDetails/Accountdetails';
+import '../Header/TeamHeader.css';
 
 
 const TeamInfoHeader = ({ teamName, deptCC }) => {

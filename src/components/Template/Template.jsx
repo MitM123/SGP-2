@@ -1,7 +1,7 @@
-import SignupForm from '../Login & signup/SignupForm'
-import LoginForm from '../Login & signup/LoginForm'
-import './Template.css'
 import Game from '../../assets/Game2.png'
+import LoginForm from '../Login & signup/LoginForm'
+import SignupForm from '../Login & signup/SignupForm'
+import './Template.css'
 
 const Template = ({ Formtype }) => {
 
