@@ -45,8 +45,9 @@ const Addmatch = () => {
                 toast.success("Match added successfully...", {
                     id: tId
                 })
-                navigate("/home")
+                navigate("home")
             }).catch(err => {
+                console.log(err)
                 toast.error(err, {
                     id: tId
                 })

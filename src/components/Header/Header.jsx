@@ -49,7 +49,7 @@ const Header = () => {
                 </button>
             </div>
             {drawerOpen && (
-                <div className='md:hidden  absolute top-[8vh] inset-x-0 bg-primary-color text-white p-4'  >
+                <div className='md:hidden  absolute top-[8vh] inset-x-0 bg-primary-color text-white p-4 '  >
                     <ul className='flex flex-col gap-5 font-Outfit'>
                         {menu.map((item) => (
                             <Link key={item} to={item.toLowerCase()} onClick={toggleDrawer} className='text-lg flex justify-center hover:text-slate-500'>{item}</Link>

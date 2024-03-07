@@ -25,6 +25,7 @@ import Teams from './Pages/Teams/Teams';
 import Global from './Utils/Global';
 import Inbox from './Pages/ContactUs/Inbox';
 import Ticket from './Pages/ContactUs/Ticket';
+import Addmatch from './Pages/AddMatch/Addmatch';
 
 const cookies = new Cookies();
 
@@ -49,6 +50,7 @@ const App = () => {
         try {
           Global.token = token;
           const user = await Global.getUser();
+          console.log(user)
           Global.user = user;
           setLoaded(true);
         } catch (e) {
@@ -68,7 +70,9 @@ const App = () => {
   }
 
   useEffect(() => {
-    validateSession();
+    (async () => {
+      validateSession();
+    })()
   }, [])
 
   return (
@@ -78,7 +82,6 @@ const App = () => {
           <Loader />
           :
           <Routes>
-
             <Route path='/' element={<UserLayout />}>
               <Route path="home" element={<Home />} />
               <Route path="" element={<Home />} />
@@ -89,8 +92,9 @@ const App = () => {
               <Route path='applynow' element={<ApplyNow />} />
               <Route path='selection' element={<Selection />} />
               <Route path='forgetpassword' element={<ForgotPassword />} />
-              <Route path='teams' element={<Teams />} />
+              <Route path='teams' element={<Teams />} />  
               <Route path='matches' element={<Matches />} />
+              <Route path='addmatch' element={<Addmatch />} />
               <Route path='inbox' element={<Inbox />} />
               <Route path='inbox/:id' element={<Ticket />} />
             </Route>

@@ -95,7 +95,7 @@ const Teams = () => {
                                 Global.user && Global.user.roles.includes("SPORTS_HEAD") &&
                                 <div className='flex justify-end mr-4 items-center h-[10vh]  '>
                                     <React.Fragment>
-                                        <button className='text-white bg-blue-950 p-3 rounded-md w-30 font-poppins font-semibold  flex flex-row items-center gap-1'
+                                        <button className=  'text-white bg-blue-950 p-3 rounded-md w-30 font-poppins font-semibold  flex flex-row items-center gap-1'
                                             onClick={() => { setOpen(true) }}>
                                             <IoMdAdd size={20} />
                                             Add Team
