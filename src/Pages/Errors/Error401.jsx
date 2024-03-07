@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import Error401 from '../../assets/Error401.svg'
-const Page404 = () => {
+const Page401 = ({message}) => {
   return (
     <div className='w-full h-full flex items-center mt-3 flex-col'>
       <div className='w-[40%] h-[75vh]  drop-shadow-2xl'>
@@ -24,4 +24,4 @@ const Page404 = () => {
   )
 }
 
-export default Page404
+export default Page401
