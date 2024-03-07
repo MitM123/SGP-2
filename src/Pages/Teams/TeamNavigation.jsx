@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { Outlet, useParams } from 'react-router-dom';
+import { Context } from '../../App';
 import TeamInfoHeader from '../../Components/Header/TeamInfoHeader';
-import './TeamNavigation.css'
+import Loader from '../../Components/Loader/Loader';
 import { getTeam } from '../../Helper/Helper';
 import Global from '../../Utils/Global';
-import { Context } from '../../App';
 import Error404 from '../Errors/Error404';
-import Loader from '../../Components/Loader/Loader';
+import './TeamNavigation.css';
 
 const TeamNavigation = () => {
 

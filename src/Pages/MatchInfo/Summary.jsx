@@ -1,10 +1,9 @@
 import React from 'react'
-import VS_IMG from '../../assets/VS.png'
-import '../MatchInfo/Summary.css'
-import Global from '../../Utils/Global'
 import { useParams } from 'react-router-dom'
 import { Context } from '../../App'
-import Error404 from '../Errors/Error404'
+import Global from '../../Utils/Global'
+import VS_IMG from '../../assets/VS.png'
+import '../MatchInfo/Summary.css'
 
 function Summary() {
 

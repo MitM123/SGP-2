@@ -1,10 +1,9 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { GoPerson } from "react-icons/go";
-import Accountdetails from '../AccountDetails/Accountdetails';
+import React, { useState } from 'react';
 import { RiMenu3Fill } from "react-icons/ri";
-import '../Header/Header.css'
+import { Link } from 'react-router-dom';
 import Global from '../../Utils/Global';
+import Accountdetails from '../AccountDetails/Accountdetails';
+import '../Header/Header.css';
 
 
 const Header = () => {
@@ -49,7 +48,7 @@ const Header = () => {
                 </button>
             </div>
             {drawerOpen && (
-                <div className='md:hidden  absolute top-[8vh] inset-x-0 bg-primary-color text-white p-4'  >
+                <div className='md:hidden  absolute top-[8vh] inset-x-0 bg-primary-color text-white p-4 '  >
                     <ul className='flex flex-col gap-5 font-Outfit'>
                         {menu.map((item) => (
                             <Link key={item} to={item.toLowerCase()} onClick={toggleDrawer} className='text-lg flex justify-center hover:text-slate-500'>{item}</Link>
@@ -59,7 +58,7 @@ const Header = () => {
                             Global.user && Global.token ?
                                 <div className='flex justify-center'>
                                     <Accountdetails />
-                                </div>
+                               </div>
                                 :
                                 <Link to='/login' className='flex justify-center'>
                                     <div className='flex justify-center'>

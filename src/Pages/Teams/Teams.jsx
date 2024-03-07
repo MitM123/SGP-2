@@ -1,16 +1,15 @@
-import React from 'react'
-import { IoMdAdd } from 'react-icons/io';
-import { useState, useEffect } from 'react';
 import Modal from '@mui/joy/Modal';
 import ModalDialog from '@mui/joy/ModalDialog';
-import { AiOutlineClose } from "react-icons/ai";
-import { Link } from 'react-router-dom';
 import { useFormik } from 'formik';
-import { addTeam, getTeams } from '../../Helper/Helper';
+import React, { useEffect } from 'react';
 import toast from 'react-hot-toast';
-import './Teams.css'
+import { AiOutlineClose } from "react-icons/ai";
+import { IoMdAdd } from 'react-icons/io';
+import { Link } from 'react-router-dom';
 import Loader from '../../Components/Loader/Loader';
+import { addTeam, getTeams } from '../../Helper/Helper';
 import Global from '../../Utils/Global';
+import './Teams.css';
 
 const Teams = () => {
 
@@ -95,7 +94,7 @@ const Teams = () => {
                                 Global.user && Global.user.roles.includes("SPORTS_HEAD") &&
                                 <div className='flex justify-end mr-4 items-center h-[10vh]  '>
                                     <React.Fragment>
-                                        <button className='text-white bg-blue-950 p-3 rounded-md w-30 font-poppins font-semibold  flex flex-row items-center gap-1'
+                                        <button className=  'text-white bg-blue-950 p-3 rounded-md w-30 font-poppins font-semibold  flex flex-row items-center gap-1'
                                             onClick={() => { setOpen(true) }}>
                                             <IoMdAdd size={20} />
                                             Add Team

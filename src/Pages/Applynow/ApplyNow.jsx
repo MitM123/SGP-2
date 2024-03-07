@@ -1,10 +1,19 @@
-import React from 'react'
-import Global from '../../Utils/Global';
 import { Option, Select } from '@mui/joy';
-import { getTeamByName } from '../../Helper/Helper';
+import React from 'react';
 import toast from 'react-hot-toast';
+import { getTeamByName } from '../../Helper/Helper';
+import Global from '../../Utils/Global';
 
 const ApplyNow = () => {
+    const [open, setOpen] = useState(false);
+
+    const handleSelectChange = (e) => {
+        if (e.target.textContent === "Cricket") {
+            setOpen(true);
+        } else {
+            setOpen(false);
+        }
+    }
 
     var pattern = /(?:\(d\))?(\d+)([a-zA-Z]+)\d+@charusat\.edu\.in/;
 
@@ -18,6 +27,7 @@ const ApplyNow = () => {
     }
 
     const [sport, setSport] = React.useState('');
+    const [category, setCategory] = React.useState('');
 
     // var extractedString1 = extractString(id1); // "ce"
     // var extractedString2 = extractString(id2); // "ce"
@@ -51,35 +61,67 @@ const ApplyNow = () => {
     }
 
     return (
-        <div className='w-full h-[92vh] flex justify-center items-center'>
-            <div className='mainsignup flex flex-col w-3/12 gap-y-6 font-poppins'>
-                <h1 className='text-black font-bold text-2xl flex justify-center font-poppins'>APPLY FOR SPORTS</h1>
-                <div className='flex flex-col gap-y-6'>
-                    <div className='h-12 w-full p-2 flex bg-slate-300 rounded-md text-black text-lg font-Outfit items-center'>
-                        {Global.user.name}
+        <>
+            {
+                !Global.user ?
+                    <>
+                        <Error401 message = {`Loading is required...`}/>
+                    </>
+                    :
+                    <div className='w-full h-[92vh] flex justify-center items-center'>
+                        <div className='mainsignup flex flex-col w-3/12 gap-y-6 font-poppins'>
+                            <h1 className='text-black font-bold text-2xl flex justify-center font-poppins'>APPLY FOR SPORTS</h1>
+                            <div className='flex flex-col gap-y-6'>
+                                <div className='h-12 w-full p-2 flex bg-slate-300 rounded-md text-black text-lg font-Outfit items-center'>
+                                    {Global.user.name}
+                                </div>
+                                <div className='h-12 w-full p-2 flex bg-slate-300  rounded-md text-black text-lg font-Outfit  items-center'>
+                                    {Global.user.email}
+                                </div>
+                                <Select
+                                    placeholder="Select Sport"
+                                    sx={{ width: '100%', padding: 1 }}
+                                    onChange={(e) => { setSport(e.target.textContent); handleSelectChange(e); }}
+                                    slotProps={{
+                                        listbox: {
+                                            placement: 'bottom-start',
+                                        },
+                                    }}>
+                                    <Option value='cricket'>
+                                        Cricket
+                                    </Option>
+                                </Select>
+                                {
+                                    open &&
+                                    <Select
+                                        placeholder="Select Category"
+                                        sx={{ width: '100%', padding: 1 }}
+                                        // onChange={(e) => setSport(e.target.textContent)}
+                                        slotProps={{
+                                            listbox: {
+                                                placement: 'bottom-start',
+                                            },
+                                        }}>
+                                        <Option value='Batsman'>
+                                            Batsman
+                                        </Option>
+                                        <Option value='All Rounder'>
+                                            All Rounder
+                                        </Option>
+                                        <Option value='Bowler'>
+                                            Bowler
+                                        </Option>
+                                    </Select>
+                                }
+                                <button className='text-white w-full bg-primary-color text-lg font-Outfit items-center flex  justify-center p-2 rounded-lg font-semibold' onClick={handleSubmit} >
+                                    APPLY NOW
+                                </button>
+                            </div>
+                        </div >
                     </div>
-                    <div className='h-12 w-full p-2 flex bg-slate-300  rounded-md text-black text-lg font-Outfit  items-center'>
-                        {Global.user.email}
-                    </div>
-                    <Select
-                        placeholder="Select Sport"
-                        sx={{ width: '100%', padding: 1 }}
-                        onChange={(e) => setSport(e.target.textContent)}
-                        slotProps={{
-                            listbox: {
-                                placement: 'bottom-start',
-                            },
-                        }}>
-                        <Option value='cricket'>
-                            Cricket
-                        </Option>
-                    </Select>
-                    <button className='text-white w-full bg-primary-color text-lg font-Outfit items-center flex  justify-center p-2 rounded-lg font-semibold' onClick={handleSubmit} >
-                        APPLY NOW
-                    </button>
-                </div>
-            </div >
-        </div>
+            }
+        </>
+
     )
 }
 

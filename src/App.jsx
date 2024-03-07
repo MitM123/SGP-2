@@ -2,16 +2,15 @@ import { createContext, useEffect, useState } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import Cookies from "universal-cookie";
 import './App.css';
-import Checkotp from './Components/ForgotPassword/Checkotp';
-import Newpassword from './Components/ForgotPassword/Newpassword';
-import Resetcomplete from './Components/ForgotPassword/Resetcomplete';
-import Resetpassword from './Components/ForgotPassword/Resetpassword';
+import ForgotPassword from './Components/ForgotPassword/ForgotPassword';
 import Loader from './Components/Loader/Loader';
 import Matches from './Components/Matches/Matches';
 import UserLayout from './Components/UserLayout/UserLayout';
 import AboutUs from './Pages/Aboutus/AboutUs';
 import ApplyNow from './Pages/ApplyNow/ApplyNow';
 import Contact from './Pages/ContactUs/Contact';
+import Inbox from './Pages/ContactUs/Inbox';
+import Ticket from './Pages/ContactUs/Ticket';
 import Error404 from './Pages/Errors/Error404';
 import Home from './Pages/Home/Home';
 import Login from './Pages/Login';
@@ -26,8 +25,7 @@ import Team from './Pages/Teams/Team';
 import TeamNavigation from './Pages/Teams/TeamNavigation';
 import Teams from './Pages/Teams/Teams';
 import Global from './Utils/Global';
-import Inbox from './Pages/ContactUs/Inbox';
-import Ticket from './Pages/ContactUs/Ticket';
+import Addmatch from './Pages/AddMatch/Addmatch';
 
 const cookies = new Cookies();
 
@@ -52,6 +50,7 @@ const App = () => {
         try {
           Global.token = token;
           const user = await Global.getUser();
+          console.log(user)
           Global.user = user;
           setLoaded(true);
         } catch (e) {
@@ -71,7 +70,9 @@ const App = () => {
   }
 
   useEffect(() => {
-    validateSession();
+    (async () => {
+      validateSession();
+    })()
   }, [])
 
   return (
@@ -81,7 +82,6 @@ const App = () => {
           <Loader />
           :
           <Routes>
-
             <Route path='/' element={<UserLayout />}>
               <Route path="home" element={<Home />} />
               <Route path="" element={<Home />} />
@@ -91,22 +91,26 @@ const App = () => {
               <Route path='contact' element={<Contact />} />
               <Route path='applynow' element={<ApplyNow />} />
               <Route path='selection' element={<Selection />} />
-              <Route path='resetpassword' element={<Resetpassword />} />
-              <Route path='checkotp' element={<Checkotp />} />
-              <Route path='newpassword' element={<Newpassword />} />
-              <Route path='resetcomplete' element={<Resetcomplete />} />
-              <Route path='teams' element={<Teams />} />
+              <Route path='forgetpassword' element={<ForgotPassword />} />
+              <Route path='teams' element={<Teams />} />  
               <Route path='matches' element={<Matches />} />
+              <Route path='addmatch' element={<Addmatch />} />
               <Route path='inbox' element={<Inbox />} />
               <Route path='inbox/:id' element={<Ticket />} />
             </Route>
 
-            <Route path='/matches/:matchId' element={<Matchinfo />}>
-              <Route path='' element={<Summary />} />
-              <Route path='summary' element={<Summary />} />
-              <Route path='scorecard' element={<ScoreCard />} />
-              <Route path='commentary' element={<Commentary />} />
-              <Route path='squads' element={<Squads />} />
+            <Route path='/matches'>
+              <Route path='addmatch' element={<>
+                <UserLayout />
+                <Addmatch />
+              </>} />
+              <Route path=':matchId' element={<Matchinfo />}>
+                <Route path='' element={<Summary />} />
+                <Route path='summary' element={<Summary />} />
+                <Route path='scorecard' element={<ScoreCard />} />
+                <Route path='commentary' element={<Commentary />} />
+                <Route path='squads' element={<Squads />} />
+              </Route>
             </Route>
 
             <Route path='/teams/:teamId' element={<TeamNavigation />} >
@@ -117,14 +121,10 @@ const App = () => {
             </Route>
 
 
-            {
-              ["*", "/error404"].map(path => {
-                return <Route key={path} path='/error404' element={<>
-                  <UserLayout />
-                  <Error404 />
-                </>} />
-              })
-            }
+            <Route key="*" path='/error404' element={<>
+              <UserLayout />
+              <Error404 />
+            </>} />
 
           </Routes>
         }

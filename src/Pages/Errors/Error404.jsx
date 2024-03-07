@@ -1,7 +1,7 @@
 import React from 'react'
-import Error404 from '../../assets/Error404.svg'
 import { Link } from 'react-router-dom'
 import UserLayout from '../../Components/UserLayout/UserLayout'
+import Error404 from '../../assets/Error404.svg'
 
 const Page404 = () => {
   return (
@@ -12,7 +12,7 @@ const Page404 = () => {
         <img src={Error404} alt='No' className='w-full h-full' />
       </div>
       <h3 className='font-semibold font-Rubik text-lg drop-shadow-sm'>Requested resource doesn't exist...</h3>
-      <h3 className='font-semibold font-Rubik text-lg drop-shadow-sm'>Click here to go back to <Link to={"/home"}>HOME</Link></h3>
+      <h3 className='font-semibold font-Rubik text-lg drop-shadow-sm'>Click here to go back to <Link to={"/home"} className='underline hover:text-gray-600'>Home</Link></h3>
     </div>
     </>
   )
