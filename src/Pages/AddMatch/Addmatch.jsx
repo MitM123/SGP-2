@@ -6,7 +6,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { useFormik } from 'formik';
 import React, { useEffect } from 'react';
-import { toast } from 'react-hot-toast';
+import { toast } from 'sonner';
 import { FaArrowRight } from "react-icons/fa6";
 import { useNavigate } from 'react-router-dom';
 import { addMatch, getTeams } from '../../Helper/Helper';
@@ -38,19 +38,18 @@ const Addmatch = () => {
         onSubmit: async values => {
             values = await Object.assign(values);
             const tId = toast.loading("Adding match...");
-            let addMatchPromise = addMatch(values);
-
-            addMatchPromise.then(() => {
-                toast.success("Match added successfully...", {
-                    id: tId
+            setTimeout(() => {
+                addMatch(values).then(() => {
+                    toast.success("Match added successfully...", {
+                        id: tId
+                    })
+                    navigate("/matches")
+                }).catch(err => {
+                    toast.error(err, {
+                        id: tId
+                    })
                 })
-                navigate("home")
-            }).catch(err => {
-                console.log(err)
-                toast.error(err, {
-                    id: tId
-                })
-            })
+            }, 1000);
         }
     })
 

@@ -47,7 +47,7 @@ const Matches = () => {
                                         </button >
                                     </Link>
                                 </div >
-                                <div className='match2 grid grid-cols-3 gap-4 mt-4 w-full h-[79vh] overflow-y-scroll' >
+                                <div className='match2 grid grid-cols-3 gap-4 mt-4 w-full' >
                                     {
                                         matches.map(match => {
                                             return (
@@ -92,7 +92,135 @@ const Matches = () => {
                             </div >
                         :
                         <>
-                            USERR
+                            <div className='h-[90vh] w-full'>
+                                <div className='h-[30vh] w-full p-5'>
+                                    <h1 className='flex justify-center text-2xl font-Rubik'>Live Match</h1>
+                                    <div className='h-full w-full flex flex-row'>
+                                        <div className='w-full'>
+                                            <div className=' bg-primary-color h-32 ml-4 mr-4 rounded-lg w-[30vw]'>
+                                                <div className='text-white flex flex-row justify-between w-full h-9 items-center text-xs font-poppins font-semibold'>
+                                                    <div className='ml-5'>
+                                                        Spoural 2k24
+                                                    </div>
+                                                    <div className='mr-5'>
+                                                        {/* {new Date(match.date).toLocaleTimeString().slice(0, 4)} */}
+                                                        12:00
+                                                    </div>
+                                                </div>
+                                                <div className='ml-4 h-[1px] mr-4 bg-black'></div>
+                                                <div className='h-12 flex flex-row justify-around items-center font-poppins'>
+                                                    <div className='text-white font-semibold '>
+                                                        {/* {match.team1.name.toUpperCase()} */}
+                                                        CSPIT-CE
+                                                    </div>
+                                                    <div className=' text-blue-600 text-xl'>
+                                                        vs
+                                                    </div>
+                                                    <div className='text-white font-semibold '>
+                                                        {/* {match.team2.name.toUpperCase()} */}
+                                                        CSPIT-IT
+                                                    </div>
+
+                                                </div>
+                                                <div className='ml-4 h-[0.5px] mr-4 bg-black'></div>
+                                                <div className='text-white flex flex-row justify-between w-full h-9 items-center text-xs font-poppins font-semibold'>
+                                                    <div className='ml-5'>
+                                                        {/* {new Date(match.date).toLocaleDateString()} */}
+                                                        14/1/2025
+                                                    </div>
+                                                    <div className='mr-5'>
+                                                        CHARUSAT
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className='h-[30vh] w-full p-5'>
+                                    <h1 className='flex justify-center text-2xl font-Rubik'>Upcoming Matches</h1>
+                                    <div className='w-full'>
+                                        <div className=' bg-primary-color h-32 ml-4 mr-4 rounded-lg w-[30vw]'>
+                                            <div className='text-white flex flex-row justify-between w-full h-9 items-center text-xs font-poppins font-semibold'>
+                                                <div className='ml-5'>
+                                                    Spoural 2k24
+                                                </div>
+                                                <div className='mr-5'>
+                                                    {/* {new Date(match.date).toLocaleTimeString().slice(0, 4)} */}
+                                                    12:00
+                                                </div>
+                                            </div>
+                                            <div className='ml-4 h-[1px] mr-4 bg-black'></div>
+                                            <div className='h-12 flex flex-row justify-around items-center font-poppins'>
+                                                <div className='text-white font-semibold '>
+                                                    {/* {match.team1.name.toUpperCase()} */}
+                                                    CSPIT-CE
+                                                </div>
+                                                <div className=' text-blue-600 text-xl'>
+                                                    vs
+                                                </div>
+                                                <div className='text-white font-semibold '>
+                                                    {/* {match.team2.name.toUpperCase()} */}
+                                                    CSPIT-IT
+                                                </div>
+
+                                            </div>
+                                            <div className='ml-4 h-[0.5px] mr-4 bg-black'></div>
+                                            <div className='text-white flex flex-row justify-between w-full h-9 items-center text-xs font-poppins font-semibold'>
+                                                <div className='ml-5'>
+                                                    {/* {new Date(match.date).toLocaleDateString()} */}
+                                                    14/1/2025
+                                                </div>
+                                                <div className='mr-5'>
+                                                    CHARUSAT
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className='h-[30vh] w-full p-5'>
+                                    <h1 className='flex justify-center text-2xl font-Rubik'>Completed Matches</h1>
+                                    <div className='w-full'>
+                                        <div className=' bg-primary-color h-32 ml-4 mr-4 rounded-lg w-[30vw]'>
+                                            <div className='text-white flex flex-row justify-between w-full h-9 items-center text-xs font-poppins font-semibold'>
+                                                <div className='ml-5'>
+                                                    Spoural 2k24
+                                                </div>
+                                                <div className='mr-5'>
+                                                    {/* {new Date(match.date).toLocaleTimeString().slice(0, 4)} */}
+                                                    12:00
+                                                </div>
+                                            </div>
+                                            <div className='ml-4 h-[1px] mr-4 bg-black'></div>
+                                            <div className='h-12 flex flex-row justify-around items-center font-poppins'>
+                                                <div className='text-white font-semibold '>
+                                                    {/* {match.team1.name.toUpperCase()} */}
+                                                    CSPIT-CE
+                                                </div>
+                                                <div className=' text-blue-600 text-xl'>
+                                                    vs
+                                                </div>
+                                                <div className='text-white font-semibold '>
+                                                    {/* {match.team2.name.toUpperCase()} */}
+                                                    CSPIT-IT
+                                                </div>
+
+                                            </div>
+                                            <div className='ml-4 h-[0.5px] mr-4 bg-black'></div>
+                                            <div className='text-white flex flex-row justify-between w-full h-9 items-center text-xs font-poppins font-semibold'>
+                                                <div className='ml-5'>
+                                                    {/* {new Date(match.date).toLocaleDateString()} */}
+                                                    14/1/2025
+                                                </div>
+                                                <div className='mr-5'>
+                                                    CHARUSAT
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
                         </>
             }
         </>

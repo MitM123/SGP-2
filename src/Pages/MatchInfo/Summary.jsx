@@ -21,7 +21,7 @@ function Summary() {
     }
     const makeString = (match) => {
         let string = `${winningTeam.name.toUpperCase()} won by `;
-        if (winningTeam.sis_id == match.tossWonBy) {
+        if (winningTeam.sis_id === match.tossWonBy) {
             string += `${match.wonBy === match.team1Id ? match.team1Runs : match.team2Runs} runs`;
         } else {
             string += `${10 - winningTeam.wickets} wickets`;

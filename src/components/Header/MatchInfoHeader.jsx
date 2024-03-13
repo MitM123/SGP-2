@@ -8,7 +8,7 @@ import '../Header/MatchHeader.css';
 
 const MatchInfoHeader = ({teamNames}) => {
 
-    const menu = ["Summary", "Scorecard", "Commentary", "Squads"]
+    const menu = ["Summary", "Scorecard", "Commentary", "Squads","Livescore"]
     const [drawerOpen, setDrawerOpen] = useState(false);
     const toggleDrawer = () => {
         setDrawerOpen(!drawerOpen);

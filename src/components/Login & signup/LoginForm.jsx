@@ -1,7 +1,7 @@
 import { signInWithPopup } from 'firebase/auth';
 import { useFormik } from 'formik';
 import React, { useState } from 'react';
-import toast, { Toaster } from 'react-hot-toast';
+import { Toaster, toast } from 'sonner';
 import { FcGoogle } from 'react-icons/fc';
 import { Link, useNavigate } from 'react-router-dom';
 import { loginUser } from '../../Helper/Helper';
@@ -35,10 +35,9 @@ const LoginForm = () => {
             values = await Object.assign(values);
             let loginuserPromise = loginUser(values);
             const tId = toast.loading("Logging in...");
+            console.log(tId)
             loginuserPromise.then(_ => {
-                toast.success("Logged in successfully", {
-                    id: tId
-                })
+                toast.success("Logged in successfully", { duration: 4000, id: tId })
                 navigate("/home");
             }).catch(err => {
                 setDisabled(false)
@@ -51,7 +50,6 @@ const LoginForm = () => {
 
     return (
         <>
-            <Toaster></Toaster>
             <form action="" className='mainlogin flex flex-col w-3/6 gap-y-8 font-poppins ' onSubmit={formik.handleSubmit}>
                 <h1 className='text-white font-bold text-2xl flex justify-center font-poppins '>Login</h1>
                 <div className='flex flex-col gap-y-1 '>

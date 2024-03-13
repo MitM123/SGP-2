@@ -1,6 +1,6 @@
 import { useFormik } from 'formik';
 import React, { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
+import {toast} from 'sonner';
 import { useParams } from 'react-router-dom';
 import Global from '../../Utils/Global';
 

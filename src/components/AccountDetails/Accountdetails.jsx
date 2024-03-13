@@ -17,7 +17,7 @@ const Accountdetails = (props) => {
     <>
       <React.Fragment>
         <Link to='/inbox'>
-        <RiInboxArchiveFill color='white' size={30} className='hover:cursor-pointer' />
+          <RiInboxArchiveFill color='white' size={30} className='hover:cursor-pointer' />
         </Link>
         <button
           onClick={() => {
@@ -27,7 +27,7 @@ const Accountdetails = (props) => {
           <GoPerson color='white' size={30} className='hover:cursor-pointer' />
         </button>
         <Modal open={open} >
-          <ModalDialog sx={{ width: '30%', height: '60%', padding: '0', '@media(max-width:680px)': { height: '40%' },'@media(max-width:420px)': { height: '50%' } }}>
+          <ModalDialog sx={{ width: '30%', height: '65%', padding: '0', '@media(max-width:680px)': { height: '43%' }, '@media(max-width:420px)': { height: '53%' } }}>
             <div className='h-14 flex justify-between  bg-primary-color'>
               <div className='flex  h-full items-center ml-3 text-white text-2xl font-Jost'>
                 Account Details
@@ -40,6 +40,9 @@ const Accountdetails = (props) => {
               </div>
             </div>
             <div className='flex h-80 flex-col w-[95%] ml-2 '>
+              <div className='w-full flex justify-center'>
+                <img class="mx-auto h-24 rounded-full block sm:mx-0 sm:shrink-0" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHvZ0pbf4bXvAJgVZVuRQqrNWnoWl96cV6wQ&usqp=CAU" alt="Face" />
+              </div>
               <div className='h-14 w-full p-2 flex  rounded-md text-black text-lg font-Outfit items-center'>
                 {Global.user.name}
               </div>

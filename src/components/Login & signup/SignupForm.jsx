@@ -1,7 +1,7 @@
 import { signInWithPopup } from 'firebase/auth';
 import { useFormik } from 'formik';
 import React, { useState } from 'react';
-import toast, { Toaster } from 'react-hot-toast';
+import  {toast, Toaster } from 'sonner';
 import { FcGoogle } from 'react-icons/fc';
 import { Link, useNavigate } from 'react-router-dom';
 import { registerUser } from '../../Helper/Helper';
@@ -37,7 +37,7 @@ const SignupForm = () => {
       setDisabled(true);
       values = await Object.assign(values);
       let registerUserPromises = registerUser(values)
-      const tId = toast.loading("Signup...");
+      const tId = toast.loading("Loading...");
       registerUserPromises.then(_ => {
         toast.success("Signup uccessfully", {
           id: tId
@@ -53,7 +53,7 @@ const SignupForm = () => {
   return (
     <>
       <Toaster></Toaster>
-      <form action="" className='mainsignup flex flex-col w-3/6 gap-y-6 font-poppins' onSubmit={formik.handleSubmit}>
+            <form action="" className='mainsignup flex flex-col w-3/6 gap-y-6 font-poppins' onSubmit={formik.handleSubmit}>
         <h1 className='text-white font-bold text-2xl flex justify-center font-poppins '>Create Account</h1>
         <div className='flex flex-col'>
           <label htmlFor="name" ></label>

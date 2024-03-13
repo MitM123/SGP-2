@@ -1,6 +1,7 @@
 import { Option, Select } from '@mui/joy';
 import React, { useState } from 'react';
-import toast from 'react-hot-toast';
+import { toast } from 'sonner';
+import MyToaster from '../../Components/Toaster/MyToaster';
 import { getTeamByName } from '../../Helper/Helper';
 import Global from '../../Utils/Global';
 import Error401 from '../Errors/Error401';
@@ -34,7 +35,7 @@ const ApplyNow = () => {
     // var extractedString2 = extractString(id2); // "ce"
 
     const handleSubmit = async (e) => {
-        const id = toast.loading(`Applying for ${sport}...`);
+        const id = toast.loading(`Applying for ${sport}...`, {});
         const deptName = extractString(Global.user.email)
         if (!deptName) {
             setTimeout(() => {
@@ -63,10 +64,11 @@ const ApplyNow = () => {
 
     return (
         <>
+            <MyToaster />
             {
                 !Global.user ?
                     <>
-                        <Error401 message = {`Loading is required...`}/>
+                        <Error401 message={`Loading is required...`} />
                     </>
                     :
                     <div className='w-full h-[92vh] flex justify-center items-center'>
@@ -109,8 +111,11 @@ const ApplyNow = () => {
                                         <Option value='All Rounder'>
                                             All Rounder
                                         </Option>
-                                        <Option value='Bowler'>
+                                        <Option value='Bowler'> 
                                             Bowler
+                                        </Option>
+                                        <Option value='Bowler'>
+                                            Batsman(WK)
                                         </Option>
                                     </Select>
                                 }

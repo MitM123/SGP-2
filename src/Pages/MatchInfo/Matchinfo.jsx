@@ -32,7 +32,7 @@ const Matchinfo = () => {
                     :
                     teamNames.length > 0 ?
                         <div className='matchinfo'>
-                            <MatchInfoHeader teamNames={teamNames} />
+                            <MatchInfoHeader teamNames={teamNames } />
                             <Outlet />
                         </div>
                         :

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
+import {toast} from 'sonner';
 import { useParams } from 'react-router-dom';
 import Loader from '../../Components/Loader/Loader';
 import { getPlayers } from '../../Helper/Helper';

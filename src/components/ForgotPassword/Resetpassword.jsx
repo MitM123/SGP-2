@@ -1,6 +1,6 @@
 import { useFormik } from 'formik';
 import React from 'react';
-import toast from 'react-hot-toast';
+import {toast} from 'sonner';
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { Link } from 'react-router-dom';
 import { resetpassword } from '../../Helper/Helper';
@@ -50,7 +50,7 @@ const Resetpassword = ({setEmail, setComponent}) => {
                     </form>
                     <div>
                         <Link to='/login'>
-                            <button className=' text-black mt-2 text-lg font-Outfit items-center flex gap-1 justify-center p-1 rounded-lg  flex-row'>
+                            <button className=' text-black mt-2  text-lg font-Outfit items-center flex gap-1 justify-center p-1 rounded-lg  flex-row'>
                                 <FaArrowLeftLong />
                                 Back to login
                             </button>

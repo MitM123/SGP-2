@@ -1,6 +1,6 @@
 import { useFormik } from 'formik';
 import React from 'react';
-import toast from 'react-hot-toast';
+import {toast} from 'sonner';
 import { BsFillTelephoneFill } from "react-icons/bs";
 import { FaChrome } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";

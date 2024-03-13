@@ -137,6 +137,7 @@ export default class Global {
     static isSportsHead() {
         return this.user?.roles.includes("SPORTS_HEAD");
     }
+    
 }
 
 // module.exports = Global;

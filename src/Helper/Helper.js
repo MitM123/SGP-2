@@ -78,8 +78,7 @@ export async function getMatches() {
     }
 }
 
-export async function getMatch(matchId)
-{
+export async function getMatch(matchId) {
     try {
         const res = await Global.httpGet('/matches/' + matchId, false);
         Global.matches[matchId] = res.data.match;
@@ -96,7 +95,7 @@ export async function addMatch(matchData) {
             team1Id: matchData.team1Id, team2Id: matchData.team2Id, date: matchData.date
         });
         const match = data.match;
-        Global.matches.push(match);
+        Global.matches[match.sis_id] = match;
         return Promise.resolve(match);
     }
     catch (error) {
@@ -117,7 +116,7 @@ export async function getTeam(teamId) {
 
 export async function getPlayers(teamId, selectedPlayers = true) {
     try {
-        const { data } = await Global.httpGet('/teams/' + teamId + '/players', false, {selectedPlayers});
+        const { data } = await Global.httpGet('/teams/' + teamId + '/players', false, { selectedPlayers });
         return Promise.resolve(data.players);
     }
     catch (error) {
@@ -125,38 +124,34 @@ export async function getPlayers(teamId, selectedPlayers = true) {
     }
 }
 
-export async function resetpassword(useremail) {
+export async function resetPassword(useremail) {
     try {
-        const res = await axios.post('/forgotpassword/resetpassword', {
+        const { data } = await Global.httpPost('/forgotpassword/resetPassword', {
             email: useremail.email
-        });
-        console.log(res);
-        Global.email = JSON.parse(res.config.data).email;
-        // console.log("Global->", Global.email);
-        return Promise.resolve(res)
+        }, false);
+        return Promise.resolve(data.user)
     } catch (error) {
+        console.log("error in reset password")
         return Promise.reject(error);
     }
 }
 
 export async function otp(verifyotp) {
     try {
-        console.log(verifyotp)
-        const res = await axios.post('/forgotpassword/verify', {
+        const { data } = await Global.httpPost('/forgotpassword/verify', {
             otp: verifyotp
-        })
-        // console.log(res);
-        return Promise.resolve(res)
+        }, false)
+        return Promise.resolve(data)
     } catch (error) {
         return Promise.reject(error)
 
     }
 }
 
-export async function changepassword(values) {
+export async function changePassword(values) {
     try {
-        const res = await axios.post('/forgotpassword/changepassword', values);
-        return Promise.resolve(res);
+        const {data} = await axios.post('/forgotpassword/changepassword', values);
+        return Promise.resolve(data);
     } catch (error) {
         return Promise.reject(error);
     }

@@ -26,6 +26,7 @@ import TeamNavigation from './Pages/Teams/TeamNavigation';
 import Teams from './Pages/Teams/Teams';
 import Global from './Utils/Global';
 import Addmatch from './Pages/AddMatch/Addmatch';
+import LiveScore from './Pages/MatchInfo/LiveScore';
 
 const cookies = new Cookies();
 
@@ -92,7 +93,7 @@ const App = () => {
               <Route path='applynow' element={<ApplyNow />} />
               <Route path='selection' element={<Selection />} />
               <Route path='forgetpassword' element={<ForgotPassword />} />
-              <Route path='teams' element={<Teams />} />  
+              <Route path='teams' element={<Teams />} />
               <Route path='matches' element={<Matches />} />
               <Route path='addmatch' element={<Addmatch />} />
               <Route path='inbox' element={<Inbox />} />
@@ -110,6 +111,7 @@ const App = () => {
                 <Route path='scorecard' element={<ScoreCard />} />
                 <Route path='commentary' element={<Commentary />} />
                 <Route path='squads' element={<Squads />} />
+                <Route path='livescore' element={<LiveScore />} />
               </Route>
             </Route>
 
