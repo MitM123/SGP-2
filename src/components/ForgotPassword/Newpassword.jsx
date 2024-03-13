@@ -3,7 +3,7 @@ import React from 'react';
 import { toast } from 'sonner';
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { Link } from 'react-router-dom';
-import { changepassword } from '../../Helper/Helper';
+import { changePassword } from '../../Helper/Helper';
 
 
 const Newpassword = ({ email, setComponent }) => {
@@ -18,7 +18,7 @@ const Newpassword = ({ email, setComponent }) => {
             try {
                 values = await Object.assign(values);
 
-                let changepasswordPromise = changepassword(values);
+                let changepasswordPromise = changePassword(values);
                 const tId = toast.loading("Loading in...")
                 changepasswordPromise.then(_ => {
                     toast.success("Password change Successfully", {
