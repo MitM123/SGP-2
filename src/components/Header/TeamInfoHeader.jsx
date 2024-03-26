@@ -9,7 +9,7 @@ import '../Header/TeamHeader.css';
 
 const TeamInfoHeader = ({ teamName, deptCC }) => {
 
-    const {teamId}=useParams();
+    const { teamId } = useParams();
 
     const menu = ["Players", "Matches"]
     const [drawerOpen, setDrawerOpen] = useState(false);
@@ -63,9 +63,16 @@ const TeamInfoHeader = ({ teamName, deptCC }) => {
                 drawerOpen &&
                 <div className='matchheader1 md:hidden  absolute top-[9vh] inset-x-0  bg-primary-color text-white p-4'>
                     <ul className='flex flex-col gap-5 font-Outfit'>
-                        {menu.map((item) => (
+                        {
+                            menu.map((item) => (
                             <Link key={item} to={item.toLowerCase()} onClick={toggleDrawer} className='text-lg flex justify-center hover:text-slate-500'>{item}</Link>
-                        ))}
+                        ))
+                        }
+                        {
+                            deptCC &&
+                            <Link to={`manage`} className='text-lg hover:text-slate-500 flex justify-center
+                            ' >Manage Team</Link>
+                        }
                         {/* Responsive Accountdetails */}
                         {
                             Global.user && Global.token ?

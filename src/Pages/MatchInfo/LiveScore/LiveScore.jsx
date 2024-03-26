@@ -1,21 +1,39 @@
-import React from 'react'
-import Global from '../../Utils/Global'
-import { useState } from 'react'
-import VS_IMG from '../../assets/VS.png'
-import Error401 from '../Errors/Error401'
+import React, { useState } from 'react'
+// import { useParams } from 'react-router-dom'
+// import { Context } from '../../App'
+import Global from '../../../Utils/Global'
+import Modal from '@mui/joy/Modal';
+import { AiOutlineClose } from "react-icons/ai";
+import ModalDialog from '@mui/joy/ModalDialog';
+import VS_IMG from '../../../assets/VS.png'
+import Error401 from '../../Errors/Error401'
 import { LuUndo2 } from "react-icons/lu";
-import Loader from '../../Components/Loader/Loader';
-import { Modal, Box, Typography } from '@mui/material'
+import MatchDetails from './MatchDetails';
 
 const LiveScore = () => {
-  const [loaded, setLoaded] = useState(false);
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  // console.log(teamNames);
 
-  const zeroRun = () => {
-    
-  }
+  const [open, setOpen] = React.useState(false);
+  const [firstNumber] = useState(1);
+  const [secondNumber, setSecondNumber] = useState(0);
+  const [sum, setSum] = useState(0);
+  const [modalHeading, setModalHeading] = useState("");
+
+  const handleInputChange = (e) => {
+    const newValue = parseInt(e.target.value) || 0;
+    setSecondNumber(newValue);
+    calculateSum(newValue);
+  };
+  const calculateSum = (newValue) => {
+    const result = firstNumber + newValue;
+    setSum(result);
+  };
+
+  const handleModalOpen = (heading) => {
+    setModalHeading(heading);
+    setOpen(true);
+  };
+
 
   return (
 
@@ -23,7 +41,6 @@ const LiveScore = () => {
       <Error401 />
       :
       <>
-
         {/* context.match && */}
         <div className='h-[91vh] flex flex-row w-full bg-neutral-300'>
           <div className='flex w-1/2 items-center flex-col mt-10'>
@@ -78,6 +95,9 @@ const LiveScore = () => {
             </div>
           </div>
           <div className='w-1/2 bg-neutral-300'>
+            <div className='w-full p-3 flex justify-end'>
+              <MatchDetails />
+            </div>
             <div className='w-[94%] gap-x-4 flex flex-row h-[12vh] mt-10 ml-5 mr-5 items-center justify-center rounded-md p-2'>
               <h1 className='w-12 rounded-full flex justify-center items-center h-12 bg-green-400'>6</h1>
               <h1 className='w-12 rounded-full flex justify-center items-center h-12 bg-white'>1</h1>
@@ -85,25 +105,54 @@ const LiveScore = () => {
               <h1 className='w-12 rounded-full flex justify-center items-center h-12 bg-white'>WD</h1>
               <h1 className='w-12 rounded-full flex justify-center items-center h-12  bg-blue-400'>4</h1>
             </div>
-            <div className='w-[94%] grid grid-cols-6 font-poppins gap-4 h-[30vh] mt-10 ml-5 mr-5 font-semibold'>
+            <div className='w-[94%] grid grid-cols-6 font-poppins gap-4 h-[40vh] mt-10 ml-5 mr-5 font-semibold'>
               <button className='flex bg-slate-600 text-white h-16 justify-center items-center rounded-md  shadow-lg'>0</button>
               <button className='flex bg-slate-600 text-white h-16 justify-center items-center rounded-md shadow-lg'>1</button>
               <button className='flex bg-slate-600 text-white h-16 justify-center items-center rounded-md shadow-lg'>2</button>
-              <button className='flex bg-slate-600 text-white h-16 justify-center items-center rounded-md shadow-lg ' onClick={handleOpen}>WD</button>
-              <button className='flex bg-slate-600 text-white h-16 justify-center items-center rounded-md shadow-lg'>NB</button>
-              <button className='flex bg-slate-600 text-white h-16 justify-center items-center rounded-md shadow-lg'>LB</button>
+              <button className='flex bg-slate-600 text-white h-16 justify-center items-center rounded-md shadow-lg' onClick={() => handleModalOpen("Wide")}>WD</button>
+              <button className='flex bg-slate-600 text-white h-16 justify-center items-center rounded-md shadow-lg' onClick={() => handleModalOpen("No ball")}>NB</button>
+              <button className='flex bg-slate-600 text-white h-16 justify-center items-center rounded-md shadow-lg' onClick={() => handleModalOpen("Lag Bye")}>LB</button>
               <button className='flex bg-slate-600 text-white h-16 justify-center items-center rounded-md shadow-lg'>3</button>
               <button className='flex bg-slate-600 text-white h-16 justify-center items-center rounded-md shadow-lg'>4</button>
               <button className='flex bg-slate-600 text-white h-16 justify-center items-center rounded-md shadow-lg'>6</button>
-              <button className='flex bg-slate-600 text-white h-16 justify-center items-center rounded-md shadow-lg'>BYE</button>
+              <button className='flex bg-slate-600 text-white h-16 justify-center items-center rounded-md shadow-lg' onClick={() => handleModalOpen("Bye")}>BYE</button>
               <button className='flex bg-slate-600 text-white h-16 justify-center items-center rounded-md shadow-lg col-start-5 col-span-2'>OUT</button>
               <button className='flex bg-slate-600 text-white h-16 justify-center items-center rounded-md shadow-lg flex-row gap-x-1'> <LuUndo2 size={15} /> UNDO</button>
             </div>
           </div>
+          <Modal open={open} >
+            <ModalDialog sx={{ width: '27%', height: '20%', padding: '0', '@media(max-width:680px)': { height: '10%' }, '@media(max-width:420px)': { height: '13%' } }}>
+              <div className='h-14 flex justify-between  bg-primary-color'>
+                <div className='flex  h-full p-2 items-center ml-3 text-white text-2xl font-Jost'>
+                  {modalHeading} Runs
+                </div>
+                <div className='flex items-center mr-3 cursor-pointer'>
+                  <AiOutlineClose color='white' size={25} onClick={(event) => {
+                    event.preventDefault();
+                    setOpen(false);
+                  }} />
+                </div>
+              </div>
+              <div className='flex h-40 flex-row gap-x-2 justify-center font-poppins items-center ml-2 '>
+                <p className='text-2xl'>{firstNumber}</p>
+                <p className='text-2xl'>+</p>
+                <input className='w-10 outline-none pl-2 pr-2 border-2 text-2xl border-black rounded-md'
+                  value={secondNumber}
+                  onChange={handleInputChange}
+                />
+                <p className='text-2xl'>=</p>
+                <p className='text-2xl'>{sum}</p>
+                <button className=' text-white bg-primary-color ml-5 text-lg font-Outfit items-center flex  justify-center p-1 rounded-lg w-20 font-semibold' onClick={(event) => {
+                  event.preventDefault();
+                  setOpen(false);
+                }}>
+                  Confirm
+                </button>
+              </div>
+            </ModalDialog>
+          </Modal>
         </div>
       </>
-
-
   )
 }
 

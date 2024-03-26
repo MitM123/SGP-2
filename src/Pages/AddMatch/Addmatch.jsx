@@ -11,6 +11,7 @@ import { FaArrowRight } from "react-icons/fa6";
 import { useNavigate } from 'react-router-dom';
 import { addMatch, getTeams } from '../../Helper/Helper';
 import '../AddMatch/Addmatch.css';
+import AboutUs from '../Aboutus/AboutUs';
 
 const Addmatch = () => {
 

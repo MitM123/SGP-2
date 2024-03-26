@@ -94,8 +94,8 @@ const Matches = () => {
                         <>
                             <div className='h-[90vh] w-full'>
                                 <div className='h-[30vh] w-full p-5'>
-                                    <h1 className='flex justify-center text-2xl font-Rubik'>Live Match</h1>
-                                    <div className='h-full w-full flex flex-row'>
+                                    <h1 className='flex justify-center text-2xl font-Rubik '>Live Match</h1>
+                                    <div className='h-full w-full flex flex-row '>
                                         <div className='w-full'>
                                             <div className=' bg-primary-color h-32 ml-4 mr-4 rounded-lg w-[30vw]'>
                                                 <div className='text-white flex flex-row justify-between w-full h-9 items-center text-xs font-poppins font-semibold'>
