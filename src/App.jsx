@@ -26,7 +26,7 @@ import TeamNavigation from './Pages/Teams/TeamNavigation';
 import Teams from './Pages/Teams/Teams';
 import Global from './Utils/Global';
 import Addmatch from './Pages/AddMatch/Addmatch';
-import LiveScore from './Pages/MatchInfo/LiveScore';
+import LiveScore from './Pages/MatchInfo/LiveScore/LiveScore';
 
 const cookies = new Cookies();
 
@@ -84,8 +84,8 @@ const App = () => {
           :
           <Routes>
             <Route path='/' element={<UserLayout />}>
-              <Route path="home" element={<Home />} />
-              <Route path="" element={<Home />} />
+              <Route path="home" element={<Matches />} />
+              <Route path="" element={<Matches />} />
               <Route path="login" element={<Login />} />
               <Route path="signup" element={<SignUp />} />
               <Route path="aboutus" element={<AboutUs />} />

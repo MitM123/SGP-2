@@ -6,6 +6,7 @@ import Loader from '../../Components/Loader/Loader';
 import { getMatch } from '../../Helper/Helper';
 import Error404 from '../Errors/Error404';
 import '../MatchInfo/Matchinfo.css';
+import Global from '../../Utils/Global';
 
 const Matchinfo = () => {
     const context = React.useContext(Context);
@@ -32,8 +33,8 @@ const Matchinfo = () => {
                     :
                     teamNames.length > 0 ?
                         <div className='matchinfo'>
-                            <MatchInfoHeader teamNames={teamNames } />
-                            <Outlet />
+                            <MatchInfoHeader teamNames={teamNames} deptCC={Global.user?.roles.includes("DEPT_SPORTS_CC")} />
+                            <Outlet teamNames={teamNames}/>
                         </div>
                         :
                         <>

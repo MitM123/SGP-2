@@ -1,7 +1,7 @@
 import { signInWithPopup } from 'firebase/auth';
 import { useFormik } from 'formik';
 import React, { useState } from 'react';
-import  {toast, Toaster } from 'sonner';
+import { toast, Toaster } from 'sonner';
 import { FcGoogle } from 'react-icons/fc';
 import { Link, useNavigate } from 'react-router-dom';
 import { registerUser } from '../../Helper/Helper';
@@ -39,7 +39,7 @@ const SignupForm = () => {
       let registerUserPromises = registerUser(values)
       const tId = toast.loading("Loading...");
       registerUserPromises.then(_ => {
-        toast.success("Signup uccessfully", {
+        toast.success("Signup successfully", {
           id: tId
         })
         navigate("/login");
@@ -52,8 +52,8 @@ const SignupForm = () => {
 
   return (
     <>
-      <Toaster></Toaster>
-            <form action="" className='mainsignup flex flex-col w-3/6 gap-y-6 font-poppins' onSubmit={formik.handleSubmit}>
+      <Toaster /  >
+      <form action="" className='mainsignup flex flex-col w-3/6 gap-y-6 font-poppins' onSubmit={formik.handleSubmit}>
         <h1 className='text-white font-bold text-2xl flex justify-center font-poppins '>Create Account</h1>
         <div className='flex flex-col'>
           <label htmlFor="name" ></label>
@@ -89,7 +89,7 @@ const SignupForm = () => {
           </div>
         </div>
         <div className='flex flex-row justify-center text-blue-500 font-semibold  items-center'>
-          <p className=''>Don't have an Account?
+          <p className=''>Already have an Account?
             <Link to="/login">
               <span className='cursor-pointer underline'>Login</span>
             </Link></p>
