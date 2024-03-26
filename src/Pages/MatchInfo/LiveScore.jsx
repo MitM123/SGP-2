@@ -1,6 +1,4 @@
 import React from 'react'
-// import { useParams } from 'react-router-dom'
-// import { Context } from '../../App'
 import Global from '../../Utils/Global'
 import { useState } from 'react'
 import VS_IMG from '../../assets/VS.png'
@@ -9,47 +7,15 @@ import { LuUndo2 } from "react-icons/lu";
 import Loader from '../../Components/Loader/Loader';
 import { Modal, Box, Typography } from '@mui/material'
 
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 300,
-  height: 150,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 2,
-};
-
 const LiveScore = () => {
   const [loaded, setLoaded] = useState(false);
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-
-  // const { matchId } = useParams();
-  // const context = React.useContext(Context);
-  // console.log(context);
-  // let match;
-  // let winningTeam;
-  // if (context.match) {
-  //   match = Global.matches[matchId];
-  //   winningTeam = match.wonByTeam;
-  // }
-  // const ballsToOvers = (balls) => {
-  //   return `${Math.floor(balls / 6)}.${balls % 6}`;
-  // }
-  // const makeString = (match) => {
-  //   let string = `${winningTeam.name.toUpperCase()} won by `;
-  //   if (winningTeam.sis_id == match.tossWonBy) {
-  //     string += `${match.wonBy === match.team1Id ? match.team1Runs : match.team2Runs} runs`;
-  //   } else {
-  //     string += `${10 - winningTeam.wickets} wickets`;
-  //   }
-  //   return string;
-  // }
+  const zeroRun = () => {
+    
+  }
 
   return (
 
@@ -133,22 +99,6 @@ const LiveScore = () => {
               <button className='flex bg-slate-600 text-white h-16 justify-center items-center rounded-md shadow-lg col-start-5 col-span-2'>OUT</button>
               <button className='flex bg-slate-600 text-white h-16 justify-center items-center rounded-md shadow-lg flex-row gap-x-1'> <LuUndo2 size={15} /> UNDO</button>
             </div>
-            <Modal
-              open={open}
-              aria-labelledby="modal-modal-title"
-              aria-describedby="modal-modal-description"
-            >
-              <Box sx={style}>
-                <Typography id="modal-modal-title" variant="h6" component="h2">
-                  Add Wide runs
-                </Typography>
-                1+<input className='w-7 border-2 border-black outline-none' />=5
-                <button className=' text-white bg-primary-color text-lg font-Outfit items-center flex  justify-center p-2 rounded-lg w-24 font-semibold '
-                  onClick={handleClose}  >
-                  Confirm
-                </button>
-              </Box>
-            </Modal>
           </div>
         </div>
       </>

@@ -47,7 +47,8 @@ const Newpassword = ({ email, setComponent }) => {
                                 <label htmlFor="newPassword" ></label>
                                 <input type="text" id='newPassword' name='newPassword' required {...formik.getFieldProps('newPassword')} placeholder='New password' className='outline-none text-white p-3 font-Rubik rounded-lg bg-slate-900 w-full ' />
                                 <br />
-                                <label htmlFor="confirmPassword" ></label>
+                                <label
+                                 htmlFor="confirmPassword" ></label>
                                 <input type="text" id='confirmPassword' name='confirmPassword' required {...formik.getFieldProps('confirmPassword')} placeholder='confirm password' className='outline-none text-white p-3 font-Rubik rounded-lg bg-slate-900 w-full ' />
                                 <br />
                             </div>
