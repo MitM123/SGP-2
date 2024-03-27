@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 // import Header from '../../Components/Header/Header'
 
-import io from 'socket.io-client';
+// import io from 'socket.io-client';
 
-const socket = io("http://localhost:3000")
-socket.connect();
+// const socket = io("http://localhost:3000")
+// socket.connect();
 
 
 const Home = ({ msg, setMsg }) => {
@@ -13,14 +13,14 @@ const Home = ({ msg, setMsg }) => {
 
   const handleSubmit = e => {
     setNumber(++number);
-    socket.emit("sendNumber", { number })
+    // socket.emit("sendNumber", { number })
   }
 
   useEffect(() => {
-    socket.on("receiveNumber", data => {
-      console.log(data.number)
-      setReceivedNumber(data.number)
-    })
+    // socket.on("receiveNumber", data => {
+    //   console.log(data.number)
+    //   setReceivedNumber(data.number)
+    // })
   }, [])
   return (
     <div>

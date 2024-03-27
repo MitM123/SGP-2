@@ -28,7 +28,7 @@ export default class Global {
         // "ce": "CSPIT-CE",
         // "dce": "DEPSTAR-CE",
     };
-    
+
     static async getUser() {
         return new Promise(async (resolve, reject) => {
             try {
@@ -137,7 +137,10 @@ export default class Global {
     static isSportsHead() {
         return this.user?.roles.includes("SPORTS_HEAD");
     }
-    
+
+    static ballsToOvers(balls) {
+        return `${Math.floor(balls / 6)}.${balls % 6}`;
+    }
 }
 
 // module.exports = Global;
