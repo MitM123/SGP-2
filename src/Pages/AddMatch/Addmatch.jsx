@@ -73,19 +73,21 @@ const Addmatch = () => {
                             }}
                         >
                             {
-                                teams.map(team => {
-                                    return (
-                                        <Option value={team.sis_id} key={team.sis_id}>
-                                            {team.name}
-                                        </Option>
-                                    )
-                                })
+                                teams
+                                    .filter(t => t.sis_id !== formik.values.team2Id)
+                                    .map(team => {
+                                        return (
+                                            <Option value={team.sis_id} key={team.sis_id}>
+                                                {team.name.toUpperCase()}
+                                            </Option>
+                                        )
+                                    })
                             }
                         </Select>
                         <h2>VS</h2>
                         <Select
                             name='team2Id'
-                            onChange={((_, teamId) => formik.setFieldValue("team2Id", teamId))}
+                            onChange={(_, teamId) => formik.setFieldValue("team2Id", teamId)}
                             placeholder="Select Second Team"
                             sx={{ width: '100%', padding: 1 }}
                             slotProps={{
@@ -95,13 +97,13 @@ const Addmatch = () => {
                             }}
                         >
                             {
-                                teams.map(team => {
-                                    return (
+                                teams
+                                    .filter(team => team.sis_id !== formik.values.team1Id) // Filter out the first selected team
+                                    .map(team => (
                                         <Option value={team.sis_id} key={team.sis_id}>
-                                            {team.name}
+                                            {team.name.toUpperCase()}
                                         </Option>
-                                    )
-                                })
+                                    ))
                             }
                         </Select>
                         <div className='flex flex-row items-center justify-center w-full gap-x-3 mt-2'>
