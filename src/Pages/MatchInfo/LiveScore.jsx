@@ -1,25 +1,40 @@
-import React, { createContext, useContext, useEffect, useState } from 'react'
-import Global from '../../Utils/Global'
-import Error401 from '../Errors/Error401'
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import MatchSummary from './MatchSummary';
-import { getMatch } from '../../Helper/Helper';
-import Loader from '../../Components/Loader/Loader';
+import { AppContext } from '../../App';
+import Global from '../../Utils/Global';
+import Error401 from '../Errors/Error401';
 import OverModal from './LiveScore/OverModal';
+import ScorePanel from './LiveScore/ScorePanel';
 import StrikerBowlerModal from './LiveScore/StrikerBowlerModal';
 import TossModal from './LiveScore/TossModal';
-import InvalidBallRuns from './LiveScore/InvalidBallRuns';
-import ScorePanel from './LiveScore/ScorePanel';
+import MatchSummary from './MatchSummary';
+import { ballsToOvers } from '../../Helper/Helper';
 
 export const LiveScoreContext = createContext();
 
 const LiveScore = () => {
+
+  const appContext = useContext(AppContext);
+
   const { matchId } = useParams();
-  const [match, setMatch] = useState();
-  const [loaded, setLoaded] = useState(false);
-  const [overDetails, setOverDetails] = useState();
-  const [tossDetails, setTossDetails] = useState();
-  const [strikerBowlerDetails, setStrikerBowlerDetails] = useState();
+  const [strikerScore, setStrikerScore] = useState();
+  const [nonStrikerScore, setNonStrikerScore] = useState();
+
+  const [overDetails, setOverDetails] = useState({
+    overs: 0,
+    overPerBowler: 0,
+    powerPlayOvers: 0,
+  });
+  const [tossDetails, setTossDetails] = useState({
+    tossWonByTeamId: "",
+    tossDecision: "",
+  });
+  const [strikerBowlerDetails, setStrikerBowlerDetails] = useState({
+    strikerId: "",
+    nonStrikerId: "",
+    bowlerId: ""
+  })
+
   const [modal, setModal] = useState("");
 
   const modals = {
@@ -28,24 +43,13 @@ const LiveScore = () => {
     "toss": <TossModal open={modal === "toss" ? true : false} />,
   }
 
-  useEffect(() => {
-    getMatch(matchId).then(match => {
-      setLoaded(true);
-      setMatch(match);
-      if (!match.played)
-        setModal("overs");
-    }).catch((e) => {
-      setLoaded(true);
-      console.log(e);
-    })
-  }, [])
-
   const closeModal = () => {
     setModal("");
   }
 
   const startMatch = () => {
-    Global.httpPut(`/matches/${matchId}/start/`, {}, true).then(res => {
+    console.log(tossDetails)
+    Global.httpPut(`/matches/${matchId}/start/`, { ...overDetails, ...tossDetails, ...strikerBowlerDetails }, true).then(res => {
       console.log(res);
     })
   }
@@ -56,46 +60,61 @@ const LiveScore = () => {
         !Global.isSportsHead() ?
           <Error401 />
           :
-          !loaded ?
-            <Loader />
-            :
-            <LiveScoreContext.Provider value={{ setOverDetails, setTossDetails, setStrikerBowlerDetails, setModal, startMatch, closeModal }}>
-              <div className='h-[91vh] flex flex-row w-full bg-neutral-300'>
-                <div className='flex w-1/2 items-center flex-col mt-10'>
-                  <MatchSummary match={match} />
-                  {/* <div className='bg-black h-px w-[80%]'></div>
+          appContext.match &&
+          <LiveScoreContext.Provider value={{ setStrikerScore, setNonStrikerScore, setOverDetails, setTossDetails, setStrikerBowlerDetails, setModal, startMatch, closeModal, tossDetails, strikerBowlerDetails, strikerScore, nonStrikerScore }}>
+            <div className='h-[91vh] flex flex-row w-full bg-neutral-300'>
+              <div className='flex w-1/2 items-center flex-col mt-10'>
+                <MatchSummary />
+                {/* <div className='bg-black h-px w-[80%]'></div>
                 <div>
                   <p className='mt-2 font-Outfit font-semibold'>CSPIT-CE NEED 14 RUNS TO WIN</p>
                 </div> */}
-                  <div className='flex flex-row w-full justify-around h-56 items-center'>
-                    <div className=''>
-                      <h1 className='text-xl font-Rubik mb-3'>CSPIT-CE Batting</h1>
-                      <p className='text-lg font-poppins font-semibold'>M Mit: 17* (20)</p>
-                      <p className='text-lg font-poppins font-semibold'>M Jalay: 18* (21)</p>
-                    </div>
-                    <div>
-                      <h1 className='text-xl font-Rubik mb-3'>CSPIT-IT Bowling</h1>
-                      <p className='text-lg font-poppins font-semibold'>M Mit: 0/12(2.0)</p>
-                      <p className='text-lg font-poppins font-semibold'>M Jalay: 1/10 (3.2)</p>
-                    </div>
-                  </div>
-                </div>
-                <div className='w-1/2 bg-neutral-300'>
-
+                <div className='flex flex-row w-full justify-around h-56 items-center'>
                   {
-                    !match.played &&
+                    appContext.match.played ?
+                      <>
+                        <div className=''>
+                          <h1 className='text-xl font-Rubik mb-3'>{appContext.battingTeamScore.team.name.toUpperCase()} Batting</h1>
+                          <p className='text-lg font-poppins font-semibold'>{appContext.strikerScore.player.user.name}: {appContext.strikerScore.runs}* ({appContext.strikerScore.balls})</p>
+                          <p className='text-lg font-poppins font-semibold'>{appContext.nonStrikerScore.player.user.name}: {appContext.nonStrikerScore.runs} ({appContext.nonStrikerScore.balls})</p>
+                        </div>
+                        <div>
+                          <h1 className='text-xl font-Rubik mb-3'>{appContext.bowlingTeamScore.team.name.toUpperCase()} Bowling</h1>
+                          {console.log(appContext.bowlerScore.wickets)}
+                          <p className='text-lg font-poppins font-semibold'>{appContext.bowlerScore.player.user.name}: {appContext.bowlerScore.wickets}/{appContext.bowlerScore.runs}({ballsToOvers(appContext.bowlerScore.balls)})</p>
+                          {/* <p className='text-lg font-poppins font-semibold'>M Jalay: 1/10 (3.2)</p> */}
+                        </div>
+                      </>
+                      :
+                      <>
+                        <div>
+                          <h1 className='text-xl font-Rubik mb-3'>Match hasn't started yet!</h1>
+                        </div>
+                      </>
+                  }
+                </div>
+              </div>
+              <div className='w-1/2 bg-neutral-300'>
+
+                {
+                  !appContext.match.played &&
+                  <>
                     <div className='w-full p-3 flex justify-end'>
                       {modals[modal]}
                     </div>
-                  }
+                    <button onClick={() => setModal("overs")} className=' text-white bg-primary-color text-lg font-Outfit items-center flex  justify-center p-2 rounded-lg w-32 font-semibold '>
+                      Start match
+                    </button>
+                  </>
+                }
 
-                  {
-                    match.played && <ScorePanel/>
-                  }
-                </div>
-
+                {
+                  appContext.match.played && <ScorePanel />
+                }
               </div>
-            </LiveScoreContext.Provider>
+
+            </div>
+          </LiveScoreContext.Provider>
       }
     </>
   )

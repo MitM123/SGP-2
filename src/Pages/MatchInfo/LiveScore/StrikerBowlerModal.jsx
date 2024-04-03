@@ -1,19 +1,36 @@
-import Modal from '@mui/joy/Modal';
-import ModalDialog from '@mui/joy/ModalDialog';
-import React, { useContext, useState } from 'react';
+import { Modal, ModalDialog, Option, Select } from '@mui/joy';
+import React, { useContext, useEffect, useState } from 'react';
 import { AiOutlineClose } from "react-icons/ai";
 import { LiveScoreContext } from '../LiveScore';
+import { getPlayers } from '../../../Helper/Helper';
+import { AppContext } from '../../../App';
 
-const SelectStriker = ({open}) => {
-    const context = useContext(LiveScoreContext);
-    const [data, setData] = useState({
-        strikerId: "",
-        nonStrikerId: "",
-        bowlerId: ""
-    })
-    const handleButton = () => {
-        context.setData(data);
-        context.startMatch();
+const SelectStriker = ({ open }) => {
+    const liveScoreContext = useContext(LiveScoreContext);
+    const appContext = useContext(AppContext);
+
+    const [batters, setBatters] = useState([]);
+    const [bowlers, setBowlers] = useState([]);
+    const [teams, setTeams] = useState({ battingTeam: null, bowlingTeam: null });
+
+    useEffect(() => {
+        const battingTeam = liveScoreContext.tossDetails.tossDecision === "bat" && appContext.teamAScore.teamId === liveScoreContext.tossDetails.tossWonByTeamId ? appContext.teamAScore : appContext.teamBScore
+        const bowlingTeam = liveScoreContext.tossDetails.tossDecision === "bat" && appContext.teamAScore.teamId === liveScoreContext.tossDetails.tossWonByTeamId ? appContext.teamBScore : appContext.teamAScore
+
+        setTeams({ battingTeam, bowlingTeam })
+        getPlayers(battingTeam.teamId, true).then(players => {
+            console.log(players)
+            setBatters(players)
+        })
+        getPlayers(bowlingTeam.teamId, true).then(players => {
+            console.log("bowlers", players)
+            setBowlers(players)
+        })
+    }, [])
+
+    const startScoring = () => {
+        liveScoreContext.closeModal();
+        liveScoreContext.startMatch();
     }
     return (
         <>
@@ -22,36 +39,107 @@ const SelectStriker = ({open}) => {
                     <ModalDialog sx={{ width: '30%', height: '67%', padding: '0', '@media(max-width:680px)': { height: '45%' }, '@media(max-width:420px)': { height: '55%' } }}>
                         <div className='h-14 flex justify-between '>
                             <div className='flex  h-full items-center ml-3 text-black text-xl font-Jost'>
-                                Batting - CSPIT-CE
+                                Batting - {teams.battingTeam?.name.toUpperCase() || " "}
                             </div>
                             <div className='flex items-center mr-3 cursor-pointer'>
                                 <AiOutlineClose color='black' size={25} onClick={(event) => {
                                     event.preventDefault();
-                                    context.closeModal(false);
+                                    liveScoreContext.closeModal(false);
                                 }} />
                             </div>
                         </div>
                         <div className='flex h-80 flex-col w-[95%] ml-2 gap-y-2 '>
                             <div className='w-full flex justify-evenly'>
-                                <button className=' text-black bg-slate-300 text-lg  font-Outfit items-center flex  justify-center p-2 rounded-lg w-36 h-24 font-semibold '>
-                                    Select Sriker
-                                </button>
-                                <button className=' text-black bg-slate-300 text-lg font-Outfit items-center flex  justify-center p-2 rounded-lg w-36 h-24 font-semibold '>
-                                    Select Non-striker
-                                </button>
+                                <Select
+                                    name='striker'
+                                    onChange={((_, playerId) => liveScoreContext.setStrikerBowlerDetails(prev => { return { ...prev, strikerId: playerId } }))}
+                                    placeholder="Select next striker"
+                                    sx={{ width: '100%', padding: 1 }}
+                                    slotProps={{
+                                        listbox: {
+                                            placement: 'bottom-start',
+                                        },
+                                    }}
+                                >
+                                    {batters.length > 0 ? (
+                                        batters
+                                            .filter(p => p.sis_id !== liveScoreContext.strikerBowlerDetails.nonStrikerId)
+                                            .map((player, i) => (
+                                                <Option value={player.sis_id} key={i}>
+                                                    {player.user.name[0].toUpperCase() + player.user.name.slice(1)}
+                                                </Option>
+                                            ))
+                                    ) : (
+                                        <Option value="1">Loading...</Option>
+                                    )}
+                                </Select>
+
+                                <Select
+                                    name='nonStriker'
+                                    onChange={((_, playerId) => liveScoreContext.setStrikerBowlerDetails(prev => { return { ...prev, nonStrikerId: playerId } }))}
+                                    placeholder="Select next striker"
+                                    sx={{ width: '100%', padding: 1 }}
+                                    slotProps={{
+                                        listbox: {
+                                            placement: 'bottom-start',
+                                        },
+                                    }}
+                                >
+                                    {
+                                        batters.length > 0 ?
+                                            batters
+                                                .filter(p => p.sis_id !== liveScoreContext.strikerBowlerDetails.strikerId)
+                                                .map((player, i) => {
+                                                    return (
+                                                        <Option value={player.sis_id} key={i}>
+                                                            {player.user.name[0].toUpperCase() + player.user.name.slice(1)}
+                                                        </Option>
+                                                    )
+                                                })
+                                            :
+                                            <Option value="1">
+                                                Loading...
+                                            </Option>
+                                    }
+                                </Select>
+
                             </div>
                             <div className='w-full'>
                                 <div className='flex  h-14 items-center ml-1 text-black text-xl font-Jost'>
-                                    Bowling - CSPIT-IT
+                                    Bowling - {teams.bowlingTeam?.name.toUpperCase() || ""}
                                 </div>
                                 <div className='w-full flex '>
-                                    <button className=' text-black bg-slate-300 text-lg ml-6      font-Outfit items-center flex flex-col  justify-center p-2 rounded-lg w-36 h-32  font-semibold'>
-                                        Select Bowler
-                                    </button>
+                                    <Select
+                                        name='bowler'
+                                        onChange={((_, playerId) => liveScoreContext.setStrikerBowlerDetails(prev => { return { ...prev, bowlerId: playerId } }))}
+                                        placeholder="Select next bowler"
+                                        sx={{ width: '100%', padding: 1 }}
+                                        slotProps={{
+                                            listbox: {
+                                                placement: 'bottom-start',
+                                            },
+                                        }}
+                                    >
+                                        {
+                                            bowlers.length > 0 ?
+                                                bowlers
+                                                    .map((player, i) => {
+                                                        return (
+                                                            <Option value={player.sis_id} key={i}>
+                                                                {player.user.name[0].toUpperCase() + player.user.name.slice(1)}
+                                                            </Option>
+                                                        )
+                                                    })
+                                                :
+                                                <Option value="1">
+                                                    Loading...
+                                                </Option>
+                                        }
+                                    </Select>
                                 </div>
 
                                 <div className='w-full mt-3 flex justify-end'>
-                                    <button className='text-white bg-emerald-500 text-md   font-Outfit items-center flex  justify-center p-2 rounded-lg w-36 '>START SCORING</button>
+                                    <button className='text-white bg-emerald-500 text-md   font-Outfit items-center flex  justify-center p-2 rounded-lg w-36 ' onClick={startScoring}>START SCORING</button>
                                 </div>
 
                             </div>

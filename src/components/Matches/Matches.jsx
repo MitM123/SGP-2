@@ -14,6 +14,7 @@ const Matches = () => {
     useEffect(() => {
         setTimeout(() => {
             getMatches().then(matches => {
+                console.log(matches)
                 setLoaded(true);
                 setMatches(matches);
             }).catch(err => {
@@ -58,19 +59,19 @@ const Matches = () => {
                                                                 Spoural 2k24
                                                             </div>
                                                             <div className='mr-5'>
-                                                                {new Date(match.date).toLocaleTimeString().slice(0, 4)}
+                                                                {new Date(match.date).toLocaleTimeString().slice(0, 5)}
                                                             </div>
                                                         </div>
                                                         <div className='ml-4 h-[1px] mr-4 bg-black'></div>
                                                         <div className='h-12 flex flex-row justify-around items-center font-poppins'>
                                                             <div className='text-white font-semibold '>
-                                                                {match.team1.name.toUpperCase()}
+                                                                {match.teamAScore.team.name.toUpperCase()}
                                                             </div>
                                                             <div className=' text-blue-600 text-xl'>
                                                                 vs
                                                             </div>
                                                             <div className='text-white font-semibold '>
-                                                                {match.team2.name.toUpperCase()}
+                                                                {match.teamBScore.team.name.toUpperCase()}
                                                             </div>
 
                                                         </div>

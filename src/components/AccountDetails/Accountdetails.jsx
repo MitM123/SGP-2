@@ -41,7 +41,7 @@ const Accountdetails = (props) => {
             </div>
             <div className='flex h-80 flex-col w-[95%] ml-2 '>
               <div className='w-full flex justify-center'>
-                <img class="mx-auto h-24 rounded-full block sm:mx-0 sm:shrink-0" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHvZ0pbf4bXvAJgVZVuRQqrNWnoWl96cV6wQ&usqp=CAU" alt="Face" />
+                <img className="mx-auto h-24 rounded-full block sm:mx-0 sm:shrink-0" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHvZ0pbf4bXvAJgVZVuRQqrNWnoWl96cV6wQ&usqp=CAU" alt="Face" />
               </div>
               <div className='h-14 w-full p-2 flex  rounded-md text-black text-lg font-Outfit items-center'>
                 {Global.user.name}

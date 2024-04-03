@@ -14,7 +14,6 @@ const ForgotPassword = () => {
     "resetComplete": <ResetComplete />  
   }
   
-  console.log(components[component])
   return (
     <>
       {

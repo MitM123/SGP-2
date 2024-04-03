@@ -28,6 +28,7 @@ export default class Global {
         // "ce": "CSPIT-CE",
         // "dce": "DEPSTAR-CE",
     };
+    static invalidBallTypes = ["WIDE", "NO_BALL"];
 
     static async getUser() {
         return new Promise(async (resolve, reject) => {
@@ -69,6 +70,7 @@ export default class Global {
                     });
                     resolve(output);
                 } catch (err) {
+                    console.log("error: ", err)
                     reject(err?.response?.data?.error || "Something went wrong");
                 }
             } catch (err) {

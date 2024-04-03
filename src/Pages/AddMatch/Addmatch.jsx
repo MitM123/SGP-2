@@ -32,12 +32,21 @@ const Addmatch = () => {
 
     const formik = useFormik({
         initialValues: {
-            team1Id: "",
-            team2Id: "",
+            team1: {
+                name: "",
+                sis_id: ""
+            },
+            team2: {
+                name: "",
+                sis_id: ""
+            },
             date: "",
+            teams: []
         },
         onSubmit: async values => {
+            console.log(values)
             values = await Object.assign(values);
+            values.teams = [values.team1, values.team2]
             const tId = toast.loading("Adding match...");
             setTimeout(() => {
                 addMatch(values).then(() => {
@@ -63,7 +72,13 @@ const Addmatch = () => {
                         <h1 className='text-2xl'>ADD MATCHES</h1>
                         <Select
                             name='team1Id'
-                            onChange={((_, teamId) => formik.setFieldValue("team1Id", teamId))}
+                            onChange={((_, teamData) => {
+                                const sis_id = teamData.split(" ")[0];
+                                teamData = teamData.split(" ");
+                                teamData.shift();
+                                const name = teamData.join(" ");
+                                formik.setFieldValue("team1", { sis_id, name });
+                            })}
                             placeholder="Select First Team"
                             sx={{ width: '100%', padding: 1 }}
                             slotProps={{
@@ -74,10 +89,10 @@ const Addmatch = () => {
                         >
                             {
                                 teams
-                                    .filter(t => t.sis_id !== formik.values.team2Id)
-                                    .map(team => {
+                                .filter(team => team.sis_id !== formik.values.team2.sis_id) // Filter out the first selected team
+                                .map(team => {
                                         return (
-                                            <Option value={team.sis_id} key={team.sis_id}>
+                                            <Option value={team.sis_id + " " + team.name.toLowerCase()} key={team.sis_id}>
                                                 {team.name.toUpperCase()}
                                             </Option>
                                         )
@@ -87,7 +102,13 @@ const Addmatch = () => {
                         <h2>VS</h2>
                         <Select
                             name='team2Id'
-                            onChange={(_, teamId) => formik.setFieldValue("team2Id", teamId)}
+                            onChange={((_, teamData) => {
+                                const sis_id = teamData.split(" ")[0];
+                                teamData = teamData.split(" ");
+                                teamData.shift();
+                                const name = teamData.join(" ");
+                                formik.setFieldValue("team2", { sis_id, name });
+                            })}
                             placeholder="Select Second Team"
                             sx={{ width: '100%', padding: 1 }}
                             slotProps={{
@@ -98,9 +119,9 @@ const Addmatch = () => {
                         >
                             {
                                 teams
-                                    .filter(team => team.sis_id !== formik.values.team1Id) // Filter out the first selected team
+                                    .filter(team => team.sis_id !== formik.values.team1.sis_id) // Filter out the first selected team
                                     .map(team => (
-                                        <Option value={team.sis_id} key={team.sis_id}>
+                                        <Option value={team.sis_id + " " + team.name.toLowerCase()} key={team.sis_id}>
                                             {team.name.toUpperCase()}
                                         </Option>
                                     ))

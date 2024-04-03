@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Outlet, useParams } from 'react-router-dom';
-import { Context } from '../../App';
+import { AppContext } from '../../App';
 import TeamInfoHeader from '../../Components/Header/TeamInfoHeader';
 import Loader from '../../Components/Loader/Loader';
 import { getTeam } from '../../Helper/Helper';
@@ -12,7 +12,7 @@ const TeamNavigation = () => {
 
     const { teamId } = useParams();
     const [teamName, setTeamName] = useState(null);
-    const context = React.useContext(Context);
+    const context = React.useContext(AppContext);
     const [loaded, setLoaded] = useState(false);
 
     useEffect(() => {

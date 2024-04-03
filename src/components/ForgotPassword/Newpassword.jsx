@@ -15,11 +15,11 @@ const Newpassword = ({ email, setComponent }) => {
             email: email
         },
         onSubmit: async values => {
+            const tId = toast.loading("Loading in...")
             try {
                 values = await Object.assign(values);
 
                 let changepasswordPromise = changePassword(values);
-                const tId = toast.loading("Loading in...")
                 changepasswordPromise.then(_ => {
                     toast.success("Password change Successfully", {
                         id: tId
@@ -29,6 +29,7 @@ const Newpassword = ({ email, setComponent }) => {
                     toast.error(err, { id: tId })
                 })
             } catch (e) {
+                toast.error("Something went wrong...", { id: tId })
                 console.log(e)
             }
         }
@@ -48,7 +49,7 @@ const Newpassword = ({ email, setComponent }) => {
                                 <input type="text" id='newPassword' name='newPassword' required {...formik.getFieldProps('newPassword')} placeholder='New password' className='outline-none text-white p-3 font-Rubik rounded-lg bg-slate-900 w-full ' />
                                 <br />
                                 <label
-                                 htmlFor="confirmPassword" ></label>
+                                    htmlFor="confirmPassword" ></label>
                                 <input type="text" id='confirmPassword' name='confirmPassword' required {...formik.getFieldProps('confirmPassword')} placeholder='confirm password' className='outline-none text-white p-3 font-Rubik rounded-lg bg-slate-900 w-full ' />
                                 <br />
                             </div>

@@ -7,15 +7,16 @@ import Loader from './Components/Loader/Loader';
 import Matches from './Components/Matches/Matches';
 import UserLayout from './Components/UserLayout/UserLayout';
 import AboutUs from './Pages/Aboutus/AboutUs';
+import Addmatch from './Pages/AddMatch/Addmatch';
 import ApplyNow from './Pages/ApplyNow/ApplyNow';
 import Contact from './Pages/ContactUs/Contact';
 import Inbox from './Pages/ContactUs/Inbox';
 import Ticket from './Pages/ContactUs/Ticket';
 import Error404 from './Pages/Errors/Error404';
-import Home from './Pages/Home/Home';
 import Login from './Pages/Login';
 import Commentary from './Pages/MatchInfo/Commentary';
-import Matchinfo from './Pages/MatchInfo/Matchinfo';
+import LiveScore from './Pages/MatchInfo/LiveScore';
+import Matchinfo from './Pages/MatchInfo/MatchInfo';
 import ScoreCard from './Pages/MatchInfo/ScoreCard';
 import Squads from './Pages/MatchInfo/Squads';
 import Summary from './Pages/MatchInfo/Summary';
@@ -25,12 +26,10 @@ import Team from './Pages/Teams/Team';
 import TeamNavigation from './Pages/Teams/TeamNavigation';
 import Teams from './Pages/Teams/Teams';
 import Global from './Utils/Global';
-import Addmatch from './Pages/AddMatch/Addmatch';
-import LiveScore from './Pages/MatchInfo/LiveScore';
 
 const cookies = new Cookies();
 
-export const Context = createContext();
+export const AppContext = createContext();
 
 const App = () => {
 
@@ -41,19 +40,53 @@ const App = () => {
   const loginRequiredPaths = ["/addmatch", "/applynow"]
 
   const [team, setTeam] = useState(null);
-
   const [match, setMatch] = useState(null);
+  const [currentOver, setCurrentOver] = useState(null);
+  const [battingTeamScore, setBattingTeamScore] = useState();
+  const [bowlingTeamScore, setBowlingTeamScore] = useState();
+  const [teamAScore, setTeamAScore] = useState();
+  const [teamBScore, setTeamBScore] = useState();
+  const [teamA, setTeamA] = useState();
+  const [teamB, setTeamB] = useState();
+  const [strikerScore, setStrikerScore] = useState();
+  const [nonStrikerScore, setNonStrikerScore] = useState();
+  const [bowlerScore, setBowlerScore] = useState();
 
-  const validateSession = async () => {
+  // const validateSession = async () => {
+  //   if (!Global.user) {
+  //     const token = Global.token || cookies.get("token");
+  //     if (token) {
+  //       try {
+  //         Global.token = token;
+  //         const user = await Global.getUser();
+  //         Global.user = user;
+  //         setLoaded(true);
+  //       } catch (e) {
+  //         setLoaded(true);
+  //         if (loginRequiredPaths.includes(location.pathname)) {
+  //           navigate("/login")
+  //         }
+  //       }
+  //     }
+  //     else {
+  //       setLoaded(true);
+  //       if (loginRequiredPaths.includes(location.pathname)) {
+  //         navigate("/login")
+  //       }
+  //     }
+  //   }
+  // }
+
+  useEffect(() => {
     if (!Global.user) {
       const token = Global.token || cookies.get("token");
       if (token) {
         try {
           Global.token = token;
-          const user = await Global.getUser();
-          console.log(user)
-          Global.user = user;
-          setLoaded(true);
+          Global.getUser().then(user => {
+            Global.user = user;
+            setLoaded(true);
+          })
         } catch (e) {
           setLoaded(true);
           if (loginRequiredPaths.includes(location.pathname)) {
@@ -68,17 +101,26 @@ const App = () => {
         }
       }
     }
-  }
-
-  useEffect(() => {
-    (async () => {
-      validateSession();
-    })()
   }, [])
 
   return (
     <>
-      <Context.Provider value={{ team, setTeam, match, setMatch }}>
+      <AppContext.Provider
+        value={{
+          team, setTeam,
+          match, setMatch,
+          currentOver, setCurrentOver,
+          battingTeamScore, setBattingTeamScore,
+          bowlingTeamScore, setBowlingTeamScore,
+          teamAScore, setTeamAScore,
+          teamBScore, setTeamBScore,
+          teamA, setTeamA,
+          teamB, setTeamB,
+          strikerScore, setStrikerScore,
+          nonStrikerScore, setNonStrikerScore,
+          bowlerScore, setBowlerScore
+        }}
+      >
         {!loaded ?
           <Loader />
           :
@@ -130,7 +172,7 @@ const App = () => {
 
           </Routes>
         }
-      </Context.Provider>
+      </AppContext.Provider>
     </>
   );
 }

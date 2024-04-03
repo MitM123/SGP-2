@@ -7,7 +7,7 @@ const InvalidBallRuns = ({ open }) => {
     const context = useContext(ScorePanelContext);
     const handleButton = (event) => {
         event.preventDefault();
-        context.handleInvalidBallRuns();
+        context.handleRuns(context.heading.toUpperCase().replace(" ", "_"));
         context.closeModal();
     }
     return (
@@ -29,16 +29,16 @@ const InvalidBallRuns = ({ open }) => {
                         <p className='text-2xl'>1</p>
                         <p className='text-2xl'>+</p>
                         <input className='w-10 outline-none pl-2 pr-2 border-2 text-2xl border-black rounded-md'
-                            value={context.invalidBallRuns}
+                            value={context.runs}
                             onChange={e => {
                                 if (e.target.value < 1)
-                                    context.setInvalidBallRuns(0)
+                                    context.setRuns(0)
                                 else
-                                    context.setInvalidBallRuns(Number(e.target.value))
+                                    context.setRuns(Number(e.target.value))
                             }}
                         />
                         <p className='text-2xl'>=</p>
-                        <p className='text-2xl'>{1 + context.invalidBallRuns}</p>
+                        <p className='text-2xl'>{1 + context.runs}</p>
                         <button className=' text-white bg-primary-color ml-5 text-lg font-Outfit items-center flex  justify-center p-1 rounded-lg w-20 font-semibold' onClick={handleButton}>
                             Confirm
                         </button>

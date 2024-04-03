@@ -6,7 +6,7 @@ import Global from '../../Utils/Global';
 import Accountdetails from '../AccountDetails/Accountdetails';
 import '../Header/MatchHeader.css';
 
-const MatchInfoHeader = ({teamNames,deptCC}) => {
+const MatchInfoHeader = ({teamA, teamB, deptCC }) => {
 
     const menu = ["Summary", "Scorecard", "Commentary", "Squads"]
     const [drawerOpen, setDrawerOpen] = useState(false);
@@ -23,13 +23,13 @@ const MatchInfoHeader = ({teamNames,deptCC}) => {
             </div>
             <div className='h-full w-1/2 text-white flex flex-row gap-x-10 items-center justify-center'>
                 <div className='text-xl'>
-                    {teamNames[0].toUpperCase()}
+                    {teamA.name.toUpperCase()}
                 </div>
                 <div>
                     VS
                 </div>
                 <div className='text-xl'>
-                    {teamNames[1].toUpperCase()}
+                    {teamB.name.toUpperCase()}
                 </div>
             </div>
 

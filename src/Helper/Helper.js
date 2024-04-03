@@ -5,6 +5,10 @@ import config from '../config.json';
 const cookies = new Cookie();
 axios.defaults.baseURL = config.server;
 
+export function ballsToOvers(balls) {
+    return `${Math.floor(balls / 6)}.${balls % 6}`;
+}
+
 export async function registerUser(signupuserdata) {
     try {
         const res = await Global.httpPost('/auth/register', {
@@ -51,6 +55,14 @@ export async function getTeamByName(name) {
     }
 }
 
+export function getBattingTeamId(match) {
+    return match.teamAScore.teamId === match.currentOver.strikerScore.teamId ? match.teamAScore.teamId : match.teamBScore.teamId;
+}
+
+export function getBowlingTeamId(match) {
+    return match.teamAScore.teamId === match.currentOver.bowlerScore.teamId ? match.teamAScore.teamId : match.teamBScore.teamId;
+}
+
 export async function addTeam(teamnamedata) {
     try {
         const { data } = await Global.httpPost('/teams', {
@@ -81,7 +93,6 @@ export async function getMatches() {
 export async function getMatch(matchId) {
     try {
         const res = await Global.httpGet('/matches/' + matchId, false);
-        Global.matches[matchId] = res.data.match;
         return Promise.resolve(res.data.match);
     }
     catch (error) {
@@ -92,7 +103,7 @@ export async function getMatch(matchId) {
 export async function addMatch(matchData) {
     try {
         const { data } = await Global.httpPost('/matches', {
-            team1Id: matchData.team1Id, team2Id: matchData.team2Id, date: matchData.date
+            teams: matchData.teams, date: matchData.date
         });
         const match = data.match;
         Global.matches[match.sis_id] = match;
@@ -116,10 +127,30 @@ export async function getTeam(teamId) {
 
 export async function getPlayers(teamId, selectedPlayers = true) {
     try {
-        const { data } = await Global.httpGet('/teams/' + teamId + '/players', false, { selectedPlayers });
+        const { data } = await Global.httpGet('/teams/' + teamId + '/players', false, {selectedPlayers});
         return Promise.resolve(data.players);
     }
     catch (error) {
+        return Promise.reject(error);
+    }
+}
+
+export async function getPlayerBattingScore(playerId, matchId) {
+    try {
+        const { data } = await Global.httpGet(`/players/${playerId}/matches/${matchId}/battingscore`, false);
+        console.log(data);
+        return Promise.resolve(data.playerMatchBattingScore);
+    }
+    catch (error) {
+        return Promise.reject(error);
+    }
+}
+
+export async function getOver(overId) {
+    try {
+        const { data } = await Global.httpGet('/matches/overs/' + overId, false);
+        return Promise.resolve(data.over)
+    } catch (error) {
         return Promise.reject(error);
     }
 }
@@ -131,7 +162,6 @@ export async function resetPassword(useremail) {
         }, false);
         return Promise.resolve(data.user)
     } catch (error) {
-        console.log("error in reset password")
         return Promise.reject(error);
     }
 }
@@ -150,7 +180,7 @@ export async function otp(verifyotp) {
 
 export async function changePassword(values) {
     try {
-        const {data} = await axios.post('/forgotpassword/changepassword', values);
+        const { data } = await axios.post('/forgotpassword/changepassword', values);
         return Promise.resolve(data);
     } catch (error) {
         return Promise.reject(error);

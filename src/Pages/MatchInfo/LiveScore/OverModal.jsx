@@ -1,20 +1,11 @@
 import React, { useContext, useState } from 'react'
 import { LiveScoreContext } from '../LiveScore';
-import {Modal,ModalDialog} from '@mui/joy';
+import { Modal, ModalDialog } from '@mui/joy';
 import { AiOutlineClose } from "react-icons/ai";
 
 const OverModal = ({ open }) => {
     const context = useContext(LiveScoreContext);
-    const [overDetails, setOverDetails] = useState({
-        overs: 0,
-        overPerBowler: 0,
-        powerPlayOvers: 0,
-    });
 
-    const handleButton = () => {
-        context.setOverDetails(overDetails);
-        context.setModal("toss");
-    }
     return (
         <>
             <Modal open={open} >
@@ -45,12 +36,12 @@ const OverModal = ({ open }) => {
                         {/* <form action=''> */}
                         <h1 className='flex justify-center font-Rubik font-semibold'>Match Details</h1>
                         <div className='w-full mt-2 grid grid-cols-2 gap-x-2  justify-evenly'>
-                            <input type='number' placeholder='No.of Overs' required className='shadow-md outline-none p-2  rounded-md' onClick={e => console.log(e)} />
-                            {/* <input type='number' placeholder='No.of Overs' required className='shadow-md outline-none p-2  rounded-md' onClick={e => setOverDetails({overs: e.target.})} /> */}
-                            <input type='number' placeholder='Overs per Bowler' required className='outline-none shadow-md p-2  rounded-md' />
-                            <input type='number' placeholder='Powerplay Over' required className='outline-none mt-2 shadow-md p-2 rounded-md' />
+                            <input type='number' placeholder='No.of Overs' required className='shadow-md outline-none p-2  rounded-md' onChange={e => context.setOverDetails(prev => { return { ...prev, overs: Number(e.target.value) } })} />
+                            {/* <input type='number' placeholder='No.of Overs' required className='shadow-md outline-none p-2  rounded-md' onClick={e => context.setOverDetails({overs: e.target.})} /> */}
+                            <input type='number' placeholder='Overs per Bowler' required className='outline-none shadow-md p-2  rounded-md' onChange={e => context.setOverDetails(prev => { return { ...prev, overPerBowler: Number(e.target.value) } })} />
+                            <input type='number' placeholder='Powerplay Over' required className='outline-none mt-2 shadow-md p-2 rounded-md' onChange={e => context.setOverDetails(prev => { return { ...prev, powerPlayOvers: Number(e.target.value) } })} />
                         </div>
-                        <button onClick={handleButton} className='text-white bg-emerald-500 text-lg font-Outfit items-center flex  justify-center p-1 rounded-lg w-28 '>NEXT(Toss)</button>
+                        <button onClick={_ => context.setModal("toss")} className='text-white bg-emerald-500 text-lg font-Outfit items-center flex  justify-center p-1 rounded-lg w-28 '>NEXT(Toss)</button>
                         {/* </form> */}
                     </div>
                 </ModalDialog>

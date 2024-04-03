@@ -35,7 +35,6 @@ const LoginForm = () => {
             values = await Object.assign(values);
             let loginuserPromise = loginUser(values);
             const tId = toast.loading("Logging in...");
-            console.log(tId)
             loginuserPromise.then(_ => {
                 toast.success("Logged in successfully", { duration: 4000, id: tId })
                 navigate("/home");

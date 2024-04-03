@@ -20,6 +20,7 @@ const Teams = () => {
     useEffect(() => {
         setTimeout(() => {
             getTeams().then(teams => {
+                console.log(teams)
                 setTeams(teams);
                 setLoaded(true);
             }).catch(err => {

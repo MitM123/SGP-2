@@ -1,7 +1,7 @@
 import { Option, Select } from '@mui/joy';
 import React, { useState } from 'react';
 import { toast } from 'sonner';
-import MyToaster from '../../Components/Toaster/MyToaster';
+// import MyToaster from '../../Components/Toaster/MyToaster';
 import { getTeamByName } from '../../Helper/Helper';
 import Global from '../../Utils/Global';
 import Error401 from '../Errors/Error401';
@@ -35,7 +35,7 @@ const ApplyNow = () => {
     // var extractedString2 = extractString(id2); // "ce"
 
     const handleSubmit = async (e) => {
-        const id = toast.loading(`Applying for ${sport}...`, {});
+        const id = toast.loading(`Applying for ${sport}...`);
         const deptName = extractString(Global.user.email)
         if (!deptName) {
             setTimeout(() => {
@@ -48,7 +48,7 @@ const ApplyNow = () => {
                     return toast.error("Your department has not created team yet...", { id });
                 }, 1000);
             }
-            Global.httpPut('/teams/player', { teamId: team.sis_id, playerEmail: Global.user.email, userId: Global.user.userId }).then(() => {
+            Global.httpPut('/teams/player', { teamId: team.sis_id, playerEmail: Global.user.email, userId: Global.user.userId, playerCategory: category }).then(() => {
                 toast.success(`Applied for ${sport} successfully...`, { id });
             }).catch((e) => {
                 setTimeout(() => {
@@ -64,7 +64,6 @@ const ApplyNow = () => {
 
     return (
         <>
-            <MyToaster />
             {
                 !Global.user ?
                     <>
@@ -99,22 +98,22 @@ const ApplyNow = () => {
                                     <Select
                                         placeholder="Select Category"
                                         sx={{ width: '100%', padding: 1 }}
-                                        // onChange={(e) => setSport(e.target.textContent)}
+                                        onChange={(e, value) => setCategory(value)}
                                         slotProps={{
                                             listbox: {
                                                 placement: 'bottom-start',
                                             },
                                         }}>
-                                        <Option value='Batsman'>
+                                        <Option value='BATSMAN'>
                                             Batsman
                                         </Option>
-                                        <Option value='All Rounder'>
+                                        <Option value='ALL_ROUNDER'>
                                             All Rounder
                                         </Option>
-                                        <Option value='Bowler'> 
+                                        <Option value='BOWLER'> 
                                             Bowler
                                         </Option>
-                                        <Option value='Bowler'>
+                                        <Option value='BATSMAN_WK'>
                                             Batsman(WK)
                                         </Option>
                                     </Select>
