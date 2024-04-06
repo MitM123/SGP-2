@@ -20,6 +20,31 @@ export async function registerUser(signupuserdata) {
     }
 }
 
+export async function setMatch(appContext, matchId) {
+    getMatch(matchId)
+        .then(match => {
+            appContext.setBattingTeamScore(match.teamAId === match.currentOver?.strikerScore?.teamId ? match.teamAScore : match.teamBScore);
+            appContext.setBowlingTeamScore(match.teamAId === match.currentOver?.bowlerScore?.teamId ? match.teamAScore : match.teamBScore);
+
+            appContext.setTeamAScore(match.teamAScore);
+            appContext.setTeamBScore(match.teamBScore);
+
+            appContext.setStrikerScore(match.currentOver?.strikerScore);
+            appContext.setNonStrikerScore(match.currentOver?.nonStrikerScore);
+            appContext.setBowlerScore(match.currentOver?.bowlerScore);
+
+            appContext.setTeamA(match.teamAScore?.team);
+            appContext.setTeamB(match.teamBScore?.team);
+
+            appContext.setCurrentOver(match.currentOver);
+
+            appContext.setMatch(match);
+        })
+        .catch((error) => {
+            console.error(error);
+        })
+}
+
 export async function loginUser(loginuserdata) {
     try {
         const res = await Global.httpPost('/auth/login', {
@@ -127,7 +152,7 @@ export async function getTeam(teamId) {
 
 export async function getPlayers(teamId, selectedPlayers = true) {
     try {
-        const { data } = await Global.httpGet('/teams/' + teamId + '/players', false, {selectedPlayers});
+        const { data } = await Global.httpGet('/teams/' + teamId + '/players', false, { selectedPlayers });
         return Promise.resolve(data.players);
     }
     catch (error) {

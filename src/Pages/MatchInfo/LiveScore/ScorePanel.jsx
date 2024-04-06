@@ -2,7 +2,7 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import { LuUndo2 } from "react-icons/lu";
 import { useParams } from 'react-router-dom';
 import { AppContext } from '../../../App';
-import { getBattingTeamId, getBowlingTeamId, getOver } from '../../../Helper/Helper';
+import { getBattingTeamId, getBowlingTeamId, getOver, setMatch } from '../../../Helper/Helper';
 import Global from '../../../Utils/Global';
 import InvalidBallRuns from './InvalidBallRuns';
 import WicketModal from './WicketModal';
@@ -56,6 +56,7 @@ const ScorePanel = () => {
         Global.httpPut('/matches/runs/' + matchId, { runs: ballType !== "NORMAL" ? (1 + preRuns) : preRuns, ballType }, true)
           .then(res => {
             console.log(res);
+            setMatch(appContext, matchId);
           })
           .catch(error => {
             console.log(error);
@@ -68,6 +69,7 @@ const ScorePanel = () => {
   const outBatsman = () => {
     Global.httpPut('/matches/wicket/' + matchId, { wicketType, upcomingBatsmanId: upcomingBatsman, eliminatedPlayerId: eliminatedPlayer }, true).then(res => {
       console.log(res);
+      setMatch(appContext, matchId);
     })
   }
 

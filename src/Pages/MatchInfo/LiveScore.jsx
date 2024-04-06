@@ -8,7 +8,7 @@ import ScorePanel from './LiveScore/ScorePanel';
 import StrikerBowlerModal from './LiveScore/StrikerBowlerModal';
 import TossModal from './LiveScore/TossModal';
 import MatchSummary from './MatchSummary';
-import { ballsToOvers } from '../../Helper/Helper';
+import { ballsToOvers, setMatch } from '../../Helper/Helper';
 
 export const LiveScoreContext = createContext();
 
@@ -50,7 +50,7 @@ const LiveScore = () => {
   const startMatch = () => {
     console.log(tossDetails)
     Global.httpPut(`/matches/${matchId}/start/`, { ...overDetails, ...tossDetails, ...strikerBowlerDetails }, true).then(res => {
-      console.log(res);
+      setMatch(appContext, matchId);
     })
   }
 

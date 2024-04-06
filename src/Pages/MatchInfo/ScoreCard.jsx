@@ -79,11 +79,11 @@ const ScoreCard = () => {
                         <tbody>
                           {
                             teamAScore && teamAScore.batters &&
-                            (teamAScore.batters.map((batter, i) => {
+                            (teamAScore.batters.filter(p => p.played).map((batter, i) => {
                               return (
                                 <tr key={i} className={i % 2 === 0 ? "border-b bg-zinc-200 text-black font-medium" : "bg-white text-black border-b"}>
                                   <th scope="row" className={`px-6 py-4 font-medium  whitespace-nowrap ${batter.playerId === appContext.strikerScore.playerId || batter.playerId === appContext.nonStrikerScore.playerId ? "font-semibold" : ""}`}>
-                                    {batter.player.user.name}{batter.playerId === appContext.strikerScore.playerId ? <span className='text-sm'> (batting)</span>: ""}
+                                    {batter.player.user.name}{batter.playerId === appContext.strikerScore.playerId ? <span className='text-sm'> (batting)</span> : ""}
                                   </th>
                                   <th className="px-6 py-3  w-[30%] font-medium">
                                     {batter.out ? "Out" : "Not Out"}
@@ -335,14 +335,14 @@ const ScoreCard = () => {
                     Yet to bat
                   </div>
                   <div className='grid w-full grid-cols-2 font-Outfit text-lg gap-x-3 gap-y-3'>
-                    <h1 className='w-full h-12 flex items-center justify-center bg-slate-400 rounded-md hover:underline cursor-pointer'>Ayush Kalathiya</h1>
-                    <h1 className='w-full h-12 flex items-center justify-center bg-slate-400 rounded-md hover:underline cursor-pointer'>Vandit Kalathiya</h1>
-                    <h1 className='w-full h-12 flex items-center justify-center bg-slate-400 rounded-md hover:underline cursor-pointer'>Dhruv Kotadiya</h1>
-                    <h1 className='w-full h-12 flex items-center justify-center bg-slate-400 rounded-md hover:underline cursor-pointer'>Meet Gangani</h1>
-                    <h1 className='w-full h-12 flex items-center justify-center bg-slate-400 rounded-md hover:underline cursor-pointer'>Rutu Bhimani</h1>
-                    <h1 className='w-full h-12 flex items-center justify-center bg-slate-400 rounded-md hover:underline cursor-pointer'>tirth bhingradiya</h1>
-                    <h1 className='w-full h-12 flex items-center justify-center bg-slate-400 rounded-md hover:underline cursor-pointer'>Sahil Maniya</h1>
-                    <h1 className='w-full h-12 flex items-center justify-center bg-slate-400 rounded-md hover:underline cursor-pointer'>Hit Goti</h1>
+                    {
+                      teamAScore && teamAScore.batters &&
+                      (teamAScore.batters.filter(p => !p.played).map((batter, i) => {
+                        return (
+                          <h1 key={i} className='w-full h-12 flex items-center justify-center bg-slate-400 rounded-md hover:underline cursor-pointer'>{batter.player.user.name}</h1>
+                        )
+                      }))
+                    }
                   </div>
                 </div>
 

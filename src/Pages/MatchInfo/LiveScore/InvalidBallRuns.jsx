@@ -2,13 +2,19 @@ import React, { useContext } from 'react';
 import { Modal, ModalDialog } from '@mui/joy';
 import { AiOutlineClose } from "react-icons/ai";
 import { ScorePanelContext } from './ScorePanel';
+import { AppContext } from '../../../App';
+import { setMatch } from '../../../Helper/Helper';
+import { useParams } from 'react-router-dom';
 
 const InvalidBallRuns = ({ open }) => {
+    const { matchId } = useParams();
     const context = useContext(ScorePanelContext);
+    const appContext = useContext(AppContext);
     const handleButton = (event) => {
         event.preventDefault();
         context.handleRuns(context.heading.toUpperCase().replace(" ", "_"));
         context.closeModal();
+        setMatch(appContext, matchId);
     }
     return (
         <>

@@ -4,16 +4,20 @@ import { AiOutlineClose } from "react-icons/ai";
 import { ScorePanelContext } from './ScorePanel';
 import Global from '../../../Utils/Global';
 import { useParams } from 'react-router-dom';
+import { setMatch } from '../../../Helper/Helper';
+import { AppContext } from '../../../App';
 
 const NextBowler = ({ open, upcomingBowlers, ballType }) => {
   const context = useContext(ScorePanelContext);
   const { matchId } = useParams();
+  const appContext = useContext(AppContext);
 
   const handleButton = (event) => {
     event.preventDefault();
     Global.httpPut('/matches/runs/' + matchId, { runs: ballType !== "NORMAL" ? (1 + context.runs) : context.runs, ballType, nextBowlerId: context.nextBowler }, true)
       .then(res => {
         console.log(res);
+        setMatch(appContext, matchId);
       })
       .catch(error => {
         console.log(error);
