@@ -1,10 +1,9 @@
 import axios from 'axios';
 import { cookies } from "../App";
-import config from '../config.json';
 
 export default class Global {
     static axios = axios.create({
-        baseURL: config.server,
+        baseURL: import.meta.env.VITE_SEVER_URL,
         withCredentials: true,
     })
     static user;

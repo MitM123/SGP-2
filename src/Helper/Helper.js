@@ -1,8 +1,7 @@
 import axios from 'axios';
 import { cookies } from '../App';
 import Global from '../Utils/Global';
-import config from '../config.json';
-axios.defaults.baseURL = config.server;
+axios.defaults.baseURL = import.meta.env.VITE_SEVER_URL;
 
 export function ballsToOvers(balls) {
     return `${Math.floor(balls / 6)}.${balls % 6}`;
