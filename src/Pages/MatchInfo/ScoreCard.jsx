@@ -3,8 +3,8 @@ import { AppContext } from '../../App'
 import Global from '../../Utils/Global';
 import { useParams } from 'react-router-dom';
 import Loader from '../../Components/Loader/Loader';
-import { ballsToOvers } from '../../Helper/Helper';
-
+import { ballsToOvers, setMatch } from '../../Helper/Helper';
+import { socket } from '../../socket';
 const ScoreCard = () => {
   const appContext = useContext(AppContext);
   const [teamAScore, setTeamAScore] = useState();
@@ -12,17 +12,32 @@ const ScoreCard = () => {
   const { matchId } = useParams()
   useEffect(() => {
     if (appContext.match) {
-      Global.httpGet(`/teams/${appContext.match?.teamAScore.teamId}/scorecard/${matchId}`).then(res => {
+      Global.httpGet(`/teams/${appContext.match?.teamAScore.teamId}/scorecard/${matchId}`, false).then(res => {
         console.log(res.data.scoreCard)
         setTeamAScore(res.data.scoreCard);
       })
-      Global.httpGet(`/teams/${appContext.match?.teamBScore.teamId}/scorecard/${matchId}`).then(res => {
+      Global.httpGet(`/teams/${appContext.match?.teamBScore.teamId}/scorecard/${matchId}`, false).then(res => {
         console.log(res.data.scoreCard);
         setTeamBScore(res.data.scoreCard);
       })
     }
 
   }, [])
+
+  useEffect(() => {
+    socket.on('updateRuns', (data) => {
+      if (appContext.match) {
+        Global.httpGet(`/teams/${appContext.match?.teamAScore.teamId}/scorecard/${matchId}`, false).then(res => {
+          console.log(res.data.scoreCard)
+          setTeamAScore(res.data.scoreCard);
+        })
+        Global.httpGet(`/teams/${appContext.match?.teamBScore.teamId}/scorecard/${matchId}`, false).then(res => {
+          console.log(res.data.scoreCard);
+          setTeamBScore(res.data.scoreCard);
+        })
+      }
+    })
+  })
 
   return (
     <>

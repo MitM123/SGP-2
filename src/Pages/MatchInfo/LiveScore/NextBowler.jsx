@@ -6,6 +6,7 @@ import Global from '../../../Utils/Global';
 import { useParams } from 'react-router-dom';
 import { setMatch } from '../../../Helper/Helper';
 import { AppContext } from '../../../App';
+import {socket} from '../../../socket'
 
 const NextBowler = ({ open, upcomingBowlers, ballType }) => {
   const context = useContext(ScorePanelContext);
@@ -14,15 +15,19 @@ const NextBowler = ({ open, upcomingBowlers, ballType }) => {
 
   const handleButton = (event) => {
     event.preventDefault();
-    Global.httpPut('/matches/runs/' + matchId, { runs: ballType !== "NORMAL" ? (1 + context.runs) : context.runs, ballType, nextBowlerId: context.nextBowler }, true)
-      .then(res => {
-        console.log(res);
-        setMatch(appContext, matchId);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-    context.closeModal();
+    console.log(context.nextBowler, appContext.nonStrikerScore.playerId, appContext.strikerScore.playerId, context.runs, ballType);
+    Global.httpPost('/matches/over/' + matchId, { ballType, strikerId: appContext.nonStrikerScore.playerId, nonStrikerId: appContext.strikerScore.playerId, bowlerId: context.nextBowler }, true).then(res => {
+      Global.httpPut('/matches/runs/' + matchId, { runs: ballType !== "NORMAL" ? (1 + context.runs) : context.runs, ballType, nextBowlerId: context.nextBowler }, true)
+        .then(res => {
+          console.log(res);
+          setMatch(appContext, matchId);
+          socket.emit("runsUpdated", { matchId });
+        })
+        .catch(error => {
+          console.log(error);
+        });
+      context.closeModal();
+    })
   }
 
   return (

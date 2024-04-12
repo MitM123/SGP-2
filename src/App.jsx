@@ -26,8 +26,9 @@ import Team from './Pages/Teams/Team';
 import TeamNavigation from './Pages/Teams/TeamNavigation';
 import Teams from './Pages/Teams/Teams';
 import Global from './Utils/Global';
+// import socket from './socket';
 
-const cookies = new Cookies();
+export const cookies = new Cookies();
 
 export const AppContext = createContext();
 
@@ -118,7 +119,8 @@ const App = () => {
           teamB, setTeamB,
           strikerScore, setStrikerScore,
           nonStrikerScore, setNonStrikerScore,
-          bowlerScore, setBowlerScore
+          bowlerScore, setBowlerScore,
+          // socket
         }}
       >
         {!loaded ?

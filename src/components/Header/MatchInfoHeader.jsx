@@ -6,9 +6,9 @@ import Global from '../../Utils/Global';
 import Accountdetails from '../AccountDetails/Accountdetails';
 import '../Header/MatchHeader.css';
 
-const MatchInfoHeader = ({teamA, teamB, deptCC }) => {
+const MatchInfoHeader = ({teamA, teamB }) => {
 
-    const menu = ["Summary", "Scorecard", "Commentary", "Squads"]
+    const menu = ["Summary", "Scorecard", "Commentary", "Squads", "LiveScore"]
     const [drawerOpen, setDrawerOpen] = useState(false);
     const toggleDrawer = () => {
         setDrawerOpen(!drawerOpen);
@@ -38,10 +38,6 @@ const MatchInfoHeader = ({teamA, teamB, deptCC }) => {
                     menu.map((item) => (
                         <Link key={item} to={item.toLowerCase()} className='text-lg hover:text-slate-500' >{item}</Link>
                     ))
-                }
-                {
-                    deptCC &&
-                    <Link to={`livescore`} className='text-lg hover:text-slate-500' >Livescore</Link>
                 }
             </div>
             {

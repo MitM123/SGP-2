@@ -7,11 +7,14 @@ import Global from '../../../Utils/Global';
 import InvalidBallRuns from './InvalidBallRuns';
 import WicketModal from './WicketModal';
 import NextBowler from './NextBowler';
+// import { LiveScoreContext } from '../LiveScore';
+import { socket } from '../../../socket';
 
 export const ScorePanelContext = createContext()
 
 const ScorePanel = () => {
   const appContext = useContext(AppContext);
+  // const { socket } = useContext(LiveScoreContext);
 
   const { matchId } = useParams();
 
@@ -43,6 +46,7 @@ const ScorePanel = () => {
 
   const handleRuns = (ballType) => {
     setRuns(preRuns => {
+      setRuns(preRuns);
       if (appContext.currentOver.validBalls === 6) {
         const bowlingTeamId = getBowlingTeamId(appContext.match);
         Global.httpGet(`/teams/${bowlingTeamId}/bowlersscore/${matchId}`, false).then(res => {
@@ -51,17 +55,15 @@ const ScorePanel = () => {
           setBallType(ballType);
           setModal("nextBowler");
         })
-      }
-      else {
-        Global.httpPut('/matches/runs/' + matchId, { runs: ballType !== "NORMAL" ? (1 + preRuns) : preRuns, ballType }, true)
+      } else {
+        Global.httpPut('/matches/runs/' + matchId, { runs: ballType !== "NORMAL" ? (1 + runs) : preRuns, ballType }, true)
           .then(res => {
-            console.log(res);
             setMatch(appContext, matchId);
+            socket.emit("runsUpdated", { matchId });
           })
           .catch(error => {
             console.log(error);
           });
-        return preRuns;
       }
     });
   }
@@ -70,6 +72,7 @@ const ScorePanel = () => {
     Global.httpPut('/matches/wicket/' + matchId, { wicketType, upcomingBatsmanId: upcomingBatsman, eliminatedPlayerId: eliminatedPlayer }, true).then(res => {
       console.log(res);
       setMatch(appContext, matchId);
+      socket.emit("runsUpdated", { matchId });
     })
   }
 

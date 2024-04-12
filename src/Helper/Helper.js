@@ -1,8 +1,7 @@
 import axios from 'axios';
-import Cookie from 'universal-cookie';
+import { cookies } from '../App';
 import Global from '../Utils/Global';
 import config from '../config.json';
-const cookies = new Cookie();
 axios.defaults.baseURL = config.server;
 
 export function ballsToOvers(balls) {
@@ -21,28 +20,29 @@ export async function registerUser(signupuserdata) {
 }
 
 export async function setMatch(appContext, matchId) {
-    getMatch(matchId)
-        .then(match => {
-            appContext.setBattingTeamScore(match.teamAId === match.currentOver?.strikerScore?.teamId ? match.teamAScore : match.teamBScore);
-            appContext.setBowlingTeamScore(match.teamAId === match.currentOver?.bowlerScore?.teamId ? match.teamAScore : match.teamBScore);
+    try {
+        const match = await getMatch(matchId);
+        appContext.setBattingTeamScore(match.teamAId === match.currentOver?.strikerScore?.teamId ? match.teamAScore : match.teamBScore);
+        appContext.setBowlingTeamScore(match.teamAId === match.currentOver?.bowlerScore?.teamId ? match.teamAScore : match.teamBScore);
 
-            appContext.setTeamAScore(match.teamAScore);
-            appContext.setTeamBScore(match.teamBScore);
+        appContext.setTeamAScore(match.teamAScore);
+        appContext.setTeamBScore(match.teamBScore);
 
-            appContext.setStrikerScore(match.currentOver?.strikerScore);
-            appContext.setNonStrikerScore(match.currentOver?.nonStrikerScore);
-            appContext.setBowlerScore(match.currentOver?.bowlerScore);
+        appContext.setStrikerScore(match.currentOver?.strikerScore);
+        appContext.setNonStrikerScore(match.currentOver?.nonStrikerScore);
+        appContext.setBowlerScore(match.currentOver?.bowlerScore);
 
-            appContext.setTeamA(match.teamAScore?.team);
-            appContext.setTeamB(match.teamBScore?.team);
+        appContext.setTeamA(match.teamAScore?.team);
+        appContext.setTeamB(match.teamBScore?.team);
 
-            appContext.setCurrentOver(match.currentOver);
+        appContext.setCurrentOver(match.currentOver);
 
-            appContext.setMatch(match);
-        })
-        .catch((error) => {
-            console.error(error);
-        })
+        appContext.setMatch(match);
+        return Promise.resolve(true);
+    }
+    catch (error) {
+        return Promise.reject(error);
+    }
 }
 
 export async function loginUser(loginuserdata) {
@@ -52,7 +52,7 @@ export async function loginUser(loginuserdata) {
         }, false);
         Global.user = res.data.user;
         Global.token = res.data.token;
-        cookies.set("token", res.data.token);
+        cookies.set("token", res.data.token, { path: '/' });
         return Promise.resolve(res.data);
     } catch (error) {
         return Promise.reject(error);

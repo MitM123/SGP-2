@@ -1,8 +1,6 @@
 import axios from 'axios';
-import Cookies from "universal-cookie";
+import { cookies } from "../App";
 import config from '../config.json';
-
-const cookies = new Cookies();
 
 export default class Global {
     static axios = axios.create({
@@ -39,11 +37,11 @@ export default class Global {
                 Global.httpPut("/auth/logout").then(_ => {
                     Global.user = null;
                     Global.token = null;
-                    cookies.remove("token");
+                    cookies.remove("token", { path: '/' });
                 }).catch(_ => {
                     Global.user = null;
                     Global.token = null;
-                    cookies.remove("token");
+                    cookies.remove("token", { path: '/' });
                 })
                 reject("No user found.")
             }
@@ -59,7 +57,8 @@ export default class Global {
                     else
                         return reject("Token not found");
                 }
-                cookies.set("token", this.token)
+                if (this.token)
+                    cookies.set("token", this.token, { path: '/' });
                 try {
                     let output = await axios.get(endPoint, {
                         params,
@@ -89,7 +88,8 @@ export default class Global {
                     else
                         return reject("Token not found");
                 }
-                cookies.set("token", this.token)
+                if (this.token)
+                    cookies.set("token", this.token, { path: '/' });
                 let res;
                 try {
                     res = await axios.post(endPoint, body, {
@@ -117,7 +117,8 @@ export default class Global {
                     else
                         return reject("Token not found");
                 }
-                cookies.set("token", this.token);
+                if (this.token)
+                    cookies.set("token", this.token, { path: '/' });
                 try {
                     const headers = {
                         "Content-Type": "application/json",

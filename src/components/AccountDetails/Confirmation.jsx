@@ -3,8 +3,8 @@ import ModalDialog from '@mui/joy/ModalDialog';
 import React from 'react';
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { useNavigate } from 'react-router-dom';
-import Cookies from 'universal-cookie';
 import Global from '../../Utils/Global';
+import { cookies } from '../../App';
 
 
 const Confirmation = () => {
@@ -12,18 +12,17 @@ const Confirmation = () => {
     const [open, setOpen] = React.useState(false);
     const navigate = useNavigate();
 
-    const cookies = new Cookies();
     const logoutHandler = (event) => {
         event.preventDefault();
         Global.httpPut("/auth/logout").then(data => {
             Global.user = null;
             Global.token = null;
-            cookies.remove("token");
+            cookies.remove("token", { path: '/' });
             navigate('/login');
         }).catch(_err => {
             Global.user = null;
             Global.token = null;
-            cookies.remove("token");
+            cookies.remove("token", { path: '/' });
             navigate('/login');
         })
     }
@@ -37,7 +36,7 @@ const Confirmation = () => {
                     Logout
                 </button>
                 <Modal keepMounted open={open} >
-                    <ModalDialog sx={{ width: '30%', height: '20%', '@media (max-width:440px)': { height: '17%', width:'65%'},'@media (max-width:380px)': { height: '22%', width:'70%'}}}>
+                    <ModalDialog sx={{ width: '30%', height: '20%', '@media (max-width:440px)': { height: '17%', width: '65%' }, '@media (max-width:380px)': { height: '22%', width: '70%' } }}>
                         <div>
                             <div className='text-xl font-Jost text-black'>
                                 Are you sure you want to log out?
