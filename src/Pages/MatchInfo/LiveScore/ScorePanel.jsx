@@ -7,6 +7,7 @@ import Global from '../../../Utils/Global';
 import InvalidBallRuns from './InvalidBallRuns';
 import WicketModal from './WicketModal';
 import NextBowler from './NextBowler';
+import './ScorePanel.css'
 
 export const ScorePanelContext = createContext()
 
@@ -139,7 +140,7 @@ const ScorePanel = () => {
             <h1 className='w-12 rounded-full flex justify-center items-center h-12 bg-white'>WD</h1>
             <h1 className='w-12 rounded-full flex justify-center items-center h-12  bg-blue-400'>4</h1>
           </div> */}
-          <div className='w-[94%] grid grid-cols-6 font-poppins gap-4 h-[40vh] mt-10 ml-5 mr-5 font-semibold'>
+          <div className='buttons w-[94%] grid grid-cols-6 font-poppins gap-4 h-[40vh] mt-10 ml-5 mr-5 font-semibold'>
             <button className='flex bg-slate-600 text-white h-16 justify-center items-center rounded-md  shadow-lg' onClick={() => { setRuns(0); handleRuns("NORMAL"); }}>0</button>
             <button className='flex bg-slate-600 text-white h-16 justify-center items-center rounded-md shadow-lg' onClick={() => { setRuns(1); handleRuns("NORMAL"); }}>1</button>
             <button className='flex bg-slate-600 text-white h-16 justify-center items-center rounded-md shadow-lg' onClick={() => { setRuns(2); handleRuns("NORMAL"); }}>2</button>

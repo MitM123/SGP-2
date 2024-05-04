@@ -21,10 +21,24 @@ const TossModal = ({ open }) => {
                     <>
                         {console.log(appContext.match)}
                     </>
-                    <Modal open={open} >
-                        <ModalDialog sx={{ width: '30%', height: '67%', padding: '0', '@media(max-width:680px)': { height: '45%' }, '@media(max-width:420px)': { height: '55%' } }}>
-                            <div className='h-14 flex justify-between '>
-                                <div className='flex  h-full items-center ml-3 text-black text-xl font-Jost'>
+                    <Modal open={open}>
+                        <ModalDialog
+                            sx={{
+                                width: '30%',
+                                height: '67%',
+                                padding: '0',
+                                '@media (max-width: 680px)': {
+                                    width: '70%',
+                                    height: '45%',
+                                },
+                                '@media (max-width: 420px)': {
+                                    width: '90%',
+                                    height: '35%',
+                                },
+                            }}
+                        >
+                            <div className='h-14 flex justify-between'>
+                                <div className='flex h-full items-center ml-3 text-black text-xl font-Jost'>
                                     Who won the toss?
                                 </div>
                                 <div className='flex items-center mr-3 cursor-pointer'>
@@ -34,39 +48,60 @@ const TossModal = ({ open }) => {
                                     }} />
                                 </div>
                             </div>
-                            <div className='flex h-80 flex-col w-[95%] ml-2 gap-y-2 '>
+                            <div className='flex h-80 flex-col w-[95%] ml-2 gap-y-2'>
                                 <div className='w-full flex justify-evenly'>
-                                    <button key={appContext.teamAScore.teamId} className=' text-black bg-slate-300 text-lg  font-Outfit items-center flex  justify-center p-2 rounded-lg w-36 h-24 font-semibold '
+                                    <button
+                                        key={appContext.teamAScore.teamId}
+                                        className='text-black bg-slate-300 text-lg font-Outfit items-center flex justify-center p-2 rounded-lg w-36 h-24 font-semibold'
                                         value={appContext.teamAScore.teamId}
-                                        onClick={e => liveScoreContext.setTossDetails(prev => { return { ...prev, tossWonByTeamId: e.target.value } })}
+                                        onClick={e => liveScoreContext.setTossDetails(prev => { return { ...prev, tossWonByTeamId: e.target.value }; })}
                                     >
                                         {appContext.teamAScore.team.name.toUpperCase()}
                                     </button>
-                                    <button key={appContext.teamBScore.teamId} className=' text-black bg-slate-300 text-lg  font-Outfit items-center flex  justify-center p-2 rounded-lg w-36 h-24 font-semibold ' value={appContext.teamBScore.teamId} onClick={e => liveScoreContext.setTossDetails(prev => { return { ...prev, tossWonByTeamId: e.target.value } })} >
+                                    <button
+                                        key={appContext.teamBScore.teamId}
+                                        className='text-black bg-slate-300 text-lg font-Outfit items-center flex justify-center p-2 rounded-lg w-36 h-24 font-semibold'
+                                        value={appContext.teamBScore.teamId}
+                                        onClick={e => liveScoreContext.setTossDetails(prev => { return { ...prev, tossWonByTeamId: e.target.value }; })}
+                                    >
                                         {appContext.teamBScore.team.name.toUpperCase()}
                                     </button>
                                 </div>
                                 <div className='w-full'>
-                                    <div className='flex  h-14 items-center ml-1 text-black text-xl font-Jost'>
+                                    <div className='flex h-14 items-center ml-1 text-black text-xl font-Jost'>
                                         Winner of the toss elected to?
                                     </div>
                                     <div className='w-full flex justify-evenly'>
-                                        <button className=' text-black bg-slate-300 text-lg  font-Outfit items-center flex flex-col  justify-center p-2 rounded-lg w-36 h-32  font-semibold' onClick={e => liveScoreContext.setTossDetails(prev => { return { ...prev, tossDecision: "bat" } })} >
+                                        <button
+                                            className='text-black bg-slate-300 text-lg font-Outfit items-center flex flex-col justify-center p-2 rounded-lg w-36 h-32 font-semibold'
+                                            onClick={e => liveScoreContext.setTossDetails(prev => { return { ...prev, tossDecision: "bat" }; })}
+                                        >
                                             <img src={Batsman} alt='No' className='h-20 w-20 rounded-md' />
                                             BAT
                                         </button>
-                                        <button className=' text-black bg-slate-300 text-lg font-Outfit items-center flex flex-col  justify-center p-2 rounded-lg w-36 h-32 font-semibold ' onClick={e => liveScoreContext.setTossDetails(prev => { return { ...prev, tossDecision: "bowl" } })} >
+                                        <button
+                                            className='text-black bg-slate-300 text-lg font-Outfit items-center flex flex-col justify-center p-2 rounded-lg w-36 h-32 font-semibold'
+                                            onClick={e => liveScoreContext.setTossDetails(prev => { return { ...prev, tossDecision: "bowl" }; })}
+                                        >
                                             <img src={Bowler} alt='No' className='h-20 w-20 rounded-md' />
                                             BOWL
                                         </button>
                                     </div>
+                                    <div className='flex justify-end p-2 mt-2'>
 
-                                    <button onClick={_ => liveScoreContext.setModal("strikerBowler")} className='text-white bg-emerald-500 text-md   font-Outfit items-center flex  justify-center p-2 rounded-lg w-28 '>LET'S PLAY</button>
+                                        <button
+                                            onClick={_ => liveScoreContext.setModal("strikerBowler")}
+                                            className='text-white bg-emerald-500 text-md font-Outfit items-center flex justify-center p-2 rounded-lg w-28'
+                                        >
+                                            LET'S PLAY
+                                        </button>
+                                    </div>
 
                                 </div>
                             </div>
                         </ModalDialog>
                     </Modal>
+
                 </React.Fragment>
             }
         </>

@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { AppContext } from '../../App';
 import Loader from '../../Components/Loader/Loader';
 import { getPlayers } from '../../Helper/Helper';
+import './Team.css'
 
 const Team = () => {
   const { teamId } = useParams();
@@ -51,12 +52,12 @@ const Team = () => {
 
 
             <div className=' flex flex-col'>
-              <div className=' grid gap-4 ml-10 mr-10 grid-cols-3 mt-10 h-[30vh]'>
+              <div className='card1 grid gap-4 ml-10 mr-10 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 mt-10 h-[30vh]'>
                 {
                   players.map((player, i) => {
                     return (
-                      <div key={i} className="py-8 px-8 w-full h-36 mx-auto bg-white rounded-xl shadow-lg space-y-2 sm:py-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-6">
-                        <img className="block mx-auto h-24 rounded-full sm:mx-0 sm:shrink-0" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHvZ0pbf4bXvAJgVZVuRQqrNWnoWl96cV6wQ&usqp=CAU" alt="Face" />
+                      <div key={i} className="card2 py-8 px-8 w-full h-36 mx-auto bg-white rounded-xl shadow-lg space-y-2 sm:py-4 sm:flex sm:items-center flex flex-row items-center gap-x-3">
+                        <img className="block ml-20 h-24 rounded-full sm:mx-0 sm:shrink-0" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHvZ0pbf4bXvAJgVZVuRQqrNWnoWl96cV6wQ&usqp=CAU" alt="Face" />
                         <div className="text-center space-y-2 sm:text-left">
                           <div className="space-y-0.5">
                             <p className="text-lg text-black font-semibold">

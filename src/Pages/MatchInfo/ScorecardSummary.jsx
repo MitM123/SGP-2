@@ -32,7 +32,7 @@ const ScorecardSummary = () => {
         <>
         {
             appContext.match && 
-            <div className='sum4 w-1/2 font-poppins font-semibold m-3 '>
+            <div className='sum4 w-full font-poppins font-semibold m-3 '>
             <div className='font-semibold text-2xl font-MateSC flex justify-center'>
                 Scorecard summary
             </div>

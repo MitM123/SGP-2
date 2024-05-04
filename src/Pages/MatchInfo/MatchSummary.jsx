@@ -21,7 +21,7 @@ const MatchSummary = () => {
         <>
             {
                 appContext.match &&
-                <div className='sum2 flex w-1/2 items-center justify-center flex-col'>
+                <div className='sum2 flex w-full items-center justify-center flex-col'>
                     <div className='flex flex-row gap-x-20 items-center mb-5'>
                         <div className=''>
                             <div className='flex text-3xl font-bold font-poppins'>

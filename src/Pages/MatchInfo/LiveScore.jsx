@@ -57,64 +57,78 @@ const LiveScore = () => {
   return (
     <>
       {
-        !Global.isSportsHead() ?
+        !Global.isSportsHead() ? (
           <Error401 />
-          :
-          appContext.match &&
-          <LiveScoreContext.Provider value={{ setStrikerScore, setNonStrikerScore, setOverDetails, setTossDetails, setStrikerBowlerDetails, setModal, startMatch, closeModal, tossDetails, strikerBowlerDetails, strikerScore, nonStrikerScore }}>
-            <div className='h-[91vh] flex flex-row w-full bg-neutral-300'>
-              <div className='flex w-1/2 items-center flex-col mt-10'>
-                <MatchSummary />
-                {/* <div className='bg-black h-px w-[80%]'></div>
-                <div>
-                  <p className='mt-2 font-Outfit font-semibold'>CSPIT-CE NEED 14 RUNS TO WIN</p>
-                </div> */}
-                <div className='flex flex-row w-full justify-around h-56 items-center'>
-                  {
-                    appContext.match.played ?
+        ) : (
+          appContext.match && (
+            <LiveScoreContext.Provider
+              value={{
+                setStrikerScore,
+                setNonStrikerScore,
+                setOverDetails,
+                setTossDetails,
+                setStrikerBowlerDetails,
+                setModal,
+                startMatch,
+                closeModal,
+                tossDetails,
+                strikerBowlerDetails,
+                strikerScore,
+                nonStrikerScore,
+              }}
+            >
+              <div className="h-full md:h-[91vh] flex flex-col md:flex-row w-full bg-neutral-300 ">
+                <div className="flex w-1/2 items-center justify-center flex-col">
+                    <MatchSummary />
+                  <div className="flex flex-col w-full justify-around h-56 items-center gap-4 md:flex-row">
+                    {appContext.match.played ? (
                       <>
-                        <div className=''>
-                          <h1 className='text-xl font-Rubik mb-3'>{appContext.battingTeamScore.team.name.toUpperCase()} Batting</h1>
-                          <p className='text-lg font-poppins font-semibold'>{appContext.strikerScore.player.user.name}: {appContext.strikerScore.runs}* ({appContext.strikerScore.balls})</p>
-                          <p className='text-lg font-poppins font-semibold'>{appContext.nonStrikerScore.player.user.name}: {appContext.nonStrikerScore.runs} ({appContext.nonStrikerScore.balls})</p>
+                        <div className="flex flex-col items-center md:items-start">
+                          <h1 className="text-xl font-Rubik mb-3">
+                            {appContext.battingTeamScore.team.name.toUpperCase()} Batting
+                          </h1>
+                          <p className="text-lg font-poppins font-semibold">
+                            {appContext.strikerScore.player.user.name}: {appContext.strikerScore.runs}* ({appContext.strikerScore.balls})
+                          </p>
+                          <p className="text-lg font-poppins font-semibold">
+                            {appContext.nonStrikerScore.player.user.name}: {appContext.nonStrikerScore.runs} ({appContext.nonStrikerScore.balls})
+                          </p>
                         </div>
-                        <div>
-                          <h1 className='text-xl font-Rubik mb-3'>{appContext.bowlingTeamScore.team.name.toUpperCase()} Bowling</h1>
-                          {console.log(appContext.bowlerScore.wickets)}
-                          <p className='text-lg font-poppins font-semibold'>{appContext.bowlerScore.player.user.name}: {appContext.bowlerScore.wickets}/{appContext.bowlerScore.runs}({ballsToOvers(appContext.bowlerScore.balls)})</p>
-                          {/* <p className='text-lg font-poppins font-semibold'>M Jalay: 1/10 (3.2)</p> */}
+                        <div className="flex flex-col items-center md:items-start">
+                          <h1 className="text-xl font-Rubik mb-3">
+                            {appContext.bowlingTeamScore.team.name.toUpperCase()} Bowling
+                          </h1>
+                          <p className="text-lg font-poppins font-semibold">
+                            {appContext.bowlerScore.player.user.name}: {appContext.bowlerScore.wickets}/{appContext.bowlerScore.runs} ({ballsToOvers(appContext.bowlerScore.balls)})
+                          </p>
                         </div>
                       </>
-                      :
-                      <>
-                        <div>
-                          <h1 className='text-xl font-Rubik mb-3'>Match hasn't started yet!</h1>
-                        </div>
-                      </>
-                  }
+                    ) : (
+                      <h1 className="text-xl font-Rubik mb-3">Match hasn't started yet!</h1>
+                    )}
+                  </div>
+                </div>
+                <div className="w-full md:w-1/2 bg-neutral-300 flex flex-col p-4">
+                  {!appContext.match.played ? (
+                    <>
+                      <div className="w-full flex justify-end">
+                        {modals[modal]}
+                      </div>
+                      <button
+                        onClick={() => setModal("overs")}
+                        className="w-full md:w-32 text-white bg-primary-color text-lg font-Outfit flex justify-center p-2 rounded-lg font-semibold"
+                      >
+                        Start match
+                      </button>
+                    </>
+                  ) : (
+                    <ScorePanel />
+                  )}
                 </div>
               </div>
-              <div className='w-1/2 bg-neutral-300'>
-
-                {
-                  !appContext.match.played &&
-                  <>
-                    <div className='w-full p-3 flex justify-end'>
-                      {modals[modal]}
-                    </div>
-                    <button onClick={() => setModal("overs")} className=' text-white bg-primary-color text-lg font-Outfit items-center flex  justify-center p-2 rounded-lg w-32 font-semibold '>
-                      Start match
-                    </button>
-                  </>
-                }
-
-                {
-                  appContext.match.played && <ScorePanel />
-                }
-              </div>
-
-            </div>
-          </LiveScoreContext.Provider>
+            </LiveScoreContext.Provider>
+          )
+        )
       }
     </>
   )

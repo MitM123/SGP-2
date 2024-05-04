@@ -11,7 +11,7 @@ root.render(
 
   <BrowserRouter>
     <App />
-    <Toaster />
+    <Toaster richColors/>
   </BrowserRouter>
 
 );

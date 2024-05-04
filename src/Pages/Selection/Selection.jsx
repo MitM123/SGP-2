@@ -94,7 +94,7 @@ const Selection = () => {
                                     Confirm
                                 </button>
                             </div>
-                            <div className='w-full  flex justify-center'>
+                            <div className='w-full max-h-max  flex justify-center'>
                                 <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-3 w-[98%] ">
                                     <div className='w-full flex flex-row justify-evenly h-12 items-center font-semibold font-Outfit bg-slate-300'>
                                         <h1>CRICKET SELECTION</h1>

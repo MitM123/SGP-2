@@ -58,7 +58,7 @@ const Header = () => {
                             Global.user && Global.token ?
                                 <div className='flex justify-center'>
                                     <Accountdetails />
-                               </div>
+                                </div>
                                 :
                                 <Link to='/login' className='flex justify-center'>
                                     <div className='flex justify-center'>

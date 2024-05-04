@@ -127,7 +127,7 @@ export async function getTeam(teamId) {
 
 export async function getPlayers(teamId, selectedPlayers = true) {
     try {
-        const { data } = await Global.httpGet('/teams/' + teamId + '/players', false, {selectedPlayers});
+        const { data } = await Global.httpGet('/teams/' + teamId + '/players', false, { selectedPlayers });
         return Promise.resolve(data.players);
     }
     catch (error) {
@@ -175,6 +175,15 @@ export async function otp(verifyotp) {
     } catch (error) {
         return Promise.reject(error)
 
+    }
+}
+
+export async function uploadimage(formData) {
+    try {
+        const { data } = await Global.httpPost('/auth/upload', formData, true)
+        return Promise.resolve(data)
+    } catch (error) {
+        return Promise.reject(error)
     }
 }
 

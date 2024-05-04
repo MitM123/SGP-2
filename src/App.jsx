@@ -8,16 +8,16 @@ import Matches from './Components/Matches/Matches';
 import UserLayout from './Components/UserLayout/UserLayout';
 import AboutUs from './Pages/Aboutus/AboutUs';
 import Addmatch from './Pages/AddMatch/Addmatch';
-import ApplyNow from './Pages/ApplyNow/ApplyNow';
 import Contact from './Pages/ContactUs/Contact';
+import ApplyNow from './Pages/Applynow/ApplyNow'
 import Inbox from './Pages/ContactUs/Inbox';
 import Ticket from './Pages/ContactUs/Ticket';
 import Error404 from './Pages/Errors/Error404';
 import Login from './Pages/Login';
 import Commentary from './Pages/MatchInfo/Commentary';
 import LiveScore from './Pages/MatchInfo/LiveScore';
-import Matchinfo from './Pages/MatchInfo/MatchInfo';
 import ScoreCard from './Pages/MatchInfo/ScoreCard';
+import Matchinfo from './Pages/MatchInfo/MatchInfo'
 import Squads from './Pages/MatchInfo/Squads';
 import Summary from './Pages/MatchInfo/Summary';
 import Selection from './Pages/Selection/Selection';
@@ -26,6 +26,7 @@ import Team from './Pages/Teams/Team';
 import TeamNavigation from './Pages/Teams/TeamNavigation';
 import Teams from './Pages/Teams/Teams';
 import Global from './Utils/Global';
+import Home from './Pages/Home/Home'
 
 const cookies = new Cookies();
 
@@ -126,8 +127,8 @@ const App = () => {
           :
           <Routes>
             <Route path='/' element={<UserLayout />}>
-              <Route path="home" element={<Matches />} />
-              <Route path="" element={<Matches />} />
+              <Route path="home" element={<Home />} />
+              <Route path="" element={<Home />} />
               <Route path="login" element={<Login />} />
               <Route path="signup" element={<SignUp />} />
               <Route path="aboutus" element={<AboutUs />} />
