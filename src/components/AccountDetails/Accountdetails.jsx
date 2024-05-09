@@ -60,7 +60,7 @@ const Accountdetails = (props) => {
           <GoPerson color='white' size={30} className='hover:cursor-pointer' />
         </button>
         <Modal open={open} >
-          <ModalDialog sx={{ width: '30%', height: '67%', padding: '0', '@media(max-width:680px)': { height: '37%' }, '@media(max-width:440px)': { height: '35%',width:'30%' } }}>
+          <ModalDialog sx={{ width: '30%', height: '67%', padding: '0', '@media(max-width:680px)': { height: '57%' }, '@media(max-width:440px)': { height: '50%',width:'30%' }, '@media(max-width:380px)': { height: '60%',width:'30%' } }}>
             <div className='h-14 flex justify-between  bg-primary-color'>
               <div className='flex  h-full items-center ml-3 text-white text-2xl font-Jost'>
                 Account Details

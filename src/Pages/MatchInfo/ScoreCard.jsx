@@ -34,7 +34,7 @@ const ScoreCard = () => {
             !teamAScore || !teamBScore ?
               <Loader />
               :
-              <div className='w-full flex flex-col p-5'>
+              <div className='w-full flex flex-col p-5 '>
                 <div className='SC1 w-full flex flex-row gap-5 pl-7 pr-7'>
                   <div className='SC12 w-[20%] p-3 font-semibold h-14 rounded-md bg-slate-300 flex items-center font-Outfit flex-row gap-x-4'>
                     <h1>{appContext.match?.teamAScore.team.name.toUpperCase()}</h1>
@@ -46,7 +46,7 @@ const ScoreCard = () => {
                   </div>
                 </div>
 
-                <div className='SC2 flex gap-y-6 flex-row mb-4 w-full'>
+                <div className='SC2 flex gap-y-6 flex-row mb-4 w-full -z-50'>
 
                   <div className="SC21 relative overflow-x-auto w-[70%] pl-7 pr-7">
                     <h1 className='mt-5 mb-2 text-2xl font-Rubik font-semibold'>BATTING</h1>

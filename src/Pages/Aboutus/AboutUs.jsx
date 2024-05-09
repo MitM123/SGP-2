@@ -10,7 +10,7 @@ import foot from '../../assets/foot.jpeg'
 const AboutUs = () => {
   return (
     <>
-      <section className="overflow-hidden p-20 bg-white dark:bg-dark">
+      <section className="overflow-hidden p-20 bg-white">
         <div className="container mx-auto">
           <div className="flex flex-wrap items-center justify-between -mx-4">
             <div className="w-full px-4 lg:w-6/12">
@@ -97,7 +97,7 @@ const AboutUs = () => {
                 name="Mit Monpara"
                 profession="Web Developer"
                 imageSrc={MIT}
-              />===
+              />
           </div>
         </div>
       </section>

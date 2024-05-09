@@ -110,7 +110,7 @@ const ApplyNow = () => {
                                         <Option value='ALL_ROUNDER'>
                                             All Rounder
                                         </Option>
-                                        <Option value='BOWLER'> 
+                                        <Option value='BOWLER'>
                                             Bowler
                                         </Option>
                                         <Option value='BATSMAN_WK'>
